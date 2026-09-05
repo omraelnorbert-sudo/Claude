@@ -4,10 +4,15 @@ Was einmalig zu tun ist, damit das Dashboard unter `/admin` läuft. Reihenfolge 
 
 ## 1. Datenbank-Schema einspielen
 
-1. Supabase öffnen → dein Projekt → **SQL Editor**
-2. Inhalt von [`supabase/schema_admin.sql`](supabase/schema_admin.sql) hineinkopieren und ausführen
+Direkter Link zum SQL Editor deines Projekts:
+`https://supabase.com/dashboard/project/kattwkonswanudphczuh/sql/new`
 
-Das legt die Tabellen `profiles`, `nahual_videos`, `day_sign_texts`, `nahual_traits`, `send_settings`, `email_log` und `admins` an, setzt die Zugriffsregeln und trägt deine Adresse als Admin ein. Die Datei ist so gebaut, dass sie gefahrlos mehrfach laufen kann.
+Zwei Dateien, **in dieser Reihenfolge** — die zweite benutzt die Funktion `is_admin()`, die die erste anlegt:
+
+1. [`supabase/schema_admin.sql`](supabase/schema_admin.sql) hineinkopieren, **Run**
+2. [`supabase/schema_links.sql`](supabase/schema_links.sql) hineinkopieren, **Run**
+
+Das legt die Tabellen `profiles`, `nahual_videos`, `day_sign_texts`, `nahual_traits`, `send_settings`, `email_log`, `admins` und `external_links` an, setzt die Zugriffsregeln und trägt deine Adresse als Admin ein. Beide Dateien sind so gebaut, dass sie gefahrlos mehrfach laufen können.
 
 Es werden dabei bereits 20 × 3 leere Textzeilen angelegt, damit im Dashboard sofort alle Felder zum Ausfüllen bereitstehen.
 

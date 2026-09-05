@@ -180,11 +180,21 @@ drop policy if exists "traits_admin_write" on nahual_traits;
 create policy "traits_admin_write" on nahual_traits
   for all using (is_admin()) with check (is_admin());
 
--- Rituale/Workouts: bleiben öffentlich lesbar, Änderungen nur durch Admins.
--- (Die Lese-Policy stammt aus schema.sql und bleibt bestehen.)
-drop policy if exists "content_items_admin_write" on content_items;
-create policy "content_items_admin_write" on content_items
-  for all using (is_admin()) with check (is_admin());
+-- Alttabelle content_items: stammt aus schema.sql und wird von der Website
+-- nicht mehr benutzt. Falls sie noch existiert, bekommt sie die Admin-Regel;
+-- fehlt sie, wird der Block einfach übersprungen, damit dieses Skript auch
+-- in einem frischen Projekt durchläuft.
+do $$
+begin
+  if exists (
+    select 1 from information_schema.tables
+    where table_schema = 'public' and table_name = 'content_items'
+  ) then
+    execute 'drop policy if exists "content_items_admin_write" on content_items';
+    execute 'create policy "content_items_admin_write" on content_items
+             for all using (is_admin()) with check (is_admin())';
+  end if;
+end $$;
 
 -- Versand und Admin-Liste: ausschließlich Admins.
 drop policy if exists "settings_admin_only" on send_settings;
