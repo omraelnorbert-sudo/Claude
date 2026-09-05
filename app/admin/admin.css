@@ -1,0 +1,628 @@
+/* ---------------------------------------------------------------------------
+   Admin-Dashboard. Nutzt die Tokens aus globals.css, alle Klassen sind mit
+   .admin- präfixiert, damit sie nicht mit der öffentlichen Website kollidieren.
+--------------------------------------------------------------------------- */
+
+.admin-shell {
+  display: grid;
+  grid-template-columns: 252px minmax(0, 1fr);
+  min-height: 100vh;
+  background: var(--paper-soft);
+}
+
+/* --- Seitenmenü --------------------------------------------------------- */
+
+.admin-sidebar {
+  position: sticky;
+  top: 0;
+  align-self: start;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--ink);
+  color: var(--paper);
+  border-right: 1px solid var(--ink-deep);
+  overflow-y: auto;
+}
+
+.admin-brand {
+  display: block;
+  padding: var(--space-3);
+  border-bottom: 1px solid rgba(250, 247, 240, 0.14);
+  text-decoration: none;
+}
+
+.admin-brand-name {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: var(--track-eyebrow);
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.admin-brand-sub {
+  display: block;
+  margin-top: 4px;
+  font-size: 20px;
+  color: var(--paper);
+}
+
+.admin-nav {
+  flex: 1;
+  padding: var(--space-3) 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.admin-nav-group {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.admin-nav-label {
+  padding: 0 var(--space-3) 8px;
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  letter-spacing: var(--track-eyebrow);
+  text-transform: uppercase;
+  color: rgba(250, 247, 240, 0.42);
+}
+
+.admin-nav a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px var(--space-3);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  color: rgba(250, 247, 240, 0.82);
+  text-decoration: none;
+  border-left: 3px solid transparent;
+}
+
+.admin-nav a:hover {
+  background: rgba(250, 247, 240, 0.07);
+  color: var(--paper);
+}
+
+.admin-nav a[aria-current="page"] {
+  background: rgba(201, 150, 58, 0.16);
+  border-left-color: var(--gold);
+  color: #fff;
+}
+
+.admin-nav svg {
+  flex: none;
+  opacity: 0.75;
+}
+
+.admin-nav a[aria-current="page"] svg {
+  opacity: 1;
+  color: var(--gold);
+}
+
+.admin-user {
+  padding: var(--space-3);
+  border-top: 1px solid rgba(250, 247, 240, 0.14);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.admin-user-mail {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: rgba(250, 247, 240, 0.62);
+  overflow-wrap: anywhere;
+}
+
+.admin-signout {
+  background: transparent;
+  border: 1px solid rgba(250, 247, 240, 0.3);
+  color: var(--paper);
+  padding: 9px 14px;
+  font-size: 11px;
+  min-height: 0;
+  width: 100%;
+}
+
+.admin-signout:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+/* --- Inhaltsbereich ----------------------------------------------------- */
+
+.admin-main {
+  min-width: 0;
+  padding: var(--space-4) var(--space-4) var(--space-6);
+}
+
+.admin-page-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding-bottom: var(--space-3);
+  border-bottom: 1.5px solid var(--line);
+  margin-bottom: var(--space-4);
+}
+
+.admin-page-head h1 {
+  font-size: clamp(30px, 4vw, 44px);
+  margin: 6px 0 0;
+}
+
+.admin-page-head p {
+  margin: 8px 0 0;
+  max-width: 62ch;
+  font-size: 16px;
+  color: var(--text-muted);
+}
+
+.admin-mobile-bar {
+  display: none;
+}
+
+/* --- Kacheln und Karten ------------------------------------------------- */
+
+.admin-grid {
+  display: grid;
+  gap: var(--space-3);
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  margin-bottom: var(--space-4);
+}
+
+.admin-tile {
+  background: var(--card);
+  border: 1px solid var(--line-card);
+  padding: var(--space-3);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.admin-tile-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: var(--track-eyebrow);
+  text-transform: uppercase;
+  color: var(--label);
+}
+
+.admin-tile-value {
+  font-size: 38px;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink);
+}
+
+.admin-tile-hint {
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+.admin-panel {
+  background: var(--card);
+  border: 1px solid var(--line-card);
+  margin-bottom: var(--space-4);
+}
+
+.admin-panel-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  padding: var(--space-3);
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.admin-panel-head h2 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.admin-panel-head p {
+  margin: 6px 0 0;
+  font-size: 15px;
+  color: var(--text-muted);
+  max-width: 60ch;
+}
+
+.admin-panel-body {
+  padding: var(--space-3);
+}
+
+.admin-panel-body > p:first-child {
+  margin-top: 0;
+}
+
+/* --- Tabellen ----------------------------------------------------------- */
+
+.admin-table-wrap {
+  overflow-x: auto;
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 15px;
+}
+
+.admin-table th {
+  text-align: left;
+  padding: 10px var(--space-2);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--label);
+  border-bottom: 1px solid var(--line);
+  white-space: nowrap;
+}
+
+.admin-table td {
+  padding: 12px var(--space-2);
+  border-bottom: 1px solid var(--line-soft);
+  color: var(--text);
+  vertical-align: middle;
+}
+
+.admin-table tr:last-child td {
+  border-bottom: none;
+}
+
+.admin-table .num {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+/* --- Statusanzeigen ----------------------------------------------------- */
+
+.admin-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  border: 1px solid;
+  white-space: nowrap;
+}
+
+.admin-pill::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.admin-pill-ok {
+  color: #3f6b45;
+  border-color: #b9cfbb;
+  background: #eef4ee;
+}
+
+.admin-pill-warn {
+  color: #8a6320;
+  border-color: #e0cb9a;
+  background: #faf3e3;
+}
+
+.admin-pill-off {
+  color: #6b6455;
+  border-color: var(--line);
+  background: var(--paper-warm);
+}
+
+.admin-pill-error {
+  color: #8c3722;
+  border-color: #ddb3a6;
+  background: #f9ece8;
+}
+
+/* --- Formulare ---------------------------------------------------------- */
+
+.admin-form {
+  display: grid;
+  gap: var(--space-3);
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  align-items: end;
+}
+
+.admin-form-wide {
+  grid-column: 1 / -1;
+}
+
+.admin-field-hint {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin: 4px 0 0;
+}
+
+.field select,
+.field textarea {
+  font-family: var(--font-serif);
+  font-size: 16px;
+  padding: 10px 12px;
+  border: 1px solid var(--line-card);
+  border-radius: var(--radius);
+  background: var(--card);
+  color: var(--ink);
+  width: 100%;
+}
+
+.field textarea {
+  min-height: 108px;
+  resize: vertical;
+  line-height: 1.5;
+}
+
+.field select:focus,
+.field textarea:focus {
+  outline: none;
+  border-color: var(--gold);
+}
+
+.admin-check {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 16px;
+  color: var(--text);
+  cursor: pointer;
+}
+
+.admin-check input {
+  margin-top: 4px;
+  width: 17px;
+  height: 17px;
+  accent-color: var(--accent);
+  flex: none;
+}
+
+.admin-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  align-items: center;
+  margin-top: var(--space-3);
+}
+
+.admin-btn-ghost {
+  background: transparent;
+  color: var(--ink);
+  border: 1.5px solid var(--line);
+}
+
+.admin-btn-ghost:hover {
+  background: var(--paper-warm);
+  border-color: var(--gold);
+  color: var(--ink);
+}
+
+.admin-btn-small {
+  padding: 8px 14px;
+  font-size: 10px;
+  min-height: 0;
+}
+
+.admin-note {
+  font-size: 15px;
+  padding: 12px 14px;
+  border-left: 3px solid var(--gold);
+  background: var(--paper-warm);
+  color: var(--text);
+  margin: 0 0 var(--space-3);
+}
+
+.admin-note-error {
+  border-left-color: var(--accent);
+}
+
+.admin-note code {
+  font-family: var(--font-mono);
+  font-size: 13px;
+}
+
+.admin-empty {
+  color: var(--text-muted);
+  font-style: italic;
+  margin: 0;
+}
+
+/* --- Sprachumschalter und Reiter ---------------------------------------- */
+
+.admin-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0;
+  border: 1px solid var(--line);
+  width: fit-content;
+}
+
+.admin-tabs a {
+  padding: 9px 16px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--text-muted);
+  text-decoration: none;
+  border-right: 1px solid var(--line);
+}
+
+.admin-tabs a:last-child {
+  border-right: none;
+}
+
+.admin-tabs a[aria-current="true"] {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.admin-tabs a:not([aria-current="true"]):hover {
+  background: var(--paper-warm);
+  color: var(--ink);
+}
+
+/* --- Texteditor --------------------------------------------------------- */
+
+.admin-text-row {
+  display: grid;
+  grid-template-columns: 190px minmax(0, 1fr);
+  gap: var(--space-3);
+  padding: var(--space-3) 0;
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.admin-text-row:last-child {
+  border-bottom: none;
+}
+
+.admin-text-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.admin-text-name {
+  font-size: 26px;
+  line-height: 1.1;
+  color: var(--ink);
+}
+
+.admin-text-index {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--label);
+}
+
+.admin-glyph {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+  border: 1px solid var(--line-soft);
+  background: var(--paper);
+}
+
+.admin-save-state {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--label);
+}
+
+.admin-save-state[data-state="saved"] {
+  color: #3f6b45;
+}
+
+.admin-save-state[data-state="error"] {
+  color: var(--accent-dark);
+}
+
+/* --- Vorschau ----------------------------------------------------------- */
+
+.admin-preview {
+  background: var(--paper);
+  border: 1px solid var(--line-card);
+  padding: var(--space-3);
+}
+
+.admin-preview-subject {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: var(--ink);
+  padding-bottom: 10px;
+  margin-bottom: var(--space-2);
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.admin-preview p {
+  font-size: 17px;
+  margin: 0 0 var(--space-2);
+}
+
+.admin-preview p:last-child {
+  margin-bottom: 0;
+}
+
+.admin-kv {
+  display: grid;
+  grid-template-columns: max-content minmax(0, 1fr);
+  gap: 10px var(--space-3);
+  font-size: 16px;
+  margin: 0;
+}
+
+.admin-kv dt {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--label);
+  padding-top: 4px;
+}
+
+.admin-kv dd {
+  margin: 0;
+  color: var(--text);
+}
+
+/* --- Schmale Bildschirme ------------------------------------------------ */
+
+@media (max-width: 900px) {
+  .admin-shell {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .admin-sidebar {
+    position: static;
+    height: auto;
+  }
+
+  .admin-sidebar[data-open="false"] .admin-nav,
+  .admin-sidebar[data-open="false"] .admin-user {
+    display: none;
+  }
+
+  .admin-mobile-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-2);
+    padding: var(--space-2) var(--space-3);
+    border-bottom: 1px solid rgba(250, 247, 240, 0.14);
+  }
+
+  .admin-menu-toggle {
+    background: transparent;
+    border: 1px solid rgba(250, 247, 240, 0.3);
+    color: var(--paper);
+    padding: 8px 12px;
+    font-size: 10px;
+    min-height: 0;
+  }
+
+  .admin-main {
+    padding: var(--space-3) var(--space-3) var(--space-5);
+  }
+
+  .admin-text-row {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

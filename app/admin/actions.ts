@@ -1,0 +1,438 @@
+"use server";
+
+import { revalidatePath } from "next/cache";
+import { getAdminSession } from "@/lib/admin";
+import { createClient } from "@/lib/supabase/server";
+import { createAdminClient } from "@/lib/supabase/admin";
+import { calculateNahual, isValidBirthDate } from "@/lib/nahual";
+import {
+  composeMessage,
+  nahualNameByIndex,
+  nahualOfToday,
+  type Lang,
+} from "@/lib/tzolkin";
+
+export type ActionResult = { ok: boolean; message: string };
+
+/**
+ * Fassungen für useFormState: React reicht dort den vorherigen Zustand als
+ * erstes Argument mit, das die eigentlichen Aktionen nicht brauchen.
+ */
+export async function saveSendSettingsAction(
+  _previous: ActionResult | null,
+  formData: FormData,
+): Promise<ActionResult> {
+  return saveSendSettings(formData);
+}
+
+export async function createUserAction(
+  _previous: ActionResult | null,
+  formData: FormData,
+): Promise<ActionResult> {
+  return createUser(formData);
+}
+
+export async function sendTestEmailAction(
+  _previous: ActionResult | null,
+  formData: FormData,
+): Promise<ActionResult> {
+  return sendTestEmail(formData);
+}
+
+/** Jede Aktion prüft zuerst die Admin-Rolle — auch die mit Service-Role-Rechten. */
+async function requireAdmin(): Promise<string | null> {
+  const { user, isAdmin } = await getAdminSession();
+  if (!user) return "Nicht angemeldet.";
+  if (!isAdmin) return "Keine Admin-Berechtigung.";
+  return null;
+}
+
+// ---------------------------------------------------------------------------
+// Versand-Einstellungen
+// ---------------------------------------------------------------------------
+
+export async function saveSendSettings(
+  formData: FormData,
+): Promise<ActionResult> {
+  const denied = await requireAdmin();
+  if (denied) return { ok: false, message: denied };
+
+  const hour = Number(formData.get("send_hour"));
+  if (!Number.isInteger(hour) || hour < 0 || hour > 23) {
+    return { ok: false, message: "Die Uhrzeit muss zwischen 0 und 23 liegen." };
+  }
+
+  const supabase = createClient();
+  const { error } = await supabase
+    .from("send_settings")
+    .update({
+      enabled: formData.get("enabled") === "on",
+      send_hour: hour,
+      timezone: String(formData.get("timezone") ?? "Europe/Zurich"),
+      from_name: String(formData.get("from_name") ?? "Paz Mundo"),
+      from_email: String(formData.get("from_email") ?? "").trim() || null,
+      reply_to: String(formData.get("reply_to") ?? "").trim() || null,
+      subject_template: String(formData.get("subject_template") ?? "").trim(),
+      updated_at: new Date().toISOString(),
+    })
+    .eq("id", true);
+
+  if (error) return { ok: false, message: error.message };
+
+  revalidatePath("/admin/versand");
+  revalidatePath("/admin");
+  return { ok: true, message: "Einstellungen gespeichert." };
+}
+
+// ---------------------------------------------------------------------------
+// Texte und Videos
+// ---------------------------------------------------------------------------
+
+export async function saveText(
+  table: "day_sign_texts" | "nahual_traits",
+  nahualIndex: number,
+  lang: Lang,
+  text: string,
+): Promise<ActionResult> {
+  const denied = await requireAdmin();
+  if (denied) return { ok: false, message: denied };
+
+  const supabase = createClient();
+  const { error } = await supabase.from(table).upsert(
+    {
+      nahual_index: nahualIndex,
+      lang,
+      text: text.trim() || null,
+      updated_at: new Date().toISOString(),
+    },
+    { onConflict: "nahual_index,lang" },
+  );
+
+  if (error) return { ok: false, message: error.message };
+
+  revalidatePath("/admin/texte");
+  revalidatePath("/admin");
+  return { ok: true, message: "Gespeichert" };
+}
+
+export async function saveVideo(
+  nahualIndex: number,
+  youtubeValue: string,
+  title: string,
+): Promise<ActionResult> {
+  const denied = await requireAdmin();
+  if (denied) return { ok: false, message: denied };
+
+  const supabase = createClient();
+  const { error } = await supabase.from("nahual_videos").upsert(
+    {
+      nahual_index: nahualIndex,
+      youtube_video_id: extractYoutubeId(youtubeValue),
+      title: title.trim() || null,
+      updated_at: new Date().toISOString(),
+    },
+    { onConflict: "nahual_index" },
+  );
+
+  if (error) return { ok: false, message: error.message };
+
+  revalidatePath("/admin/videos");
+  return { ok: true, message: "Gespeichert" };
+}
+
+/** Nimmt eine volle YouTube-URL oder direkt die ID entgegen. */
+function extractYoutubeId(value: string): string | null {
+  const input = value.trim();
+  if (!input) return null;
+
+  const patterns = [
+    /(?:youtube\.com\/watch\?(?:.*&)?v=)([\w-]{11})/,
+    /(?:youtu\.be\/)([\w-]{11})/,
+    /(?:youtube\.com\/(?:embed|shorts|live)\/)([\w-]{11})/,
+  ];
+
+  for (const pattern of patterns) {
+    const match = input.match(pattern);
+    if (match) return match[1];
+  }
+
+  return /^[\w-]{11}$/.test(input) ? input : input;
+}
+
+// ---------------------------------------------------------------------------
+// Nutzer
+// ---------------------------------------------------------------------------
+
+export async function createUser(formData: FormData): Promise<ActionResult> {
+  const denied = await requireAdmin();
+  if (denied) return { ok: false, message: denied };
+
+  const admin = createAdminClient();
+  if (!admin) {
+    return {
+      ok: false,
+      message:
+        "SUPABASE_SERVICE_ROLE_KEY fehlt. Ohne diesen Schlüssel lassen sich keine Konten anlegen.",
+    };
+  }
+
+  const email = String(formData.get("email") ?? "").trim().toLowerCase();
+  if (!email) return { ok: false, message: "E-Mail-Adresse fehlt." };
+
+  const displayName = String(formData.get("display_name") ?? "").trim();
+  const language = String(formData.get("preferred_language") ?? "de") as Lang;
+  const birthDate = String(formData.get("birth_date") ?? "").trim();
+  const invite = formData.get("send_invite") === "on";
+
+  const nahual = birthDate ? nahualFromIsoDate(birthDate) : null;
+  if (birthDate && !nahual) {
+    return { ok: false, message: "Das Geburtsdatum ist ungültig." };
+  }
+
+  const { data, error } = invite
+    ? await admin.auth.admin.inviteUserByEmail(email, {
+        data: { full_name: displayName || undefined },
+      })
+    : await admin.auth.admin.createUser({
+        email,
+        email_confirm: true,
+        user_metadata: { full_name: displayName || undefined },
+      });
+
+  if (error) return { ok: false, message: error.message };
+
+  const userId = data.user?.id;
+  if (userId) {
+    // Der Trigger legt die Profilzeile an; hier kommen die Zusatzangaben dazu.
+    await admin.from("profiles").upsert({
+      id: userId,
+      email,
+      display_name: displayName || null,
+      birth_date: birthDate || null,
+      nahual_number: nahual?.number ?? null,
+      nahual_index: nahual?.index ?? null,
+      preferred_language: language,
+      updated_at: new Date().toISOString(),
+    });
+  }
+
+  revalidatePath("/admin/nutzer");
+  revalidatePath("/admin");
+  return {
+    ok: true,
+    message: invite
+      ? `Einladung an ${email} verschickt.`
+      : `Konto für ${email} angelegt.`,
+  };
+}
+
+export async function updateProfile(
+  id: string,
+  fields: {
+    display_name?: string;
+    birth_date?: string;
+    preferred_language?: Lang;
+    email_opt_in?: boolean;
+  },
+): Promise<ActionResult> {
+  const denied = await requireAdmin();
+  if (denied) return { ok: false, message: denied };
+
+  const patch: Record<string, unknown> = {
+    updated_at: new Date().toISOString(),
+  };
+
+  if (fields.display_name !== undefined) {
+    patch.display_name = fields.display_name.trim() || null;
+  }
+  if (fields.preferred_language !== undefined) {
+    patch.preferred_language = fields.preferred_language;
+  }
+  if (fields.email_opt_in !== undefined) {
+    patch.email_opt_in = fields.email_opt_in;
+  }
+  if (fields.birth_date !== undefined) {
+    const value = fields.birth_date.trim();
+    if (value) {
+      const nahual = nahualFromIsoDate(value);
+      if (!nahual) return { ok: false, message: "Das Geburtsdatum ist ungültig." };
+      patch.birth_date = value;
+      patch.nahual_number = nahual.number;
+      patch.nahual_index = nahual.index;
+    } else {
+      patch.birth_date = null;
+      patch.nahual_number = null;
+      patch.nahual_index = null;
+    }
+  }
+
+  const supabase = createClient();
+  const { error } = await supabase.from("profiles").update(patch).eq("id", id);
+
+  if (error) return { ok: false, message: error.message };
+
+  revalidatePath("/admin/nutzer");
+  return { ok: true, message: "Gespeichert" };
+}
+
+export async function deleteUser(id: string): Promise<ActionResult> {
+  const denied = await requireAdmin();
+  if (denied) return { ok: false, message: denied };
+
+  const admin = createAdminClient();
+  if (!admin) {
+    return {
+      ok: false,
+      message: "SUPABASE_SERVICE_ROLE_KEY fehlt — Löschen nicht möglich.",
+    };
+  }
+
+  const { error } = await admin.auth.admin.deleteUser(id);
+  if (error) return { ok: false, message: error.message };
+
+  revalidatePath("/admin/nutzer");
+  revalidatePath("/admin");
+  return { ok: true, message: "Konto gelöscht." };
+}
+
+/** Rechnet ein ISO-Datum (JJJJ-MM-TT) in Schwingungszahl und Nahual um. */
+function nahualFromIsoDate(iso: string) {
+  const [year, month, day] = iso.split("-").map(Number);
+  if (!isValidBirthDate(day, month, year)) return null;
+  return calculateNahual(day, month, year);
+}
+
+// ---------------------------------------------------------------------------
+// Rituale und Workouts
+// ---------------------------------------------------------------------------
+
+export async function createContentItem(
+  _previous: ActionResult | null,
+  formData: FormData,
+): Promise<ActionResult> {
+  const denied = await requireAdmin();
+  if (denied) return { ok: false, message: denied };
+
+  const title = String(formData.get("title") ?? "").trim();
+  if (!title) return { ok: false, message: "Ein Titel wird gebraucht." };
+
+  const type = String(formData.get("type") ?? "ritual");
+  if (type !== "ritual" && type !== "workout") {
+    return { ok: false, message: "Unbekannte Art." };
+  }
+
+  const supabase = createClient();
+  const { error } = await supabase.from("content_items").insert({
+    type,
+    title,
+    description: String(formData.get("description") ?? "").trim() || null,
+    theme: String(formData.get("theme") ?? "").trim() || null,
+  });
+
+  if (error) return { ok: false, message: error.message };
+
+  revalidatePath("/admin/inhalte");
+  revalidatePath(type === "ritual" ? "/rituale" : "/workouts");
+  return { ok: true, message: `„${title}" angelegt.` };
+}
+
+export async function deleteContentItem(id: string): Promise<ActionResult> {
+  const denied = await requireAdmin();
+  if (denied) return { ok: false, message: denied };
+
+  const supabase = createClient();
+  const { error } = await supabase.from("content_items").delete().eq("id", id);
+  if (error) return { ok: false, message: error.message };
+
+  revalidatePath("/admin/inhalte");
+  revalidatePath("/rituale");
+  revalidatePath("/workouts");
+  return { ok: true, message: "Gelöscht." };
+}
+
+// ---------------------------------------------------------------------------
+// Testmail
+// ---------------------------------------------------------------------------
+
+export async function sendTestEmail(formData: FormData): Promise<ActionResult> {
+  const denied = await requireAdmin();
+  if (denied) return { ok: false, message: denied };
+
+  const apiKey = process.env.RESEND_API_KEY;
+  if (!apiKey) {
+    return {
+      ok: false,
+      message: "RESEND_API_KEY fehlt. Trage ihn in .env.local und bei Netlify ein.",
+    };
+  }
+
+  const { user } = await getAdminSession();
+  const recipient =
+    String(formData.get("recipient") ?? "").trim() || user?.email || "";
+  if (!recipient) return { ok: false, message: "Keine Empfängeradresse." };
+
+  const lang = (String(formData.get("lang") ?? "de") || "de") as Lang;
+  const birthIndex = Number(formData.get("birth_nahual_index")) || 1;
+
+  const supabase = createClient();
+  const { settings } = await import("@/lib/admin-data").then((module) =>
+    module.getSendSettings(),
+  );
+
+  if (!settings.from_email) {
+    return {
+      ok: false,
+      message: "Es ist keine Absenderadresse hinterlegt.",
+    };
+  }
+
+  const today = nahualOfToday(settings.timezone);
+
+  const [dayText, traitText] = await Promise.all([
+    supabase
+      .from("day_sign_texts")
+      .select("text")
+      .eq("nahual_index", today.index)
+      .eq("lang", lang)
+      .maybeSingle(),
+    supabase
+      .from("nahual_traits")
+      .select("text")
+      .eq("nahual_index", birthIndex)
+      .eq("lang", lang)
+      .maybeSingle(),
+  ]);
+
+  const { subject, paragraphs } = composeMessage({
+    dayNahualIndex: today.index,
+    dayNumber: today.number,
+    birthNahualIndex: birthIndex,
+    dayText: dayText.data?.text ?? null,
+    traitText: traitText.data?.text ?? null,
+    subjectTemplate: settings.subject_template,
+    displayName: null,
+    lang,
+  });
+
+  if (paragraphs.length === 0) {
+    return {
+      ok: false,
+      message: `Für ${nahualNameByIndex(today.index)} (${lang.toUpperCase()}) ist noch kein Text hinterlegt.`,
+    };
+  }
+
+  const { Resend } = await import("resend");
+  const resend = new Resend(apiKey);
+
+  const { error } = await resend.emails.send({
+    from: `${settings.from_name} <${settings.from_email}>`,
+    to: recipient,
+    replyTo: settings.reply_to ?? undefined,
+    subject: `[Test] ${subject}`,
+    text: paragraphs.join("\n\n"),
+  });
+
+  if (error) return { ok: false, message: error.message };
+
+  return { ok: true, message: `Testmail an ${recipient} verschickt.` };
+}
