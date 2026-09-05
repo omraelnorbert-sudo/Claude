@@ -1,0 +1,67 @@
+:root {
+  --maya-jade: #0f6b5c;
+  --maya-gold: #c9982f;
+  --maya-clay: #a5502b;
+  --maya-night: #14181f;
+  --maya-stone: #f4efe4;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", system-ui, sans-serif;
+  background: var(--maya-stone);
+  color: var(--maya-night);
+}
+
+header {
+  background: var(--maya-night);
+  color: var(--maya-stone);
+  padding: 1.5rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+header nav a {
+  color: var(--maya-stone);
+  text-decoration: none;
+  margin-left: 1.5rem;
+  font-weight: 600;
+}
+
+header nav a:hover {
+  color: var(--maya-gold);
+}
+
+main {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem;
+}
+
+h1 {
+  color: var(--maya-jade);
+}
+
+.card {
+  background: white;
+  border-left: 4px solid var(--maya-gold);
+  border-radius: 6px;
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1.25rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.card h3 {
+  margin-top: 0;
+  color: var(--maya-clay);
+}
+
+.empty-state {
+  color: #666;
+  font-style: italic;
+}
