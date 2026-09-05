@@ -30,7 +30,7 @@ export default async function VideosPage() {
       <PageHead
         eyebrow="Inhalte"
         title="Videos"
-        description="Jedem der 20 Nahuales ein Video zuordnen. Es erscheint im Profil aller Menschen mit diesem Geburtsnahual. Ganze URL einfügen genügt — die ID wird daraus gelesen."
+        description="Jedem der 20 Nahuales ein Video zuordnen. Es erscheint auf der öffentlichen Seite dieses Nahuals und im Profil aller Menschen mit diesem Geburtsnahual. Ganze URL einfügen genügt — die ID wird daraus gelesen."
       />
 
       {error && <p className="admin-note admin-note-error">{error}</p>}

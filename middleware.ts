@@ -1,5 +1,6 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
+import { isDevBypassActive } from "@/lib/dev-bypass";
 
 /**
  * Hält die Supabase-Session frisch (Tokens laufen sonst ab) und schickt
@@ -39,7 +40,14 @@ export async function middleware(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser();
 
-  if (!user && request.nextUrl.pathname.startsWith("/admin")) {
+  // Lokale Abkürzung: ohne Anmeldung direkt ins Dashboard. Greift nur im
+  // Entwicklungsmodus und nur mit ausdrücklich gesetzter Variable — siehe
+  // lib/dev-bypass.ts.
+  if (
+    !user &&
+    !isDevBypassActive() &&
+    request.nextUrl.pathname.startsWith("/admin")
+  ) {
     const loginUrl = request.nextUrl.clone();
     loginUrl.pathname = "/login";
     loginUrl.searchParams.set("next", request.nextUrl.pathname);

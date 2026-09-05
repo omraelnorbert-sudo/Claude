@@ -2,7 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { getAdminSession } from "@/lib/admin";
-import { createClient } from "@/lib/supabase/server";
+import { createDataClient } from "@/lib/supabase/data";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { calculateNahual, isValidBirthDate } from "@/lib/nahual";
 import {
@@ -41,8 +41,8 @@ export async function sendTestEmailAction(
 
 /** Jede Aktion prüft zuerst die Admin-Rolle — auch die mit Service-Role-Rechten. */
 async function requireAdmin(): Promise<string | null> {
-  const { user, isAdmin } = await getAdminSession();
-  if (!user) return "Nicht angemeldet.";
+  const { user, isAdmin, viaDevBypass } = await getAdminSession();
+  if (!user && !viaDevBypass) return "Nicht angemeldet.";
   if (!isAdmin) return "Keine Admin-Berechtigung.";
   return null;
 }
@@ -62,7 +62,7 @@ export async function saveSendSettings(
     return { ok: false, message: "Die Uhrzeit muss zwischen 0 und 23 liegen." };
   }
 
-  const supabase = createClient();
+  const supabase = createDataClient();
   const { error } = await supabase
     .from("send_settings")
     .update({
@@ -97,7 +97,7 @@ export async function saveText(
   const denied = await requireAdmin();
   if (denied) return { ok: false, message: denied };
 
-  const supabase = createClient();
+  const supabase = createDataClient();
   const { error } = await supabase.from(table).upsert(
     {
       nahual_index: nahualIndex,
@@ -123,7 +123,7 @@ export async function saveVideo(
   const denied = await requireAdmin();
   if (denied) return { ok: false, message: denied };
 
-  const supabase = createClient();
+  const supabase = createDataClient();
   const { error } = await supabase.from("nahual_videos").upsert(
     {
       nahual_index: nahualIndex,
@@ -266,7 +266,7 @@ export async function updateProfile(
     }
   }
 
-  const supabase = createClient();
+  const supabase = createDataClient();
   const { error } = await supabase.from("profiles").update(patch).eq("id", id);
 
   if (error) return { ok: false, message: error.message };
@@ -303,10 +303,10 @@ function nahualFromIsoDate(iso: string) {
 }
 
 // ---------------------------------------------------------------------------
-// Rituale und Workouts
+// Externe Links
 // ---------------------------------------------------------------------------
 
-export async function createContentItem(
+export async function createExternalLinkAction(
   _previous: ActionResult | null,
   formData: FormData,
 ): Promise<ActionResult> {
@@ -314,39 +314,70 @@ export async function createContentItem(
   if (denied) return { ok: false, message: denied };
 
   const title = String(formData.get("title") ?? "").trim();
+  const url = String(formData.get("url") ?? "").trim();
   if (!title) return { ok: false, message: "Ein Titel wird gebraucht." };
+  if (!url) return { ok: false, message: "Eine URL wird gebraucht." };
 
-  const type = String(formData.get("type") ?? "ritual");
-  if (type !== "ritual" && type !== "workout") {
-    return { ok: false, message: "Unbekannte Art." };
-  }
-
-  const supabase = createClient();
-  const { error } = await supabase.from("content_items").insert({
-    type,
+  const supabase = createDataClient();
+  const { error } = await supabase.from("external_links").insert({
     title,
+    url,
     description: String(formData.get("description") ?? "").trim() || null,
-    theme: String(formData.get("theme") ?? "").trim() || null,
+    image_url: String(formData.get("image_url") ?? "").trim() || null,
+    sort_order: Number(formData.get("sort_order")) || 0,
   });
 
   if (error) return { ok: false, message: error.message };
 
-  revalidatePath("/admin/inhalte");
-  revalidatePath(type === "ritual" ? "/rituale" : "/workouts");
+  revalidatePath("/admin/links");
+  revalidatePath("/links");
   return { ok: true, message: `„${title}" angelegt.` };
 }
 
-export async function deleteContentItem(id: string): Promise<ActionResult> {
+export async function saveExternalLink(
+  id: string,
+  title: string,
+  url: string,
+  description: string,
+  imageUrl: string,
+  sortOrder: number,
+): Promise<ActionResult> {
   const denied = await requireAdmin();
   if (denied) return { ok: false, message: denied };
 
-  const supabase = createClient();
-  const { error } = await supabase.from("content_items").delete().eq("id", id);
+  if (!title.trim()) return { ok: false, message: "Ein Titel wird gebraucht." };
+  if (!url.trim()) return { ok: false, message: "Eine URL wird gebraucht." };
+
+  const supabase = createDataClient();
+  const { error } = await supabase
+    .from("external_links")
+    .update({
+      title: title.trim(),
+      url: url.trim(),
+      description: description.trim() || null,
+      image_url: imageUrl.trim() || null,
+      sort_order: Number.isFinite(sortOrder) ? sortOrder : 0,
+      updated_at: new Date().toISOString(),
+    })
+    .eq("id", id);
+
   if (error) return { ok: false, message: error.message };
 
-  revalidatePath("/admin/inhalte");
-  revalidatePath("/rituale");
-  revalidatePath("/workouts");
+  revalidatePath("/admin/links");
+  revalidatePath("/links");
+  return { ok: true, message: "Gespeichert" };
+}
+
+export async function deleteExternalLink(id: string): Promise<ActionResult> {
+  const denied = await requireAdmin();
+  if (denied) return { ok: false, message: denied };
+
+  const supabase = createDataClient();
+  const { error } = await supabase.from("external_links").delete().eq("id", id);
+  if (error) return { ok: false, message: error.message };
+
+  revalidatePath("/admin/links");
+  revalidatePath("/links");
   return { ok: true, message: "Gelöscht." };
 }
 
@@ -366,15 +397,15 @@ export async function sendTestEmail(formData: FormData): Promise<ActionResult> {
     };
   }
 
-  const { user } = await getAdminSession();
+  const { email: adminEmail } = await getAdminSession();
   const recipient =
-    String(formData.get("recipient") ?? "").trim() || user?.email || "";
+    String(formData.get("recipient") ?? "").trim() || adminEmail || "";
   if (!recipient) return { ok: false, message: "Keine Empfängeradresse." };
 
   const lang = (String(formData.get("lang") ?? "de") || "de") as Lang;
   const birthIndex = Number(formData.get("birth_nahual_index")) || 1;
 
-  const supabase = createClient();
+  const supabase = createDataClient();
   const { settings } = await import("@/lib/admin-data").then((module) =>
     module.getSendSettings(),
   );

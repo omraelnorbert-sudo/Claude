@@ -65,12 +65,13 @@ const GROUPS: Group[] = [
         ),
       },
       {
-        href: "/admin/inhalte",
-        label: "Rituale & Workouts",
+        href: "/admin/links",
+        label: "Links",
         icon: (
           <Icon>
-            <circle cx="8" cy="8" r="5.5" />
-            <path d="M8 2.5v11M2.5 8h11" />
+            <path d="M6.5 9.5l3-3" />
+            <path d="M7 5.5l.8-.8a2.5 2.5 0 0 1 3.5 3.5l-.8.8" />
+            <path d="M9 10.5l-.8.8a2.5 2.5 0 0 1-3.5-3.5l.8-.8" />
           </Icon>
         ),
       },
@@ -133,7 +134,13 @@ const GROUPS: Group[] = [
   },
 ];
 
-export default function Sidebar({ email }: { email: string | null }) {
+export default function Sidebar({
+  email,
+  viaDevBypass = false,
+}: {
+  email: string | null;
+  viaDevBypass?: boolean;
+}) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
 
@@ -184,11 +191,22 @@ export default function Sidebar({ email }: { email: string | null }) {
 
       <div className="admin-user">
         {email && <span className="admin-user-mail">{email}</span>}
-        <form action="/auth/signout" method="post">
-          <button type="submit" className="admin-signout">
-            Abmelden
-          </button>
-        </form>
+        {viaDevBypass ? (
+          <>
+            <span className="admin-user-hint">
+              Nicht angemeldet — lokale Abkürzung
+            </span>
+            <Link href="/login?next=/admin" className="admin-signout">
+              Richtig anmelden
+            </Link>
+          </>
+        ) : (
+          <form action="/auth/signout" method="post">
+            <button type="submit" className="admin-signout">
+              Abmelden
+            </button>
+          </form>
+        )}
       </div>
     </aside>
   );

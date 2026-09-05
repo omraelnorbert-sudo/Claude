@@ -1,4 +1,4 @@
-import { createClient } from "@/lib/supabase/server";
+import { createDataClient } from "@/lib/supabase/data";
 import type { Lang } from "@/lib/tzolkin";
 
 export type SendSettings = {
@@ -36,6 +36,16 @@ export type VideoRow = {
   title: string | null;
 };
 
+export type ExternalLink = {
+  id: string;
+  title: string;
+  url: string;
+  description: string | null;
+  image_url: string | null;
+  sort_order: number;
+  created_at: string;
+};
+
 export type EmailLogRow = {
   id: string;
   email: string | null;
@@ -63,9 +73,19 @@ export const DEFAULT_SEND_SETTINGS: SendSettings = {
  */
 function describe(error: { message: string; code?: string } | null): string | null {
   if (!error) return null;
-  if (error.code === "42P01" || error.message.includes("does not exist")) {
+
+  // 42P01 kommt von Postgres, PGRST205 von PostgREST ("Could not find the
+  // table ... in the schema cache"). Beide bedeuten dasselbe: Tabelle fehlt.
+  const tableMissing =
+    error.code === "42P01" ||
+    error.code === "PGRST205" ||
+    error.message.includes("does not exist") ||
+    error.message.includes("Could not find the table");
+
+  if (tableMissing) {
     return "Das Schema ist noch nicht eingespielt. Führe supabase/schema_admin.sql im Supabase SQL Editor aus.";
   }
+
   return error.message;
 }
 
@@ -73,7 +93,7 @@ export async function getSendSettings(): Promise<{
   settings: SendSettings;
   error: string | null;
 }> {
-  const supabase = createClient();
+  const supabase = createDataClient();
   const { data, error } = await supabase
     .from("send_settings")
     .select("*")
@@ -90,7 +110,7 @@ export async function getProfiles(): Promise<{
   profiles: Profile[];
   error: string | null;
 }> {
-  const supabase = createClient();
+  const supabase = createDataClient();
   const { data, error } = await supabase
     .from("profiles")
     .select("*")
@@ -103,7 +123,7 @@ export async function getTexts(
   table: "day_sign_texts" | "nahual_traits",
   lang: Lang,
 ): Promise<{ rows: TextRow[]; error: string | null }> {
-  const supabase = createClient();
+  const supabase = createDataClient();
   const { data, error } = await supabase
     .from(table)
     .select("nahual_index, lang, text")
@@ -117,7 +137,7 @@ export async function getVideos(): Promise<{
   videos: VideoRow[];
   error: string | null;
 }> {
-  const supabase = createClient();
+  const supabase = createDataClient();
   const { data, error } = await supabase
     .from("nahual_videos")
     .select("nahual_index, youtube_video_id, title")
@@ -126,11 +146,25 @@ export async function getVideos(): Promise<{
   return { videos: (data as VideoRow[]) ?? [], error: describe(error) };
 }
 
+export async function getExternalLinks(): Promise<{
+  links: ExternalLink[];
+  error: string | null;
+}> {
+  const supabase = createDataClient();
+  const { data, error } = await supabase
+    .from("external_links")
+    .select("*")
+    .order("sort_order", { ascending: true })
+    .order("created_at", { ascending: true });
+
+  return { links: (data as ExternalLink[]) ?? [], error: describe(error) };
+}
+
 export async function getEmailLog(limit = 100): Promise<{
   rows: EmailLogRow[];
   error: string | null;
 }> {
-  const supabase = createClient();
+  const supabase = createDataClient();
   const { data, error } = await supabase
     .from("email_log")
     .select("id, email, day_nahual_index, lang, status, error, created_at")
@@ -147,7 +181,7 @@ export async function getTextCompletion(): Promise<{
   total: number;
   error: string | null;
 }> {
-  const supabase = createClient();
+  const supabase = createDataClient();
 
   const [days, traits] = await Promise.all([
     supabase.from("day_sign_texts").select("text"),

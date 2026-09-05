@@ -26,6 +26,30 @@ Zwei Wege stehen offen:
 
 Nur `omraelnorbert@gmail.com` kommt ins Dashboard. Weitere Admins fügst du in der Tabelle `admins` hinzu.
 
+## 2b. Lokale Abkürzung ohne Anmeldung
+
+Zum Entwickeln lässt sich das Dashboard ohne Anmeldung öffnen. In `.env.local`:
+
+```
+DEV_ADMIN_BYPASS=true
+```
+
+Danach den Server neu starten — Änderungen an `.env.local` werden erst dann gelesen.
+
+**Zwei Schlösser, die beide offen sein müssen:**
+
+1. `NODE_ENV === "development"` — `next build` setzt den Wert fest auf `production`. Auf Netlify ist die Abkürzung damit wirkungslos, selbst wenn die Variable dort versehentlich gesetzt würde.
+2. `DEV_ADMIN_BYPASS=true` — steht nur in `.env.local`, und die Datei ist in `.gitignore`.
+
+Nachgeprüft: Mit gesetzter Variable im Produktions-Build leiten `/admin`, `/admin/texte` und `/admin/nutzer` alle mit `HTTP 307` auf `/login` um.
+
+**Zwei Einschränkungen, die man kennen muss:**
+
+- Ohne `SUPABASE_SERVICE_ROLE_KEY` bleiben alle Seiten leer, weil ohne Anmeldung keine Identität existiert, gegen die die Zugriffsregeln prüfen könnten.
+- In diesem Modus laufen die Abfragen mit Service-Role-Rechten, die Zugriffsregeln greifen also **nicht**. Fehler darin fallen erst nach einer echten Anmeldung auf. Vor dem Livegang deshalb einmal richtig anmelden und durchklicken.
+
+Solange die Abkürzung aktiv ist, zeigt das Dashboard oben ein Warnband und in der Seitenleiste „Nicht angemeldet — lokale Abkürzung".
+
 ## 3. Umgebungsvariablen
 
 In `.env.local` (lokal) und bei Netlify unter **Site configuration → Environment variables**:
@@ -34,9 +58,10 @@ In `.env.local` (lokal) und bei Netlify unter **Site configuration → Environme
 |---|---|---|
 | `NEXT_PUBLIC_SUPABASE_URL` | Verbindung zur Datenbank | sofort |
 | `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Verbindung zur Datenbank | sofort |
-| `SUPABASE_SERVICE_ROLE_KEY` | Nutzerkonten anlegen und löschen | für die Nutzerverwaltung |
+| `SUPABASE_SERVICE_ROLE_KEY` | Nutzerkonten anlegen und löschen; im Abkürzungsmodus auch alle Abfragen | für die Nutzerverwaltung |
 | `RESEND_API_KEY` | E-Mail-Versand | zuletzt |
 | `ADMIN_EMAILS` | Rückfallebene für den Dashboard-Zugang | optional |
+| `DEV_ADMIN_BYPASS` | Lokale Abkürzung ohne Anmeldung | nur lokal, **nie bei Netlify** |
 
 Den Service-Role-Schlüssel findest du in Supabase unter **Project Settings → API**.
 

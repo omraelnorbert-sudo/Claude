@@ -27,44 +27,34 @@ export default function HomePage() {
         eigenes Geburtsnahual in sich.
       </p>
 
-      <div
-        style={{
-          height: 7,
-          background:
-            "repeating-linear-gradient(90deg, var(--gold) 0 9px, transparent 9px 22px)",
-          margin: "var(--space-5) 0",
-        }}
-      />
+      <div className="dot-rule" role="presentation" />
 
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
-          gap: "var(--space-4)",
-          alignItems: "center",
-        }}
-      >
-        <div>
-          <RotatingWheel
-            items={NUMBERS}
-            idPrefix="wheel-numbers"
-            size={280}
-            duration={60}
-            fontFamily="var(--font-mono)"
-            fontSize={15}
-          />
+      <div className="wheel-pair">
+        <div className="wheel-cell">
+          <div className="wheel-stage">
+            <RotatingWheel
+              items={NUMBERS}
+              idPrefix="wheel-numbers"
+              size={280}
+              duration={60}
+              fontFamily="var(--font-mono)"
+              fontSize={15}
+            />
+          </div>
           <div className="wheel-caption">13 Schwingungszahlen</div>
         </div>
-        <div>
-          <RotatingWheel
-            items={[...NAHUALES]}
-            idPrefix="wheel-nahuales"
-            size={420}
-            duration={95}
-            reverse
-            fontFamily="var(--font-serif)"
-            fontSize={14}
-          />
+        <div className="wheel-cell">
+          <div className="wheel-stage">
+            <RotatingWheel
+              items={[...NAHUALES]}
+              idPrefix="wheel-nahuales"
+              size={420}
+              duration={95}
+              reverse
+              fontFamily="var(--font-serif)"
+              fontSize={14}
+            />
+          </div>
           <div className="wheel-caption">20 Nahuales</div>
         </div>
       </div>
@@ -78,14 +68,14 @@ export default function HomePage() {
       <div className="eyebrow" style={{ marginBottom: 8 }}>
         Entdecke mehr
       </div>
-      <div className="card">
-        <h3>Rituale</h3>
-        <p>Praktiken zur Verbindung mit den Zyklen von Erde und Kosmos.</p>
-      </div>
-      <div className="card">
-        <h3>Workouts</h3>
-        <p>Körperliche Praxis, abgestimmt auf die jeweiligen Rituale.</p>
-      </div>
+      <Link href="/nahuales" className="card" style={{ display: "block", textDecoration: "none", color: "inherit" }}>
+        <h3>Die 20 Nahuales</h3>
+        <p>Jedes Tageszeichen im Detail — mit Videos, Texten und Krafttier.</p>
+      </Link>
+      <Link href="/links" className="card" style={{ display: "block", textDecoration: "none", color: "inherit" }}>
+        <h3>Links</h3>
+        <p>Weiterführende Seiten und Angebote rund um die Kosmovision Maya.</p>
+      </Link>
     </>
   );
 }

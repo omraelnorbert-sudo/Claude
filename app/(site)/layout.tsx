@@ -12,9 +12,9 @@ export default function SiteLayout({
         <strong>Cosmovision Maya</strong>
         <nav>
           <Link href="/">Start</Link>
-          <Link href="/rituale">Rituale</Link>
-          <Link href="/workouts">Workouts</Link>
           <Link href="/horoskop">Horoskop</Link>
+          <Link href="/nahuales">Nahuales</Link>
+          <Link href="/links">Links</Link>
         </nav>
       </header>
       <main className="site-main">{children}</main>

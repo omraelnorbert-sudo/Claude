@@ -230,6 +230,48 @@ button:hover,
   }
 }
 
+/* Gepunktete Goldlinie als Trenner.
+
+   Das feste 22px-Raster von --dot-border geht nur bei bestimmten Breiten glatt
+   auf; sonst endet die Linie rechts mit einem angeschnittenen Punkt. Deshalb
+   hier eine Kachel, die als Bruchteil der Breite definiert ist: 38 Kacheln
+   passen immer exakt hinein, egal wie breit die Spalte gerade ist.
+
+   Bei voller Spaltenbreite (836px) ergibt das 22px pro Kachel und 9px Punkt —
+   also genau das bisherige Bild. Auf schmalen Bildschirmen wird das Muster
+   feiner, endet aber immer bündig. */
+.dot-rule {
+  height: 7px;
+  background-image: linear-gradient(90deg, var(--gold) 0 41%, transparent 41%);
+  background-size: calc(100% / 38) 100%;
+  background-repeat: repeat-x;
+  margin: var(--space-5) 0;
+}
+
+/* Die beiden Räder nebeneinander. Sie sind verschieden groß, sollen aber wie
+   ineinandergreifende Zahnräder auf einer gemeinsamen Mittelachse sitzen —
+   und ihre Bildunterschriften trotzdem auf einer Linie enden. */
+.wheel-pair {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: var(--space-4);
+  align-items: stretch;
+}
+
+.wheel-cell {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Nimmt den überschüssigen Raum auf: zentriert das Rad und schiebt die
+   Bildunterschrift ans untere Ende der Zelle. Da beide Zellen gleich hoch
+   sind, landen beide Unterschriften auf derselben Höhe. */
+.wheel-stage {
+  flex: 1;
+  display: grid;
+  place-items: center;
+}
+
 .wheel-caption {
   font-family: var(--font-mono);
   font-size: 11px;
@@ -365,15 +407,60 @@ button:hover,
 
 /* ---------------------------------------------------------------------------
    Maya-Kreuz (erweitertes Horoskop)
+
+   Kartusche = der ornamentale Rahmen, in den das Maya-Schriftsystem die
+   Tageszeichen des 260-Tage-Zyklus setzt. Entspricht der Rahmenregel des
+   Stylebooks: 1.5px Tinte außen, doppelte Goldlinie innen, Glyphe vollständig
+   auf Papiergrund mit mix-blend-mode: multiply.
 --------------------------------------------------------------------------- */
 
+.cartouche {
+  display: block;
+  border: 1.5px solid var(--ink-deep);
+  padding: 5px;
+  background: var(--paper-warm);
+}
+
+.cartouche > img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: contain;
+  border: 2px double var(--gold);
+  padding: 6px;
+  background: var(--paper-warm);
+  mix-blend-mode: multiply;
+}
+
+.cartouche-lg {
+  padding: 8px;
+}
+
+.cartouche-lg > img {
+  border-width: 3px;
+  padding: 12px;
+}
+
+/* --- Kopf ---------------------------------------------------------------- */
+
 .cross {
-  margin-top: var(--space-5);
+  margin-top: var(--space-6);
+}
+
+.cross-head {
+  border-top: var(--frame-ink);
+  padding-top: var(--space-2);
+  margin-bottom: var(--space-4);
+}
+
+.cross-head .eyebrow {
+  display: block;
+  margin-bottom: var(--space-1);
 }
 
 .cross-title {
   font-family: var(--font-serif);
-  font-size: clamp(30px, 5vw, 44px);
+  font-size: clamp(30px, 5vw, 46px);
   font-weight: 600;
   line-height: 1;
   letter-spacing: -0.02em;
@@ -382,8 +469,40 @@ button:hover,
 }
 
 .cross-lead {
-  margin: 0 0 var(--space-4);
+  margin: 0;
+  max-width: 62ch;
   color: var(--text-muted);
+}
+
+/* --- Kreuz als Codex-Tafel ----------------------------------------------- */
+
+.cross-plate {
+  position: relative;
+  padding: var(--space-3) 0;
+}
+
+/* Eckmarken rahmen das Kreuz wie eine Tafelseite. */
+.cross-plate::before,
+.cross-plate::after {
+  content: "";
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  pointer-events: none;
+}
+
+.cross-plate::before {
+  top: 0;
+  left: 0;
+  border-top: 1.5px solid var(--gold);
+  border-left: 1.5px solid var(--gold);
+}
+
+.cross-plate::after {
+  bottom: 0;
+  right: 0;
+  border-bottom: 1.5px solid var(--gold);
+  border-right: 1.5px solid var(--gold);
 }
 
 /* Mobil: eine Spalte, Reihenfolge Ursprung → männlich → Zentrum → weiblich → Reife. */
@@ -397,44 +516,59 @@ button:hover,
     "birth"
     "feminine"
     "maturity";
-  gap: var(--space-2);
+  gap: var(--space-1);
 }
 
 .cross-beam {
   display: none;
 }
 
+/* --- Position ------------------------------------------------------------ */
+
 .cross-cell {
   /* Setzt die Button-Grundform aus dem Stylebook zurück — hier ist es eine Karte. */
+  position: relative;
+  z-index: 1;
   font-family: var(--font-serif);
   font-size: inherit;
   letter-spacing: normal;
   text-transform: none;
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 64px 1fr;
+  grid-template-areas:
+    "label     label"
+    "cartouche name"
+    "cartouche kurz"
+    "cartouche offset";
   align-items: center;
-  gap: 6px;
-  padding: var(--space-2) var(--space-2) var(--space-1);
+  gap: 4px var(--space-2);
+  padding: var(--space-2);
+  min-height: 0;
   background: var(--card);
   border: 1px solid var(--line-card);
-  border-left: 3px solid var(--gold);
   border-radius: var(--radius);
   color: var(--ink);
-  text-align: center;
+  text-align: left;
   cursor: pointer;
+  transition: border-color 120ms linear, background 120ms linear;
 }
+
+.cross-cell .cross-cell-label { grid-area: label; }
+.cross-cell .cartouche { grid-area: cartouche; }
+.cross-cell .cross-cell-coefficient { display: none; }
+.cross-cell .cross-cell-name { grid-area: name; }
+.cross-cell .cross-cell-kurz { grid-area: kurz; }
+.cross-cell .cross-cell-offset { grid-area: offset; }
 
 .cross-cell:hover {
   background: var(--paper-warm);
   border-color: var(--gold);
-  border-left-color: var(--gold);
   color: var(--ink);
 }
 
 .cross-cell.is-active {
   background: var(--paper-warm);
-  border-color: var(--accent);
-  border-left-color: var(--accent);
+  border-color: var(--ink-deep);
 }
 
 .cross-cell-conception { grid-area: conception; }
@@ -442,20 +576,6 @@ button:hover,
 .cross-cell-birth      { grid-area: birth; }
 .cross-cell-feminine   { grid-area: feminine; }
 .cross-cell-maturity   { grid-area: maturity; }
-
-.cross-cell-center {
-  border: 1.5px solid var(--ink-deep);
-  border-top: var(--frame-gold);
-  border-left: 1.5px solid var(--ink-deep);
-  background: var(--paper-warm);
-}
-
-.cross-cell-center:hover,
-.cross-cell-center.is-active {
-  border-left-color: var(--ink-deep);
-  border-color: var(--ink-deep);
-  border-top: var(--frame-gold);
-}
 
 .cross-cell-label {
   font-family: var(--font-mono);
@@ -465,30 +585,29 @@ button:hover,
   color: var(--label);
 }
 
-.cross-cell-glyph {
-  width: 56px;
-  height: 56px;
-  object-fit: contain;
-  mix-blend-mode: multiply;
-}
-
-.cross-cell-center .cross-cell-glyph {
-  width: 76px;
-  height: 76px;
-}
-
-.cross-cell-figure {
-  display: block;
+.cross-cell.is-active .cross-cell-label {
+  color: var(--accent);
 }
 
 .cross-cell-name {
-  font-size: 19px;
+  font-size: 21px;
   font-weight: 600;
-  line-height: 1.1;
+  line-height: 1.05;
 }
 
-.cross-cell-center .cross-cell-name {
-  font-size: 24px;
+/* Sehr kurze Essenz des Nahuals, aus lib/nahual-descriptions.ts. */
+.cross-cell-kurz {
+  font-size: 14px;
+  line-height: 1.3;
+  color: var(--text-muted);
+  font-style: italic;
+  max-width: 22ch;
+  margin-bottom: 2px;
+}
+
+.cross-cell-center .cross-cell-kurz {
+  font-size: 15px;
+  color: var(--text);
 }
 
 .cross-cell-offset {
@@ -499,81 +618,171 @@ button:hover,
   color: var(--label);
 }
 
-/* Desktop: echte Kreuzanordnung. */
-@media (min-width: 700px) {
+/* Das Zentrum ist der "Nabel" des Kreuzes: volle Rahmung statt nur einer Linie. */
+.cross-cell-center {
+  background: var(--paper-warm);
+  border: 1.5px solid var(--ink-deep);
+}
+
+.cross-cell-center.is-active,
+.cross-cell-center:hover {
+  border-color: var(--ink-deep);
+  background: var(--paper-warm);
+}
+
+/* --- Desktop: echte Kreuzanordnung --------------------------------------- */
+
+@media (min-width: 760px) {
   .cross-grid {
-    grid-template-columns: 1fr 1.15fr 1fr;
+    grid-template-columns: 1fr 1.2fr 1fr;
     grid-template-areas:
       ".         conception ."
       "masculine birth      feminine"
       ".         maturity   .";
-    gap: var(--space-2) var(--space-3);
-    align-items: stretch;
+    gap: var(--space-3);
   }
 
+  /* Die Balken liegen HINTER den Karten (z-index 0 gegen 1) und sind dadurch
+     nur in den Zwischenräumen sichtbar — sie verbinden die Positionen, statt
+     durch sie hindurchzulaufen. */
   .cross-beam {
     display: block;
     position: absolute;
-    background: var(--line-soft);
+    z-index: 0;
+    background: var(--gold);
     pointer-events: none;
   }
 
   .cross-beam-x {
-    left: 12%;
-    right: 12%;
+    left: 0;
+    right: 0;
     top: 50%;
     height: 1px;
   }
 
   .cross-beam-y {
-    top: 10%;
-    bottom: 10%;
+    top: 0;
+    bottom: 0;
     left: 50%;
     width: 1px;
   }
+
+  .cross-cell {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "label"
+      "cartouche"
+      "coefficient"
+      "name"
+      "kurz"
+      "offset";
+    justify-items: center;
+    align-content: center;
+    text-align: center;
+    gap: var(--space-1);
+    padding: var(--space-3) var(--space-2);
+  }
+
+  .cross-cell .cartouche {
+    width: 96px;
+  }
+
+  /* Balken-Punkt-Zahl als Koeffizient direkt unter dem Zeichen. */
+  .cross-cell .cross-cell-coefficient {
+    display: block;
+    grid-area: coefficient;
+  }
+
+  .cross-cell-center .cartouche {
+    width: 124px;
+  }
+
+  .cross-cell-center .cross-cell-name {
+    font-size: 27px;
+  }
 }
+
+/* --- Hinweis ------------------------------------------------------------- */
 
 .cross-hint {
   font-size: 15px;
   color: var(--text-muted);
-  margin: var(--space-2) 0 var(--space-4);
+  margin: var(--space-3) 0 var(--space-4);
+  max-width: 62ch;
 }
 
+.cross-hint-action {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+/* --- Detailtafel --------------------------------------------------------- */
+
 .cross-detail {
+  background: var(--card);
+  border: 1.5px solid var(--ink-deep);
+}
+
+.cross-detail-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-1) var(--space-3);
+  padding: 11px var(--space-3);
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+}
+
+.cross-detail-date {
+  color: var(--linen);
+  text-align: right;
+}
+
+.cross-detail-body {
   display: grid;
   grid-template-columns: 1fr;
   gap: var(--space-3);
   align-items: start;
-  background: var(--card);
-  border: 1px solid var(--line-card);
-  border-top: var(--frame-gold);
   padding: var(--space-3);
 }
 
-@media (min-width: 700px) {
-  .cross-detail {
-    grid-template-columns: 240px 1fr;
+@media (min-width: 760px) {
+  .cross-detail-body {
+    grid-template-columns: 200px 1fr;
     gap: var(--space-4);
     padding: var(--space-4);
   }
 }
 
-.cross-detail-body {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-2);
+.cross-detail-figure {
+  margin: 0;
 }
 
-.cross-detail-head {
+.cross-detail-caption {
   display: flex;
   align-items: center;
-  gap: 18px;
+  gap: 14px;
+  margin-top: var(--space-2);
 }
 
 .cross-detail-name {
-  font-size: clamp(28px, 4.5vw, 40px);
+  font-size: clamp(26px, 4vw, 34px);
   font-weight: 600;
   line-height: 1;
+}
+
+.cross-detail-text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
 }
 
 .cross-detail-meaning {
@@ -582,12 +791,16 @@ button:hover,
   color: var(--text);
 }
 
+/* Gepunktete Goldlinie aus dem Stylebook als Trenner. */
 .cross-detail-summary {
   font-size: 17px;
   margin: 0;
-  padding-top: var(--space-2);
-  border-top: 1px solid var(--line-soft);
+  padding-top: var(--space-3);
   color: var(--text);
+  background-image: var(--dot-border);
+  background-repeat: repeat-x;
+  background-size: auto 1px;
+  background-position: left top;
 }
 
 .cross-detail-meta {
@@ -601,11 +814,13 @@ button:hover,
   line-height: 1.6;
   color: var(--text-muted);
   border-left: 3px solid var(--gold);
-  padding-left: var(--space-2);
+  padding-left: var(--space-3);
   margin-top: var(--space-4);
+  max-width: 68ch;
 }
 
-/* Umschalter Geburtsnahual ↔ Maya-Kreuz */
+/* --- Umschalter Geburtsnahual ↔ Maya-Kreuz ------------------------------- */
+
 .mode-switch {
   display: flex;
   flex-wrap: wrap;

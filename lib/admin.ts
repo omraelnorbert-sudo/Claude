@@ -1,4 +1,5 @@
 import { createClient } from "@/lib/supabase/server";
+import { devBypassEmail, isDevBypassActive } from "@/lib/dev-bypass";
 import type { User } from "@supabase/supabase-js";
 
 /**
@@ -15,9 +16,13 @@ export function adminEmailsFromEnv(): string[] {
 
 export type AdminSession = {
   user: User | null;
+  /** Adresse der angemeldeten Person, im Abkürzungsmodus die Admin-Adresse. */
+  email: string | null;
   isAdmin: boolean;
   /** true, sobald die Admin-Rolle aus der Datenbank bestätigt wurde. */
   confirmedByDatabase: boolean;
+  /** true, wenn ohne Anmeldung über die lokale Abkürzung zugegriffen wird. */
+  viaDevBypass: boolean;
 };
 
 export async function getAdminSession(): Promise<AdminSession> {
@@ -26,7 +31,27 @@ export async function getAdminSession(): Promise<AdminSession> {
     data: { user },
   } = await supabase.auth.getUser();
 
-  if (!user) return { user: null, isAdmin: false, confirmedByDatabase: false };
+  // Lokale Abkürzung greift nur, wenn wirklich niemand angemeldet ist.
+  // Eine echte Anmeldung hat immer Vorrang.
+  if (!user && isDevBypassActive()) {
+    return {
+      user: null,
+      email: devBypassEmail(),
+      isAdmin: true,
+      confirmedByDatabase: false,
+      viaDevBypass: true,
+    };
+  }
+
+  if (!user) {
+    return {
+      user: null,
+      email: null,
+      isAdmin: false,
+      confirmedByDatabase: false,
+      viaDevBypass: false,
+    };
+  }
 
   const email = (user.email ?? "").toLowerCase();
   const allowedByEnv = adminEmailsFromEnv().includes(email);
@@ -38,7 +63,9 @@ export async function getAdminSession(): Promise<AdminSession> {
 
   return {
     user,
+    email: user.email ?? null,
     isAdmin: allowedByDatabase || allowedByEnv,
     confirmedByDatabase: allowedByDatabase,
+    viaDevBypass: false,
   };
 }

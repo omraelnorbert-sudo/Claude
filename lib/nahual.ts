@@ -55,6 +55,23 @@ export function glyphSrcForIndex(index: number): string {
   return fileNum ? `/nahuales/${fileNum}.jpeg` : "";
 }
 
+function slugify(name: string): string {
+  return name.toLowerCase().replace(/[^a-z0-9]/g, "");
+}
+
+const NAHUAL_SLUGS = NAHUALES.map(slugify);
+
+/** URL-Slug eines Nahuals (1-20), z.B. "ak'ab'al" -> "akabal". */
+export function slugForIndex(index: number): string {
+  return NAHUAL_SLUGS[index - 1] ?? "";
+}
+
+/** Nahual-Index (1-20) zu einem URL-Slug, oder null wenn unbekannt. */
+export function indexForSlug(slug: string): number | null {
+  const position = NAHUAL_SLUGS.indexOf(slug.toLowerCase());
+  return position === -1 ? null : position + 1;
+}
+
 export interface NahualResult {
   number: number; // Schwingungszahl 1-13
   index: number; // Position im 20er-Zyklus

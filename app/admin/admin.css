@@ -120,6 +120,14 @@
   overflow-wrap: anywhere;
 }
 
+.admin-user-hint {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
 .admin-signout {
   background: transparent;
   border: 1px solid rgba(250, 247, 240, 0.3);
@@ -128,6 +136,54 @@
   font-size: 11px;
   min-height: 0;
   width: 100%;
+  display: block;
+  text-align: center;
+  text-decoration: none;
+}
+
+.admin-signout:hover {
+  color: var(--paper);
+}
+
+/* Warnband, solange das Dashboard ohne Anmeldung läuft. Bewusst auffällig:
+   dieser Zustand darf nicht unbemerkt bestehen bleiben. */
+.admin-dev-banner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 10px;
+  padding: 12px var(--space-3);
+  margin-bottom: var(--space-4);
+  background: #faf3e3;
+  border: 1px solid #e0cb9a;
+  border-left: 4px solid var(--gold);
+  font-size: 14px;
+  line-height: 1.5;
+  color: #6b5320;
+}
+
+/* Nur das direkte Kind ist die Kennzeichnung. Ein <strong> im Fließtext
+   soll normal aussehen und nicht in Versalien mitlaufen. */
+.admin-dev-banner > strong {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: var(--track-eyebrow);
+  text-transform: uppercase;
+  color: var(--accent-dark);
+}
+
+.admin-dev-banner span strong {
+  color: var(--accent-dark);
+}
+
+.admin-dev-banner span {
+  flex: 1;
+  min-width: 260px;
+}
+
+.admin-dev-banner code {
+  font-family: var(--font-mono);
+  font-size: 12.5px;
 }
 
 .admin-signout:hover {

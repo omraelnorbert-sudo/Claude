@@ -12,7 +12,7 @@ const KINDS = {
     table: "day_sign_texts" as const,
     title: "Tagestexte",
     description:
-      "Ein Text je Tageszeichen: Was bedeutet dieser Tag? Diesen Text bekommen an einem Tag alle Nutzer.",
+      "Ein Text je Tageszeichen: Was bedeutet dieser Tag? Erscheint auf der öffentlichen Nahual-Seite und geht an einem Tag an alle Nutzer.",
     placeholder: "Was bringt dieser Tag? Worauf lohnt es sich zu achten?",
   },
   zusatz: {

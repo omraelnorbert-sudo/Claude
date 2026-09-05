@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import Sidebar from "@/components/admin/Sidebar";
 import { getAdminSession } from "@/lib/admin";
 import { isSupabaseConfigured } from "@/lib/supabase/server";
+import { devBypassNeedsServiceKey } from "@/lib/supabase/data";
 import "./admin.css";
 
 export const metadata: Metadata = {
@@ -33,9 +34,9 @@ export default async function AdminLayout({
     );
   }
 
-  const { user, isAdmin } = await getAdminSession();
+  const { user, email, isAdmin, viaDevBypass } = await getAdminSession();
 
-  if (!user) redirect("/login?next=/admin");
+  if (!user && !viaDevBypass) redirect("/login?next=/admin");
 
   if (!isAdmin) {
     return (
@@ -44,7 +45,7 @@ export default async function AdminLayout({
           <div className="eyebrow">Kein Zugriff</div>
           <h1 className="auth-title">Nur für Admins</h1>
           <p className="auth-lead">
-            Du bist als {user.email} angemeldet. Dieses Konto ist nicht in der
+            Du bist als {email} angemeldet. Dieses Konto ist nicht in der
             Tabelle <code>admins</code> eingetragen.
           </p>
           <form action="/auth/signout" method="post">
@@ -57,8 +58,30 @@ export default async function AdminLayout({
 
   return (
     <div className="admin-shell">
-      <Sidebar email={user.email ?? null} />
-      <div className="admin-main">{children}</div>
+      <Sidebar email={email} viaDevBypass={viaDevBypass} />
+      <div className="admin-main">
+        {viaDevBypass && (
+          <div className="admin-dev-banner" role="status">
+            <strong>Entwicklungsmodus</strong>
+            <span>
+              Anmeldung übersprungen, weil <code>DEV_ADMIN_BYPASS</code> in{" "}
+              <code>.env.local</code> gesetzt ist. Die Zugriffsregeln der
+              Datenbank werden dabei umgangen — Fehler darin fallen erst nach
+              einer echten Anmeldung auf.
+              {devBypassNeedsServiceKey() && (
+                <>
+                  {" "}
+                  <strong>
+                    Es fehlt allerdings SUPABASE_SERVICE_ROLE_KEY — ohne ihn
+                    bleiben alle Seiten leer.
+                  </strong>
+                </>
+              )}
+            </span>
+          </div>
+        )}
+        {children}
+      </div>
     </div>
   );
 }

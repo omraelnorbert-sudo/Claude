@@ -24,10 +24,27 @@ Cosmovision Maya soll zwei Dinge gleichzeitig sein:
 
 ## Aktueller Stand im Code
 
-- Startseite (`app/page.tsx`): Intro-Text + zwei rotierende Räder (13 Schwingungszahlen, 20 Nahuales) als visuelles Zentrum.
-- `/horoskop`: Formular für Geburtsdatum → berechnet Nahual-Zahl, -Name und zeigt die passende Glyphe (`public/nahuales/*.jpeg`).
-- `/rituale`, `/workouts`: lesen aus der Supabase-Tabelle `content_items` (aktuell nur 2 Beispieleinträge, rein öffentlich lesbar, keine Schreibrechte/Login).
-- **Noch nicht vorhanden:** Login/Nutzerkonten, Profile, Mehrsprachigkeit, YouTube-Einbindung, täglicher E-Mail-Versand, SEO-Ausbau (Metadata ist minimal, keine Sitemap/strukturierte Daten, kein `middleware.ts`).
+_Stand: 5. September 2026. Typprüfung sauber, 24 Tests grün, Produktions-Build läuft durch._
+
+**Öffentliche Website** (`app/(site)/…`, alle Routen unverändert erreichbar)
+- Startseite: Intro + zwei rotierende Zahnräder (13 Schwingungszahlen, 20 Nahuales)
+- `/horoskop`: umschaltbar zwischen **Geburtsnahual** und **Maya-Kreuz** (fünf Positionen), mit ausformulierten Nahual-Beschreibungen und Krafttieren
+- `/rituale`, `/workouts`: lesen aus `content_items`
+
+**Anmeldung**
+- `/login` mit Magic Link (funktioniert) und Google (Code fertig, Provider in Supabase noch nicht aktiviert)
+- `middleware.ts` hält die Session frisch und schützt `/admin`; Callback- und Abmelde-Routen vorhanden
+
+**Admin-Dashboard** (`/admin`, acht Bereiche mit Seitenmenü)
+- Dashboard, Texte (DE/EN/ES), Videos, Rituale & Workouts, Nutzer, Versand-Einstellungen mit Testmail, Protokoll, Logik & Status
+- Dreifach abgesichert: Middleware, Layout-Prüfung, RLS-Policies in der Datenbank
+
+**Datenbank**
+- `supabase/schema_admin.sql` liegt bereit — **muss noch im Supabase SQL Editor ausgeführt werden**
+
+**Noch nicht vorhanden:** Mehrsprachigkeit (`[lang]`-Struktur), Nutzerprofile auf der öffentlichen Seite, YouTube-Einbindung, teilbares Bild, Bildungsseiten, SEO-Ausbau, automatischer E-Mail-Versand.
+
+> ⚠️ **Wachsende Altlast:** Das Maya-Kreuz kam vor dem Sprachumbau dazu. Jede neue öffentliche Seite und jeder neue Text macht Punkt 2 des Phasenplans teurer. Die Texte liegen immerhin schon unter sprachneutralen Schlüsseln in `lib/maya-cross-texts.ts` und `lib/nahual-descriptions.ts` — der Umbau bleibt machbar, sollte aber nicht weiter warten.
 
 ## Design-System (bereits etabliert, bitte beibehalten)
 
@@ -87,7 +104,13 @@ Definiert in [`app/globals.css`](app/globals.css) — neue Seiten sollen diese T
 
 ### 6. Mehrsprachigkeit — **entschieden: vollständig DE/EN/ES**
 
-Alles dreisprachig: Bildungsseiten, Horoskop-Ergebnis und die täglichen E-Mails (Sprache je Nutzer aus `profiles.preferred_language`). Spanisch ist für dieses Thema der größte Suchmarkt und damit zentral für das Referenz-Ziel. Umsetzung über `app/[lang]/…` als Phase 0.
+Alles dreisprachig: Bildungsseiten, Horoskop-Ergebnis und die täglichen E-Mails (Sprache je Nutzer aus `profiles.preferred_language`). Spanisch ist für dieses Thema der größte Suchmarkt und damit zentral für das Referenz-Ziel.
+
+**Arbeitsweise (festgelegt):** Deutsch ist die **Quellsprache**. Alle Inhalte werden auf Deutsch geliefert, Englisch und Spanisch werden daraus übersetzt. Für den Anfang bleibt es bei diesen drei Sprachen. Daraus folgt fürs Datenmodell und für alle Textdateien: der deutsche Text ist maßgeblich, fehlt eine Übersetzung, wird auf Deutsch zurückgefallen statt eine Lücke zu zeigen.
+
+**Umsetzung:** `app/[lang]/…` mit den Präfixen `/de`, `/en`, `/es`.
+
+> Sprechende Übersetzungen der URL-Pfade selbst (`/es/horoscopo-maya` statt `/es/horoskop`) bringen für SEO noch etwas zusätzlich, verdreifachen aber die Routing-Komplexität. Sie lassen sich später ohne Bruch per Weiterleitung nachrüsten — deshalb bewusst erst nach den Inhalten.
 
 ### 7. Bildungs-/Referenz-Ebene (Inhalte in DE/EN/ES)
 - Die drei Weltebenen (Ober-/Mittelwelt, Xibalba) + Weltenbaum
@@ -142,9 +165,25 @@ Wird laufend erweitert. Noch nicht eingeplant, aber festgehalten, damit nichts v
 Reihenfolge bewusst so gewählt: erst das, was Nutzer sofort sehen und teilen können, zuletzt der automatische Versand.
 
 1. **Admin-Dashboard** *(gebaut, siehe [SETUP.md](SETUP.md))*: Login über Google und Magic Link, Seitenmenü, Nutzer- und Textverwaltung, Videos, Rituale/Workouts, Versand-Einstellungen mit Testmail, Logik- und Statusansicht
-2. **Sprachstruktur:** Umbau auf `app/[lang]/…`. Muss **vor** neuen öffentlichen Seiten passieren, sonst ziehen später alle Routen um.
+2. **Sprachstruktur:** Umbau auf `app/[lang]/…`. Muss **vor** neuen öffentlichen Seiten passieren, sonst ziehen später alle Routen um. Konkrete Schritte siehe unten.
 3. **Horoskop-Ausbau:** Video-Zuordnung pro Nahual, Ergebnis-Speicherung im Profil, teilbares Bild zum Download
 4. **Bildungs-/Referenz-Ebene:** Weltebenen, Kalender, Mythologie in DE/EN/ES
 5. **SEO:** Sitemap, robots, strukturierte Daten, `hreflang`, Metadata pro Seite
 6. **Feinschliff:** Design, Performance, Barrierefreiheit
 7. **Tägliche E-Mail an die Nutzer:** ganz zum Schluss — Resend anbinden, Absender-Domain verifizieren, Scheduled Function scharf schalten. Die Konfiguration dafür ist im Dashboard schon vorhanden, der automatische Versand wird erst hier aktiviert.
+
+## Sprachumbau — Schrittfolge
+
+Vorbereitet am 5. September 2026. Auszuführen auf **sauberem Arbeitsverzeichnis** (nichts Uncommittetes), weil dabei Dateien verschoben werden.
+
+1. **Routen verschieben:** `app/(site)/…` → `app/[lang]/…`. Die Gruppe `(site)` hat ihren Zweck erfüllt — sie hat das Dashboard vom Website-Layout getrennt und macht den Umzug jetzt zu einem reinen Umbenennen.
+2. **Sprachen festnageln:** `generateStaticParams()` gibt `de`, `en`, `es` zurück; ungültige Präfixe laufen auf `notFound()`.
+3. **Einstieg regeln:** In `middleware.ts` `/` auf die passende Sprache leiten — erst Cookie (bewusste Wahl), sonst `Accept-Language`, sonst Deutsch. Ausgenommen bleiben `/admin`, `/login`, `/auth` und `/_next`.
+4. **Alte URLs erhalten:** `/horoskop`, `/rituale`, `/workouts` dauerhaft auf `/de/…` weiterleiten. Nichts, was schon geteilt wurde, darf ins Leere laufen.
+5. **Wörterbuch anlegen:** `lib/i18n/{de,en,es}.ts` für Oberflächentexte (Navigation, Knöpfe, Formularbeschriftungen), geladen über `getDictionary(lang)`. Deutsch ist die Vorlage.
+6. **Inhaltstexte umstellen:** `lib/nahual-descriptions.ts` und `lib/maya-cross-texts.ts` von flachen Objekten auf `Record<Lang, …>`. **Fehlt eine Übersetzung, wird auf Deutsch zurückgefallen** — nie eine leere Stelle zeigen.
+7. **Sprachumschalter** in die Kopfzeile, der den aktuellen Pfad beibehält (von `/en/horoskop` nach `/es/horoskop`, nicht zurück auf die Startseite) und die Wahl im Cookie merkt.
+8. **Suchmaschinen bedienen:** `<html lang>` aus dem Routen-Parameter, `generateMetadata` mit `alternates.languages` für `hreflang`, dazu `x-default` auf Deutsch.
+9. **Dashboard bleibt außen vor:** `/admin` bleibt einsprachig deutsch und außerhalb von `[lang]`.
+
+Das Dashboard und die Anmeldung sind von Schritt 1 nicht betroffen — sie liegen bereits außerhalb von `(site)`.

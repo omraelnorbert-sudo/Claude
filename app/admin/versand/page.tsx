@@ -10,7 +10,7 @@ import { hourInTimeZone, nahualOfToday } from "@/lib/tzolkin";
 export const dynamic = "force-dynamic";
 
 export default async function VersandPage() {
-  const [{ settings, error }, { profiles }, { user }] = await Promise.all([
+  const [{ settings, error }, { profiles }, { email: adminEmail }] = await Promise.all([
     getSendSettings(),
     getProfiles(),
     getAdminSession(),
@@ -89,7 +89,7 @@ export default async function VersandPage() {
         </div>
         <div className="admin-panel-body">
           <TestMailForm
-            defaultRecipient={user?.email ?? ""}
+            defaultRecipient={adminEmail ?? ""}
             hasApiKey={Boolean(process.env.RESEND_API_KEY)}
           />
         </div>

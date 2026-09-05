@@ -16,7 +16,7 @@ const plexMono = IBM_Plex_Mono({
 
 export const metadata: Metadata = {
   title: "Cosmovision Maya",
-  description: "Rituale und Workouts aus der Maya-Kosmovision",
+  description: "Horoskop und die 20 Nahuales der Maya-Kosmovision",
 };
 
 /**
