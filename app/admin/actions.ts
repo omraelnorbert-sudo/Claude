@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { getAdminSession } from "@/lib/admin";
 import { createDataClient } from "@/lib/supabase/data";
 import { createAdminClient } from "@/lib/supabase/admin";
+import { isDevBypassActive } from "@/lib/dev-bypass";
 import { calculateNahual, isValidBirthDate } from "@/lib/nahual";
 import {
   composeMessage,
@@ -47,6 +48,29 @@ async function requireAdmin(): Promise<string | null> {
   return null;
 }
 
+/**
+ * Übersetzt Datenbankfehler in eine Erklärung, mit der man etwas anfangen kann.
+ *
+ * Der häufigste Fall beim Entwickeln: die lokale Abkürzung ist aktiv, aber es
+ * fehlt der Service-Role-Schlüssel. Dann sieht die Datenbank niemanden und
+ * lehnt jedes Schreiben ab — die rohe Meldung dazu ist wenig hilfreich.
+ */
+function describeWriteError(error: { message: string; code?: string }): string {
+  const isRlsViolation =
+    error.code === "42501" ||
+    error.message.includes("row-level security policy");
+
+  if (!isRlsViolation) return error.message;
+
+  if (isDevBypassActive()) {
+    return process.env.SUPABASE_SERVICE_ROLE_KEY
+      ? "Die Datenbank hat das Schreiben abgelehnt, obwohl der Service-Role-Schlüssel gesetzt ist. Prüfe die Policies in supabase/schema_admin.sql."
+      : "Speichern ist im Abkürzungsmodus nicht möglich: Ohne Anmeldung braucht es SUPABASE_SERVICE_ROLE_KEY in .env.local. Alternativ oben rechts richtig anmelden — dann funktioniert es ohne diesen Schlüssel.";
+  }
+
+  return "Die Datenbank hat das Schreiben abgelehnt. Ist dein Konto in der Tabelle admins eingetragen?";
+}
+
 // ---------------------------------------------------------------------------
 // Versand-Einstellungen
 // ---------------------------------------------------------------------------
@@ -77,7 +101,7 @@ export async function saveSendSettings(
     })
     .eq("id", true);
 
-  if (error) return { ok: false, message: error.message };
+  if (error) return { ok: false, message: describeWriteError(error) };
 
   revalidatePath("/admin/versand");
   revalidatePath("/admin");
@@ -108,7 +132,7 @@ export async function saveText(
     { onConflict: "nahual_index,lang" },
   );
 
-  if (error) return { ok: false, message: error.message };
+  if (error) return { ok: false, message: describeWriteError(error) };
 
   revalidatePath("/admin/texte");
   revalidatePath("/admin");
@@ -134,7 +158,7 @@ export async function saveVideo(
     { onConflict: "nahual_index" },
   );
 
-  if (error) return { ok: false, message: error.message };
+  if (error) return { ok: false, message: describeWriteError(error) };
 
   revalidatePath("/admin/videos");
   return { ok: true, message: "Gespeichert" };
@@ -199,7 +223,7 @@ export async function createUser(formData: FormData): Promise<ActionResult> {
         user_metadata: { full_name: displayName || undefined },
       });
 
-  if (error) return { ok: false, message: error.message };
+  if (error) return { ok: false, message: describeWriteError(error) };
 
   const userId = data.user?.id;
   if (userId) {
@@ -269,7 +293,7 @@ export async function updateProfile(
   const supabase = createDataClient();
   const { error } = await supabase.from("profiles").update(patch).eq("id", id);
 
-  if (error) return { ok: false, message: error.message };
+  if (error) return { ok: false, message: describeWriteError(error) };
 
   revalidatePath("/admin/nutzer");
   return { ok: true, message: "Gespeichert" };
@@ -288,7 +312,7 @@ export async function deleteUser(id: string): Promise<ActionResult> {
   }
 
   const { error } = await admin.auth.admin.deleteUser(id);
-  if (error) return { ok: false, message: error.message };
+  if (error) return { ok: false, message: describeWriteError(error) };
 
   revalidatePath("/admin/nutzer");
   revalidatePath("/admin");
@@ -327,7 +351,7 @@ export async function createExternalLinkAction(
     sort_order: Number(formData.get("sort_order")) || 0,
   });
 
-  if (error) return { ok: false, message: error.message };
+  if (error) return { ok: false, message: describeWriteError(error) };
 
   revalidatePath("/admin/links");
   revalidatePath("/links");
@@ -361,7 +385,7 @@ export async function saveExternalLink(
     })
     .eq("id", id);
 
-  if (error) return { ok: false, message: error.message };
+  if (error) return { ok: false, message: describeWriteError(error) };
 
   revalidatePath("/admin/links");
   revalidatePath("/links");
@@ -374,7 +398,7 @@ export async function deleteExternalLink(id: string): Promise<ActionResult> {
 
   const supabase = createDataClient();
   const { error } = await supabase.from("external_links").delete().eq("id", id);
-  if (error) return { ok: false, message: error.message };
+  if (error) return { ok: false, message: describeWriteError(error) };
 
   revalidatePath("/admin/links");
   revalidatePath("/links");
@@ -463,7 +487,7 @@ export async function sendTestEmail(formData: FormData): Promise<ActionResult> {
     text: paragraphs.join("\n\n"),
   });
 
-  if (error) return { ok: false, message: error.message };
+  if (error) return { ok: false, message: describeWriteError(error) };
 
   return { ok: true, message: `Testmail an ${recipient} verschickt.` };
 }
