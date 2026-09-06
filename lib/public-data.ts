@@ -23,6 +23,34 @@ export async function getPublicExternalLinks(): Promise<ExternalLinkCard[]> {
   return (data as ExternalLinkCard[]) ?? [];
 }
 
+export type NahualVideoEntry = {
+  nahualIndex: number;
+  videoId: string;
+  title: string | null;
+};
+
+/** Alle Nahuales, denen im Dashboard ein YouTube-Video zugeordnet wurde. */
+export async function getAllNahualVideos(): Promise<NahualVideoEntry[]> {
+  if (!isSupabaseConfigured()) return [];
+
+  const supabase = createClient();
+  const { data, error } = await supabase
+    .from("nahual_videos")
+    .select("nahual_index, youtube_video_id, title")
+    .not("youtube_video_id", "is", null)
+    .order("nahual_index");
+
+  if (error) return [];
+
+  return (data ?? [])
+    .filter((row) => row.youtube_video_id)
+    .map((row) => ({
+      nahualIndex: row.nahual_index as number,
+      videoId: row.youtube_video_id as string,
+      title: row.title as string | null,
+    }));
+}
+
 export type NahualContent = {
   videoId: string | null;
   videoTitle: string | null;

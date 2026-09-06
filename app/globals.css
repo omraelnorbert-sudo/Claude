@@ -102,6 +102,66 @@ a:hover {
   color: var(--accent);
 }
 
+.nav-dropdown {
+  position: relative;
+  margin-left: var(--space-3);
+}
+
+.nav-dropdown summary {
+  display: inline;
+  margin-left: 0;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--ink);
+  cursor: pointer;
+  list-style: none;
+}
+
+.nav-dropdown summary::-webkit-details-marker {
+  display: none;
+}
+
+.nav-dropdown summary:hover {
+  color: var(--accent);
+}
+
+.nav-dropdown[open] summary {
+  color: var(--accent);
+}
+
+.nav-dropdown-panel {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  margin-top: var(--space-1);
+  padding: var(--space-2);
+  min-width: 200px;
+  background: var(--card);
+  border: 1px solid var(--line-card);
+  border-top: 2px solid var(--gold);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  z-index: 10;
+}
+
+.nav-dropdown-panel a {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--ink);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.nav-dropdown-panel a:hover {
+  color: var(--accent);
+}
+
 .site-main {
   max-width: 880px;
   margin: 0 auto;
