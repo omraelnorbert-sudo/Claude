@@ -50,6 +50,9 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
+  verification: {
+    google: "asEk4TX50dNM0wdxDFj8LDovCzwFeh5AKzbDA457p5k",
+  },
   icons: {
     icon: "/icon",
     apple: "/apple-icon",

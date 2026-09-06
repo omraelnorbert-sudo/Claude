@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import JsonLd from "@/components/JsonLd";
 import { NAHUALES, glyphSrcForIndex, slugForIndex } from "@/lib/nahual";
+import { nahualListSchema } from "@/lib/structured-data";
 
 const description =
   "Die 20 Nahuales des Tzolk'in-Kalenders im Überblick — jedes Tageszeichen mit eigener Energie, Krafttier und Bedeutung.";
@@ -15,6 +17,7 @@ export const metadata: Metadata = {
 export default function NahualesPage() {
   return (
     <>
+      <JsonLd data={nahualListSchema()} />
       <div className="eyebrow" style={{ marginBottom: 8 }}>
         Kosmovision Maya
       </div>

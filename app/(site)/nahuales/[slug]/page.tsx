@@ -1,8 +1,10 @@
 import { notFound } from "next/navigation";
+import JsonLd from "@/components/JsonLd";
 import NahualGlyph from "@/components/NahualGlyph";
 import { NAHUALES, glyphSrcForIndex, indexForSlug } from "@/lib/nahual";
 import { NAHUAL_DESCRIPTIONS } from "@/lib/nahual-descriptions";
 import { getNahualContent } from "@/lib/public-data";
+import { nahualArticleSchema } from "@/lib/structured-data";
 
 export function generateMetadata({ params }: { params: { slug: string } }) {
   const index = indexForSlug(params.slug);
@@ -32,6 +34,14 @@ export default async function NahualDetailPage({
 
   return (
     <>
+      <JsonLd
+        data={nahualArticleSchema({
+          index: nahualIndex,
+          slug: params.slug,
+          name,
+          description: description.summary,
+        })}
+      />
       <div className="eyebrow" style={{ marginBottom: 8 }}>
         Nahual {nahualIndex} / 20
       </div>
