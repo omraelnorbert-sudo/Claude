@@ -1,10 +1,10 @@
 import { getPublicExternalLinks } from "@/lib/public-data";
 
 export const metadata = {
-  title: "Links — Cosmovision Maya",
+  title: "Paz Mundo — Cosmovision Maya",
 };
 
-export default async function LinksPage() {
+export default async function PazMundoPage() {
   const links = await getPublicExternalLinks();
 
   return (
@@ -12,16 +12,16 @@ export default async function LinksPage() {
       <div className="eyebrow" style={{ marginBottom: 8 }}>
         Weiterführend
       </div>
-      <h1>Links</h1>
-      <p>Ausgewählte Seiten und Angebote rund um die Kosmovision Maya.</p>
+      <h1>Paz Mundo</h1>
+      <p>Alle Angebote von Paz Mundo und Norbert Muigg an einem Ort.</p>
 
       {links.length === 0 ? (
-        <p className="empty-state">Bald findest du hier weiterführende Links.</p>
+        <p className="empty-state">Bald findest du hier die Paz-Mundo-Links.</p>
       ) : (
         <div
           style={{
             display: "grid",
-            gridTemplateColumns: "repeat(auto-fill, minmax(240px, 1fr))",
+            gridTemplateColumns: "repeat(auto-fill, minmax(180px, 1fr))",
             gap: "var(--space-3)",
             marginTop: "var(--space-4)",
           }}
@@ -36,10 +36,11 @@ export default async function LinksPage() {
               style={{
                 display: "flex",
                 flexDirection: "column",
-                gap: 10,
+                gap: 8,
                 textDecoration: "none",
                 color: "inherit",
                 marginBottom: 0,
+                padding: "var(--space-2) var(--space-3)",
               }}
             >
               {link.image_url && (
@@ -47,11 +48,13 @@ export default async function LinksPage() {
                 <img
                   src={link.image_url}
                   alt=""
-                  style={{ width: "100%", height: 140, objectFit: "cover" }}
+                  style={{ width: "100%", height: 90, objectFit: "cover" }}
                 />
               )}
-              <h3 style={{ margin: 0 }}>{link.title}</h3>
-              {link.description && <p style={{ margin: 0 }}>{link.description}</p>}
+              <h3 style={{ margin: 0, fontSize: 20 }}>{link.title}</h3>
+              {link.description && (
+                <p style={{ margin: 0, fontSize: 15 }}>{link.description}</p>
+              )}
             </a>
           ))}
         </div>

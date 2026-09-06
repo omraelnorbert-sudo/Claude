@@ -72,9 +72,9 @@ export default function HomePage() {
         <h3>Die 20 Nahuales</h3>
         <p>Jedes Tageszeichen im Detail — mit Videos, Texten und Krafttier.</p>
       </Link>
-      <Link href="/links" className="card" style={{ display: "block", textDecoration: "none", color: "inherit" }}>
-        <h3>Links</h3>
-        <p>Weiterführende Seiten und Angebote rund um die Kosmovision Maya.</p>
+      <Link href="/paz-mundo" className="card" style={{ display: "block", textDecoration: "none", color: "inherit" }}>
+        <h3>Paz Mundo</h3>
+        <p>Alle Angebote von Paz Mundo und Norbert Muigg an einem Ort.</p>
       </Link>
     </>
   );

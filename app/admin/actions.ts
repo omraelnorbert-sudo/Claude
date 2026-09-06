@@ -353,8 +353,8 @@ export async function createExternalLinkAction(
 
   if (error) return { ok: false, message: describeWriteError(error) };
 
-  revalidatePath("/admin/links");
-  revalidatePath("/links");
+  revalidatePath("/admin/paz-mundo");
+  revalidatePath("/paz-mundo");
   return { ok: true, message: `„${title}" angelegt.` };
 }
 
@@ -387,8 +387,8 @@ export async function saveExternalLink(
 
   if (error) return { ok: false, message: describeWriteError(error) };
 
-  revalidatePath("/admin/links");
-  revalidatePath("/links");
+  revalidatePath("/admin/paz-mundo");
+  revalidatePath("/paz-mundo");
   return { ok: true, message: "Gespeichert" };
 }
 
@@ -400,8 +400,8 @@ export async function deleteExternalLink(id: string): Promise<ActionResult> {
   const { error } = await supabase.from("external_links").delete().eq("id", id);
   if (error) return { ok: false, message: describeWriteError(error) };
 
-  revalidatePath("/admin/links");
-  revalidatePath("/links");
+  revalidatePath("/admin/paz-mundo");
+  revalidatePath("/paz-mundo");
   return { ok: true, message: "Gelöscht." };
 }
 

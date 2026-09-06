@@ -32,7 +32,7 @@ export default async function NahualDetailPage({
       <div
         style={{
           display: "grid",
-          gridTemplateColumns: "minmax(200px, 280px) 1fr",
+          gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
           gap: "var(--space-4)",
           alignItems: "start",
           marginBottom: "var(--space-5)",

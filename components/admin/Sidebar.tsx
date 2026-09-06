@@ -65,8 +65,8 @@ const GROUPS: Group[] = [
         ),
       },
       {
-        href: "/admin/links",
-        label: "Links",
+        href: "/admin/paz-mundo",
+        label: "Paz Mundo",
         icon: (
           <Icon>
             <path d="M6.5 9.5l3-3" />

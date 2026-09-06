@@ -162,6 +162,20 @@ a:hover {
   color: var(--accent);
 }
 
+@media (max-width: 600px) {
+  .nav-dropdown-panel {
+    position: static;
+    width: 100%;
+    margin-top: var(--space-2);
+    border: none;
+    border-left: 2px solid var(--gold);
+  }
+
+  .nav-dropdown-panel a {
+    white-space: normal;
+  }
+}
+
 .site-main {
   max-width: 880px;
   margin: 0 auto;

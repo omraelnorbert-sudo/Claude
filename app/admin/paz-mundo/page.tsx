@@ -4,15 +4,15 @@ import { getExternalLinks } from "@/lib/admin-data";
 
 export const dynamic = "force-dynamic";
 
-export default async function LinksPage() {
+export default async function PazMundoLinksPage() {
   const { links, error } = await getExternalLinks();
 
   return (
     <>
       <PageHead
         eyebrow="Inhalte"
-        title="Links"
-        description="Was hier steht, erscheint als Karten auf der öffentlichen Seite /links."
+        title="Paz Mundo"
+        description="Was hier steht, erscheint als kleine Karten auf der öffentlichen Seite /paz-mundo."
       />
 
       {error && <p className="admin-note admin-note-error">{error}</p>}
