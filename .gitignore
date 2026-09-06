@@ -5,3 +5,4 @@ node_modules
 .netlify
 .claude/settings.local.json
 *.tsbuildinfo
+*.zip
