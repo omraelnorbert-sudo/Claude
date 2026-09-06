@@ -23,7 +23,7 @@ const ITEMS = NAHUALES.map((name, position) => {
     pad: String(index).padStart(2, "0"),
     name,
     slug: slugForIndex(index),
-    glyphSrc: glyphSrcForIndex(index),
+    glyphSrc: glyphSrcForIndex(index, "thumb"),
     kurz: description.kurz,
     summary: description.summary,
     krafttier: description.krafttier,
@@ -86,7 +86,7 @@ export default function CholqijHome() {
           <p className="cholqij-detail-krafttier">
             <strong>Krafttier:</strong> {active.krafttier}
           </p>
-          <Link href={`/nahuales/${active.slug}`} className="cholqij-detail-link">
+          <Link href={`/nahuales/${active.slug}`} className="underline-link">
             Zeichen ansehen
           </Link>
         </div>
@@ -100,8 +100,12 @@ export default function CholqijHome() {
             const angle =
               ((-90 + (((position - activeIndex) % 20) + 20) % 20 * 18) * Math.PI) / 180;
             const isActive = position === activeIndex;
-            const width = isActive ? 52 : 40;
-            const height = Math.round(width / 0.78);
+            // Prozent statt Pixel, sonst schrumpft nur der Abstand (an % der
+            // Wheel-Breite gebunden) mit dem Container, während die Knoten
+            // gleich groß blieben — das führte bei schmaleren Containern
+            // (z.B. im zweispaltigen Grid) zu Überlappungen.
+            const widthPercent = isActive ? 15 : 7.7;
+            const heightPercent = widthPercent / 0.78;
             return (
               <button
                 key={item.name}
@@ -113,14 +117,14 @@ export default function CholqijHome() {
                 style={{
                   left: `calc(50% + ${(Math.cos(angle) * RADIUS_PERCENT).toFixed(2)}%)`,
                   top: `calc(50% + ${(Math.sin(angle) * RADIUS_PERCENT).toFixed(2)}%)`,
-                  width,
-                  height,
-                  marginLeft: -width / 2,
-                  marginTop: -height / 2,
+                  width: `${widthPercent}%`,
+                  height: `${heightPercent.toFixed(2)}%`,
+                  marginLeft: `${(-widthPercent / 2).toFixed(2)}%`,
+                  marginTop: `${(-heightPercent / 2).toFixed(2)}%`,
                 }}
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={item.glyphSrc} alt="" />
+                <img src={item.glyphSrc} alt="" width={160} height={205} decoding="async" />
               </button>
             );
           })}
@@ -148,7 +152,7 @@ export default function CholqijHome() {
             Dein Geburtshoroskop
           </div>
           <h1 style={{ fontSize: "clamp(38px, 6.5vw, 64px)", letterSpacing: "-0.025em", marginBottom: 18 }}>
-            Welches Nahual
+            Welcher Nahual
             <br />
             trägt dich?
           </h1>
@@ -181,7 +185,14 @@ export default function CholqijHome() {
           {birthItem && birthResult ? (
             <div className="birth-preview-row">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={birthItem.glyphSrc} alt={birthItem.name} className="birth-preview-glyph" />
+              <img
+                src={birthItem.glyphSrc}
+                alt={birthItem.name}
+                className="birth-preview-glyph"
+                width={82}
+                height={105}
+                decoding="async"
+              />
               <div>
                 <MayaNumber value={birthResult.number} />
                 <div className="birth-preview-name">

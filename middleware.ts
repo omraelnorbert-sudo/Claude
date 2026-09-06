@@ -58,8 +58,9 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: [
-    // Alles außer statischen Dateien und Bildern.
-    "/((?!_next/static|_next/image|favicon.ico|nahuales|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
-  ],
+  // Nur die Bereiche, die überhaupt eine Session brauchen. Vorher lief die
+  // Middleware auf allen Seiten — damit hing vor jedem öffentlichen Aufruf
+  // ein Supabase-Roundtrip, obwohl keine öffentliche Seite eine Anmeldung
+  // kennt.
+  matcher: ["/admin/:path*", "/login", "/auth/:path*"],
 };

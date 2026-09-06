@@ -17,7 +17,7 @@ export default async function VideosPage() {
     return {
       nahualIndex,
       name,
-      glyphSrc: glyphSrcForIndex(nahualIndex),
+      glyphSrc: glyphSrcForIndex(nahualIndex, "card"),
       videoId: entry?.youtube_video_id ?? "",
       title: entry?.title ?? "",
     };

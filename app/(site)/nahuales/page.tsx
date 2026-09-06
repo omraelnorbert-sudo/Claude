@@ -55,8 +55,10 @@ export default function NahualesPage() {
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src={glyphSrcForIndex(nahualIndex)}
+                src={glyphSrcForIndex(nahualIndex, "card")}
                 alt=""
+                loading="lazy"
+                decoding="async"
                 style={{ width: "70%", height: "auto", mixBlendMode: "multiply" }}
               />
               <span style={{ fontSize: 21, fontWeight: 600 }}>{name}</span>

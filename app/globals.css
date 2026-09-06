@@ -105,10 +105,13 @@ a:hover {
 .nav-dropdown {
   position: relative;
   margin-left: var(--space-3);
+  display: flex;
+  align-items: center;
 }
 
 .nav-dropdown summary {
-  display: inline;
+  display: inline-flex;
+  align-items: center;
   margin-left: 0;
   font-family: var(--font-mono);
   font-size: 11px;
@@ -433,17 +436,13 @@ button:hover,
 /* ---------------------------------------------------------------------------
    Maya-Kreuz (erweitertes Horoskop)
 
-   Kartusche = der ornamentale Rahmen, in den das Maya-Schriftsystem die
-   Tageszeichen des 260-Tage-Zyklus setzt. Entspricht der Rahmenregel des
-   Stylebooks: 1.5px Tinte außen, doppelte Goldlinie innen. Glyphen sind
-   freigestellte PNGs mit transparentem Hintergrund.
+   Kartusche = der Bildbereich für die Tageszeichen des 260-Tage-Zyklus.
+   Glyphen sind freigestellte PNGs mit eigenem Rahmen (transparenter
+   Hintergrund), daher hier ohne zusätzliche Umrandung.
 --------------------------------------------------------------------------- */
 
 .cartouche {
   display: block;
-  border: 1.5px solid var(--ink-deep);
-  padding: 5px;
-  background: var(--paper-warm);
 }
 
 .cartouche > img {
@@ -451,18 +450,6 @@ button:hover,
   width: 100%;
   aspect-ratio: 1 / 1;
   object-fit: contain;
-  border: 2px double var(--gold);
-  padding: 6px;
-  background: var(--paper-warm);
-}
-
-.cartouche-lg {
-  padding: 8px;
-}
-
-.cartouche-lg > img {
-  border-width: 3px;
-  padding: 12px;
 }
 
 /* --- Kopf ---------------------------------------------------------------- */
@@ -947,7 +934,7 @@ button:hover,
   margin: 0 0 var(--space-3);
 }
 
-.cholqij-detail-link {
+.underline-link {
   font-family: var(--font-mono);
   font-size: 11px;
   letter-spacing: var(--track-label);
@@ -958,7 +945,7 @@ button:hover,
   text-decoration: none;
 }
 
-.cholqij-detail-link:hover {
+.underline-link:hover {
   color: var(--accent-dark);
 }
 
@@ -1018,16 +1005,11 @@ button:hover,
   position: absolute;
   display: block;
   min-height: 0;
-  padding: 3px;
-  background: var(--paper-warm);
-  border: 1px solid var(--line-card);
+  padding: 0;
+  background: none;
+  border: none;
   cursor: pointer;
   transition: all 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
-}
-
-.cholqij-node.is-active {
-  padding: 4px;
-  border: 1.5px solid var(--ink-deep);
 }
 
 .cholqij-node img {
@@ -1035,13 +1017,6 @@ button:hover,
   width: 100%;
   height: 100%;
   object-fit: contain;
-  padding: 2px;
-  box-sizing: border-box;
-  border: 1px solid var(--line-soft);
-}
-
-.cholqij-node.is-active img {
-  border: 3px double var(--gold);
 }
 
 .cholqij-chips {

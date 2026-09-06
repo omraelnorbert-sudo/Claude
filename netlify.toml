@@ -3,3 +3,15 @@
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"
+
+# Ohne diese Angabe liefert Netlify Dateien aus /public mit
+# "max-age=0, must-revalidate" aus — der Browser fragt dann bei jedem Besuch
+# für jede einzelne Glyphe nach, bevor das Rad steht.
+#
+# 30 Tage statt eines Jahres, weil die Dateinamen stabil bleiben: wird eine
+# Glyphe ausgetauscht, sehen wiederkehrende Besucher sonst sehr lange die
+# alte Fassung. Bei einem größeren Austausch besser die Dateien umbenennen.
+[[headers]]
+  for = "/glyphen/*"
+  [headers.values]
+    Cache-Control = "public, max-age=2592000"

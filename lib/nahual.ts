@@ -25,41 +25,39 @@ export const NAHUALES = [
   "Tz'i'",
 ] as const;
 
-// Zuordnung Nahual-Index (1-20, siehe NAHUALES) -> Glyphen-Bilddatei in /public/nahuales
-const GLYPH_FILE_BY_INDEX: Record<number, string> = {
-  1: "03",
-  2: "02",
-  3: "06",
-  4: "01",
-  5: "05",
-  6: "04",
-  7: "07",
-  8: "08",
-  9: "09",
-  10: "10",
-  11: "11",
-  12: "17",
-  13: "20",
-  14: "19",
-  15: "18",
-  16: "14",
-  17: "16",
-  18: "15",
-  19: "12",
-  20: "13",
-};
-
-/** Pfad zur Glyphe eines Nahuals (1-20), unabhängig von einem Geburtsdatum. */
-export function glyphSrcForIndex(index: number): string {
-  const fileNum = GLYPH_FILE_BY_INDEX[index];
-  return fileNum ? `/nahuales/${fileNum}.png` : "";
-}
-
 function slugify(name: string): string {
   return name.toLowerCase().replace(/[^a-z0-9]/g, "");
 }
 
 const NAHUAL_SLUGS = NAHUALES.map(slugify);
+
+// Glyphen-Bilddateien liegen in /public/glyphen, benannt nach demselben Slug
+// wie das Nahual selbst, z.B. "Ak'ab'al" -> akabal.webp. Eigener Pfad, nicht
+// /nahuales: dort liegen die Seitenrouten, und die dürfen die langen
+// Cache-Header der Bilder nicht abbekommen (siehe netlify.toml).
+//
+// Die Originale sind 625px breit, daneben liegen verkleinerte Varianten —
+// Rad und Kachelraster zeigen die Glyphen deutlich kleiner, dort wäre die
+// volle Auflösung reine Ladezeit.
+export type GlyphSize =
+  /** 160px — Rad-Knoten (max. 78px) und Geburtsvorschau (82px). */
+  | "thumb"
+  /** 320px — Kachelraster auf /nahuales (max. ~155px). */
+  | "card"
+  /** 625px — Detailseite, Maya-Kreuz, Vorschaubild für Google. */
+  | "full";
+
+const GLYPH_DIR: Record<GlyphSize, string> = {
+  thumb: "/glyphen/thumb",
+  card: "/glyphen/card",
+  full: "/glyphen",
+};
+
+/** Pfad zur Glyphe eines Nahuals (1-20), unabhängig von einem Geburtsdatum. */
+export function glyphSrcForIndex(index: number, size: GlyphSize = "full"): string {
+  const slug = NAHUAL_SLUGS[index - 1];
+  return slug ? `${GLYPH_DIR[size]}/${slug}.webp` : "";
+}
 
 /** URL-Slug eines Nahuals (1-20), z.B. "ak'ab'al" -> "akabal". */
 export function slugForIndex(index: number): string {
@@ -137,12 +135,10 @@ export function calculateNahual(day: number, month: number, year: number): Nahua
   let index = kin % 20;
   if (index === 0) index = 20;
 
-  const fileNum = GLYPH_FILE_BY_INDEX[index];
-
   return {
     number,
     index,
     name: NAHUALES[index - 1],
-    glyphSrc: `/nahuales/${fileNum}.png`,
+    glyphSrc: glyphSrcForIndex(index),
   };
 }

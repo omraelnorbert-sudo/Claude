@@ -148,7 +148,7 @@ describe("Cholq'ij eines einzelnen Tages", () => {
       assert.ok(day.number >= 1 && day.number <= 13, `Zahl ${day.number}`);
       assert.ok(day.nawalIndex >= 1 && day.nawalIndex <= 20, `Index ${day.nawalIndex}`);
       assert.equal(day.nawalName, NAHUALES[day.nawalIndex - 1]);
-      assert.match(day.glyphSrc, /^\/nahuales\/\d{2}\.png$/);
+      assert.match(day.glyphSrc, /^\/glyphen\/[a-z]+\.webp$/);
       seenNumbers.add(day.number);
       seenIndexes.add(day.nawalIndex);
       date = addCalendarDays(date, 1);

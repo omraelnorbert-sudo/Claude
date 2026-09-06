@@ -48,7 +48,7 @@ export default async function TextePage({
     return {
       nahualIndex,
       name,
-      glyphSrc: glyphSrcForIndex(nahualIndex),
+      glyphSrc: glyphSrcForIndex(nahualIndex, "card"),
       text: byIndex.get(nahualIndex) ?? "",
     };
   });

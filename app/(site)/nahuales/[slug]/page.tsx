@@ -63,6 +63,11 @@ export default async function NahualDetailPage({
           <p style={{ margin: 0, fontSize: 15, color: "var(--text-muted)" }}>
             <strong>Krafttier:</strong> {description.krafttier}
           </p>
+          {content.videoId && (
+            <a href="#video" className="underline-link" style={{ alignSelf: "flex-start" }}>
+              Video ansehen
+            </a>
+          )}
         </div>
       </div>
 
@@ -85,7 +90,7 @@ export default async function NahualDetailPage({
       )}
 
       {content.videoId && (
-        <section style={{ marginBottom: "var(--space-4)" }}>
+        <section id="video" style={{ marginBottom: "var(--space-4)" }}>
           <div className="eyebrow" style={{ marginBottom: 8 }}>
             {content.videoTitle || "Video"}
           </div>
