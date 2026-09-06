@@ -1,9 +1,16 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { NAHUALES, slugForIndex } from "@/lib/nahual";
 import { getAllNahualVideos } from "@/lib/public-data";
 
-export const metadata = {
-  title: "Nahual-Videos — Cosmovision Maya",
+const description =
+  "Video-Erklärungen zu den 20 Nahuales des Tzolk'in-Kalenders — vertiefendes Wissen zu jedem Maya-Tageszeichen.";
+
+export const metadata: Metadata = {
+  title: "Nahual-Videos",
+  description,
+  alternates: { canonical: "/nahuales/videos" },
+  openGraph: { title: "Nahual-Videos", description, url: "/nahuales/videos" },
 };
 
 export default async function NahualVideosPage() {

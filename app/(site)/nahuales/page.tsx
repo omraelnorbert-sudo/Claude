@@ -1,8 +1,15 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { NAHUALES, glyphSrcForIndex, slugForIndex } from "@/lib/nahual";
 
-export const metadata = {
-  title: "Die 20 Nahuales — Cosmovision Maya",
+const description =
+  "Die 20 Nahuales des Tzolk'in-Kalenders im Überblick — jedes Tageszeichen mit eigener Energie, Krafttier und Bedeutung.";
+
+export const metadata: Metadata = {
+  title: "Die 20 Nahuales",
+  description,
+  alternates: { canonical: "/nahuales" },
+  openGraph: { title: "Die 20 Nahuales", description, url: "/nahuales" },
 };
 
 export default function NahualesPage() {

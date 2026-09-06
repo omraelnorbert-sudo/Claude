@@ -14,9 +14,46 @@ const plexMono = IBM_Plex_Mono({
   variable: "--font-plex-mono",
 });
 
+const siteUrl = "https://cosmovisionmaya.org";
+const title = "Cosmovision Maya";
+const description =
+  "Berechne dein Maya-Horoskop kostenlos: Geburtsnahual, Schwingungszahl und das Maya-Kreuz nach dem heiligen Tzolk'in-Kalender. Entdecke die Kosmovision der Maya und alle 20 Nahuales.";
+
 export const metadata: Metadata = {
-  title: "Cosmovision Maya",
-  description: "Horoskop und die 20 Nahuales der Maya-Kosmovision",
+  metadataBase: new URL(siteUrl),
+  title: { default: title, template: `%s — ${title}` },
+  description,
+  keywords: [
+    "Maya Horoskop",
+    "Nahual berechnen",
+    "Tzolkin",
+    "Maya Kalender",
+    "Geburtsnahual",
+    "Maya Kosmovision",
+    "Maya Kreuz",
+    "Paz Mundo",
+  ],
+  openGraph: {
+    type: "website",
+    locale: "de_DE",
+    siteName: title,
+    title,
+    description,
+    url: siteUrl,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title,
+    description,
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
+  icons: {
+    icon: "/icon",
+    apple: "/apple-icon",
+  },
 };
 
 /**

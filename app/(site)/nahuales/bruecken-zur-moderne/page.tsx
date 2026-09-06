@@ -1,5 +1,17 @@
-export const metadata = {
-  title: "Brücken zur Moderne — Cosmovision Maya",
+import type { Metadata } from "next";
+
+const description =
+  "Wie sich das jahrtausendealte Wissen der 20 Nahuales mit dem heutigen Leben verbindet.";
+
+export const metadata: Metadata = {
+  title: "Brücken zur Moderne",
+  description,
+  alternates: { canonical: "/nahuales/bruecken-zur-moderne" },
+  openGraph: {
+    title: "Brücken zur Moderne",
+    description,
+    url: "/nahuales/bruecken-zur-moderne",
+  },
 };
 
 export default function BrueckenZurModernePage() {

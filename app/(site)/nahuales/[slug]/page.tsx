@@ -7,7 +7,15 @@ import { getNahualContent } from "@/lib/public-data";
 export function generateMetadata({ params }: { params: { slug: string } }) {
   const index = indexForSlug(params.slug);
   const name = index ? NAHUALES[index - 1] : null;
-  return { title: name ? `${name} — Cosmovision Maya` : "Nahual" };
+  if (!name) return { title: "Nahual" };
+
+  const description = `${name}: Bedeutung, Krafttier und Energie dieses Nahuals im Tzolk'in-Kalender der Maya.`;
+  return {
+    title: name,
+    description,
+    alternates: { canonical: `/nahuales/${params.slug}` },
+    openGraph: { title: name, description, url: `/nahuales/${params.slug}` },
+  };
 }
 
 export default async function NahualDetailPage({

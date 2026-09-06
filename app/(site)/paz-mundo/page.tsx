@@ -1,7 +1,14 @@
+import type { Metadata } from "next";
 import { getPublicExternalLinks } from "@/lib/public-data";
 
-export const metadata = {
-  title: "Paz Mundo — Cosmovision Maya",
+const description =
+  "Alle Angebote von Paz Mundo und Norbert Muigg an einem Ort: Maya-Seelencoaching, Veranstaltungen, Bücher, Podcasts und der Mayakalender.";
+
+export const metadata: Metadata = {
+  title: "Paz Mundo",
+  description,
+  alternates: { canonical: "/paz-mundo" },
+  openGraph: { title: "Paz Mundo", description, url: "/paz-mundo" },
 };
 
 export default async function PazMundoPage() {
