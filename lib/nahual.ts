@@ -52,7 +52,7 @@ const GLYPH_FILE_BY_INDEX: Record<number, string> = {
 /** Pfad zur Glyphe eines Nahuals (1-20), unabhängig von einem Geburtsdatum. */
 export function glyphSrcForIndex(index: number): string {
   const fileNum = GLYPH_FILE_BY_INDEX[index];
-  return fileNum ? `/nahuales/${fileNum}.jpeg` : "";
+  return fileNum ? `/nahuales/${fileNum}.png` : "";
 }
 
 function slugify(name: string): string {
@@ -143,6 +143,6 @@ export function calculateNahual(day: number, month: number, year: number): Nahua
     number,
     index,
     name: NAHUALES[index - 1],
-    glyphSrc: `/nahuales/${fileNum}.jpeg`,
+    glyphSrc: `/nahuales/${fileNum}.png`,
   };
 }

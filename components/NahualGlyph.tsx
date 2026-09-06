@@ -1,5 +1,5 @@
-// Bildrahmen: 1.5px Tinte + 3px double Gold. Glyphen immer auf Papiergrund,
-// mix-blend-mode: multiply, nie beschnitten, nie eingefärbt. (Stylebook 03 · Rahmen & Ornamente)
+// Bildrahmen: 1.5px Tinte + 3px double Gold. Glyphen sind freigestellte PNGs
+// (transparenter Hintergrund), nie beschnitten, nie eingefärbt. (Stylebook 03 · Rahmen & Ornamente)
 export default function NahualGlyph({ src, alt }: { src: string; alt: string }) {
   return (
     <div
@@ -25,7 +25,7 @@ export default function NahualGlyph({ src, alt }: { src: string; alt: string }) 
         <img
           src={src}
           alt={alt}
-          style={{ height: "80%", width: "auto", mixBlendMode: "multiply" }}
+          style={{ height: "80%", width: "auto" }}
         />
       </div>
     </div>
