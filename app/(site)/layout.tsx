@@ -12,7 +12,6 @@ export default function SiteLayout({
         <strong>Cosmovision Maya</strong>
         <nav>
           <Link href="/">Home</Link>
-          <Link href="/horoskop">Horoskop</Link>
 
           <details className="nav-dropdown">
             <summary>Nahuales</summary>
@@ -24,6 +23,10 @@ export default function SiteLayout({
           </details>
 
           <Link href="/paz-mundo">Paz Mundo</Link>
+
+          <Link href="/horoskop" className="nav-cta">
+            Geburtshoroskop
+          </Link>
         </nav>
       </header>
       <main className="site-main">{children}</main>

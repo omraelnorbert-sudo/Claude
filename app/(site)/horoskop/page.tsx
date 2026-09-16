@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import MayaCross from "@/components/MayaCross";
 import MayaNumber from "@/components/MayaNumber";
 import NahualGlyph from "@/components/NahualGlyph";
@@ -49,6 +49,22 @@ export default function HoroskopPage() {
   const [error, setError] = useState<string | null>(null);
 
   const valid = isValidBirthDate(Number(day), Number(month), Number(year));
+
+  // Kommt man von der Startseite, steht das dort eingegebene Datum im Link
+  // (?datum=JJJJ-MM-TT). Dann gleich ausfüllen und berechnen. Erst nach dem
+  // Laden gelesen, weil die Seite vorab statisch erzeugt wird.
+  useEffect(() => {
+    const value = new URLSearchParams(window.location.search).get("datum");
+    if (!value) return;
+
+    const [y, m, d] = value.split("-").map(Number);
+    if (!isValidBirthDate(d, m, y)) return;
+
+    setDay(String(d));
+    setMonth(String(m));
+    setYear(String(y));
+    setComputed(compute({ day: d, month: m, year: y }));
+  }, []);
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();

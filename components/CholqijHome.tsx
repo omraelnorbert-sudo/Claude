@@ -171,7 +171,9 @@ export default function CholqijHome() {
               max="2099-12-31"
               aria-label="Geburtsdatum"
             />
-            <Link href="/horoskop" className="btn">
+            {/* Ein gültiges Datum reist im Link mit, damit die Horoskop-Seite
+                gleich das Ergebnis zeigt statt eines leeren Formulars. */}
+            <Link href={birthDate ? `/horoskop?datum=${birth}` : "/horoskop"} className="btn">
               Horoskop berechnen
             </Link>
           </div>
