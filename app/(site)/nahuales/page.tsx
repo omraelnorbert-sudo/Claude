@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import JsonLd from "@/components/JsonLd";
-import { NAHUALES, glyphSrcForIndex, slugForIndex } from "@/lib/nahual";
+import NahualesOverview from "@/components/NahualesOverview";
+import { getNahualOverviewItems } from "@/lib/public-data";
 import { nahualListSchema } from "@/lib/structured-data";
 
 const description =
@@ -14,7 +14,9 @@ export const metadata: Metadata = {
   openGraph: { title: "Die 20 Nahuales", description, url: "/nahuales" },
 };
 
-export default function NahualesPage() {
+export default async function NahualesPage() {
+  const items = await getNahualOverviewItems();
+
   return (
     <>
       <JsonLd data={nahualListSchema()} />
@@ -27,45 +29,7 @@ export default function NahualesPage() {
         eigenes Krafttier. Wähle ein Zeichen, um mehr zu erfahren.
       </p>
 
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fill, minmax(150px, 1fr))",
-          gap: "var(--space-3)",
-          marginTop: "var(--space-4)",
-        }}
-      >
-        {NAHUALES.map((name, position) => {
-          const nahualIndex = position + 1;
-          return (
-            <Link
-              key={name}
-              href={`/nahuales/${slugForIndex(nahualIndex)}`}
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                gap: 10,
-                textDecoration: "none",
-                color: "var(--ink)",
-                background: "var(--card)",
-                border: "1px solid var(--line-card)",
-                padding: "18px 12px 16px",
-              }}
-            >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={glyphSrcForIndex(nahualIndex, "card")}
-                alt=""
-                loading="lazy"
-                decoding="async"
-                style={{ width: "70%", height: "auto", mixBlendMode: "multiply" }}
-              />
-              <span style={{ fontSize: 21, fontWeight: 600 }}>{name}</span>
-            </Link>
-          );
-        })}
-      </div>
+      <NahualesOverview items={items} />
     </>
   );
 }

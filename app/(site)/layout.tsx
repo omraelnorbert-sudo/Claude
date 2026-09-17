@@ -30,6 +30,17 @@ export default function SiteLayout({
         </nav>
       </header>
       <main className="site-main">{children}</main>
+      <footer className="site-footer">
+        <p>
+          Auslegung und Benennung können zwischen den Maya-Traditionen variieren.
+          Eine digitale Einsicht ersetzt keine persönliche Auslegung eines
+          Horoskopweisen.
+        </p>
+        <p>
+          <strong>Paz Mundo</strong> hat seit 30 Jahren die Aufgabe, Tradition Maya
+          und Moderne miteinander im Zeitenwandel zu vernetzen.
+        </p>
+      </footer>
     </>
   );
 }

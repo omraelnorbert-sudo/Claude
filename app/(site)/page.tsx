@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import CholqijHome from "@/components/CholqijHome";
 import JsonLd from "@/components/JsonLd";
+import { getNahualOverviewItems } from "@/lib/public-data";
 import { websiteSchema } from "@/lib/structured-data";
 
 const description =
@@ -13,11 +14,13 @@ export const metadata: Metadata = {
   openGraph: { title: "Cosmovision Maya", description, url: "/" },
 };
 
-export default function HomePage() {
+export default async function HomePage() {
+  const overviewItems = await getNahualOverviewItems();
+
   return (
     <>
       <JsonLd data={websiteSchema()} />
-      <CholqijHome />
+      <CholqijHome overviewItems={overviewItems} />
     </>
   );
 }

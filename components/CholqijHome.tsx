@@ -12,8 +12,20 @@ import {
 import { NAHUAL_DESCRIPTIONS } from "@/lib/nahual-descriptions";
 import { nahualOfToday } from "@/lib/tzolkin";
 import MayaNumber from "@/components/MayaNumber";
+import NahualesOverview from "@/components/NahualesOverview";
+import type { NahualOverviewItem } from "@/lib/public-data";
 
 const RADIUS_PERCENT = 42.3;
+
+const YOUTUBE_CHANNEL = "https://www.youtube.com/@norbertmuiggmaya-pazmundo7830";
+const YOUTUBE_SERIES = `${YOUTUBE_CHANNEL}/search?query=${encodeURIComponent("Der Mayakalender im Zeitgeist")}`;
+
+const LINK_CARDS = [
+  { title: "Paz Mundo", href: "https://www.pazmundo.com", label: "www.pazmundo.com →" },
+  { title: "Norbert Muigg auf YouTube", href: YOUTUBE_SERIES, label: "Der Mayakalender im Zeitgeist →" },
+  { title: "Healing Resort", href: "https://healingresort.pazmundo.com/", label: "healingresort.pazmundo.com →" },
+  { title: "Veranstaltungen", href: "https://www.pazmundo.com/veranstaltungen", label: "pazmundo.com/veranstaltungen →" },
+];
 
 const ITEMS = NAHUALES.map((name, position) => {
   const index = position + 1;
@@ -36,7 +48,7 @@ function parseBirthInput(value: string) {
   return { day, month, year };
 }
 
-export default function CholqijHome() {
+export default function CholqijHome({ overviewItems }: { overviewItems: NahualOverviewItem[] }) {
   const today = useMemo(() => nahualOfToday(), []);
   const todayItem = ITEMS[today.index - 1];
 
@@ -58,7 +70,7 @@ export default function CholqijHome() {
   return (
     <>
       <div className="eyebrow" style={{ marginBottom: 8 }}>
-        Cholq&apos;ij · Der heilige Kalender
+        Paz Mundo · Der sakrale Mayakalender
       </div>
       <h2
         style={{
@@ -69,8 +81,20 @@ export default function CholqijHome() {
           margin: "0 0 8px",
         }}
       >
-        Die 20 Nahuales
+        20 Nahuales in der Moderne
       </h2>
+      <a
+        href={YOUTUBE_SERIES}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="listen-link"
+      >
+        <span className="listen-link-icon" aria-hidden="true" />
+        Mayakalender anhören
+      </a>
+      <div className="listen-link-note">
+        „Der Mayakalender im Zeitgeist“ · Deutsche Fassung · YouTube-Kanal Norbert Muigg
+      </div>
       <p style={{ maxWidth: "62ch" }}>
         13 Schwingungszahlen und 20 Nahuales laufen wie zwei Räder weiter und ergeben
         zusammen 260 Tage. Wähle ein Zeichen — das Rad dreht es nach oben.
@@ -142,6 +166,33 @@ export default function CholqijHome() {
             {item.name}
           </button>
         ))}
+      </div>
+
+      <div className="dot-rule" role="presentation" />
+
+      <div id="nahuales-uebersicht">
+        <div className="eyebrow" style={{ marginBottom: 8 }}>
+          Kosmovision Maya
+        </div>
+        <h2
+          style={{
+            fontSize: "clamp(34px, 6vw, 56px)",
+            fontWeight: 600,
+            letterSpacing: "-0.02em",
+            lineHeight: 1,
+            margin: "0 0 8px",
+          }}
+        >
+          Alle Zeichen im Überblick
+        </h2>
+        <p style={{ maxWidth: "58ch" }}>
+          Jeder Nahual ist polar angelegt und trägt seine eigene Energie, seine
+          eigenen Qualitäten und Stärken, sein eigenes Krafttier, die entsprechende
+          Körperverbindung und die Vernetzung in den Kosmos. Der Nahual im
+          Unbewussten ist seine dunkle Seite, seine Lichtseite liegt im wachsenden
+          Bewusstsein. Wähle hier einen Nahual, um mehr zu erfahren.
+        </p>
+        <NahualesOverview items={overviewItems} />
       </div>
 
       <div className="dot-rule" role="presentation" />
@@ -232,6 +283,68 @@ export default function CholqijHome() {
         <Link href="/horoskop" className="btn">
           Geburtshoroskop erstellen
         </Link>
+      </div>
+
+      <div id="links" className="links-section">
+        <div className="eyebrow" style={{ marginBottom: 20 }}>
+          Links
+        </div>
+        <div className="link-card-grid">
+          {LINK_CARDS.map((card) => (
+            <a key={card.title} href={card.href} target="_blank" rel="noopener noreferrer" className="link-card">
+              <span className="link-card-title">{card.title}</span>
+              <span className="link-card-url">{card.label}</span>
+            </a>
+          ))}
+        </div>
+      </div>
+
+      <div id="si" className="si-section">
+        <div className="eyebrow" style={{ marginBottom: 8 }}>
+          SI · Seelenintelligenz
+        </div>
+        <h2
+          style={{
+            fontSize: "clamp(30px, 5vw, 46px)",
+            fontWeight: 600,
+            lineHeight: 1.05,
+            letterSpacing: "-0.02em",
+            margin: "0 0 6px",
+          }}
+        >
+          Reise in die Tiefe der Seele
+        </h2>
+        <div className="si-subline">Paz Mundo · Omrael Norbert &amp; Team, Laura Soraya</div>
+
+        <p className="si-lead">
+          Seelen-Coaching ist ein tiefgründiges, spirituelles Wahrnehmungswerk, in
+          dem deine Seele „spürbar und sichtbar“ gemacht wird – ihre Geschichte,
+          ihre Themen, ihre Wunden und ihre Schönheit.
+        </p>
+        <p className="si-text">
+          Es ist kein gewöhnliches Coaching-Gespräch, sondern ein heiliger Raum des
+          medialen Schauens, Erkennens und Annehmens – für all das, was du bist,
+          warst, und mit Möglichkeiten, wohin deine weitere Lebensreise gehen sollte.
+        </p>
+        <p className="si-text">
+          Omrael Norbert und sein Team verbinden sich mit deinem energetischen Feld
+          – durch dein Schreiben und ein aktuelles Foto. Du erhältst eine
+          schriftliche Seelenschau mit Zusammenfassung und persönlichem Workout.
+        </p>
+
+        <div className="si-cta-row">
+          <a href="mailto:kontakt@pazmundo.com?subject=Seelen-Coaching" className="btn">
+            Anfrage senden →
+          </a>
+          <a
+            href="https://www.pazmundo.com/omrael-norbert-muigg"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline-link"
+          >
+            Friedenswerk &amp; Seelencoaching →
+          </a>
+        </div>
       </div>
     </>
   );

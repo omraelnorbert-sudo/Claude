@@ -1222,3 +1222,340 @@ button:hover,
   max-width: 48ch;
   margin: 0;
 }
+
+/* ---------------------------------------------------------------------------
+   Nahuales-Übersicht: Kachelraster + Detail-Overlay mit Langfassung
+--------------------------------------------------------------------------- */
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.nahual-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  min-height: 0;
+  padding: 18px 12px 16px;
+  background: var(--card);
+  border: none;
+  color: var(--ink);
+  text-align: center;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.nahual-card:hover {
+  background: var(--paper-warm);
+}
+
+.nahual-card-name {
+  font-family: var(--font-serif);
+  font-size: 21px;
+  font-weight: 600;
+  letter-spacing: normal;
+  text-transform: none;
+}
+
+.nahual-overlay-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(31, 28, 23, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-3);
+  z-index: 100;
+}
+
+.nahual-overlay-card {
+  width: 100%;
+  max-width: 780px;
+  max-height: 88vh;
+  overflow-y: auto;
+  background: var(--paper);
+  border: 1.5px solid var(--ink-deep);
+  animation: fade-up 0.3s ease;
+}
+
+.nahual-overlay-head {
+  position: sticky;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-2) var(--space-3);
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+}
+
+.nahual-overlay-close {
+  min-height: 0;
+  padding: 0;
+  background: none;
+  border: none;
+  color: var(--paper);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.nahual-overlay-close:hover {
+  background: none;
+  color: var(--gold);
+}
+
+.nahual-overlay-body {
+  padding: var(--space-4);
+}
+
+.nahual-overlay-top {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: var(--space-4);
+  align-items: start;
+  margin-bottom: var(--space-4);
+}
+
+.nahual-overlay-glyph img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+.nahual-longtext {
+  border-top: 1.5px solid var(--ink-deep);
+  padding-top: var(--space-4);
+  background: var(--card);
+  margin: 0 calc(-1 * var(--space-4)) calc(-1 * var(--space-4));
+  padding: var(--space-4);
+}
+
+.nahual-longtext-heading {
+  font-family: var(--font-serif);
+  font-size: clamp(24px, 4vw, 32px);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin-bottom: 4px;
+}
+
+.nahual-longtext-directions {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--label);
+  margin-bottom: var(--space-3);
+}
+
+.nahual-longtext-paragraph {
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--ink);
+  margin: 0 0 var(--space-2);
+}
+
+.nahual-ceremonies {
+  background: var(--paper-warm);
+  border: 1.5px solid var(--ink-deep);
+  padding: var(--space-3) 26px;
+  margin: var(--space-3) 0;
+}
+
+.nahual-ceremonies-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: var(--space-2);
+  padding-left: 34px;
+  background-image: linear-gradient(90deg, var(--gold) 0 26px, transparent 26px);
+  background-repeat: no-repeat;
+  background-position: left center;
+  background-size: 26px 1px;
+}
+
+.nahual-longtext-footer {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: var(--space-3);
+  margin-top: var(--space-3);
+}
+
+.nahual-longtext-footer-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--label);
+  margin-bottom: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nahual-overlay-card {
+    animation: none;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Startseite: "Mayakalender anhören", Links-Karten, SI-Bereich
+--------------------------------------------------------------------------- */
+
+.listen-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-serif);
+  font-size: clamp(22px, 3vw, 30px);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1.5px solid var(--gold);
+  padding-bottom: 4px;
+  margin: 0 0 6px;
+}
+
+.listen-link:hover {
+  color: var(--ink);
+  border-color: var(--ink);
+}
+
+.listen-link-icon {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 7px 0 7px 11px;
+  border-color: transparent transparent transparent currentColor;
+}
+
+.listen-link-note {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--label);
+  margin: 0 0 18px;
+}
+
+.links-section {
+  margin: var(--space-6) 0;
+  border-top: 1.5px solid var(--ink-deep);
+  padding-top: var(--space-4);
+}
+
+.link-card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 18px;
+}
+
+.link-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-decoration: none;
+  background: var(--card);
+  border: 1.5px solid var(--ink-deep);
+  padding: 24px 26px;
+  color: var(--ink);
+}
+
+.link-card:hover {
+  background: var(--paper-warm);
+}
+
+.link-card-title {
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 1.15;
+}
+
+.link-card-url {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  color: var(--accent);
+}
+
+.si-section {
+  background: var(--paper-warm);
+  border: 1.5px solid var(--ink-deep);
+  padding: clamp(26px, 4vw, 40px);
+  margin-bottom: var(--space-6);
+}
+
+.si-subline {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--label);
+  margin-bottom: 22px;
+}
+
+.si-lead {
+  font-size: 18px;
+  line-height: 1.65;
+  color: var(--ink);
+  margin: 0 0 14px;
+  max-width: 62ch;
+}
+
+.si-text {
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--text);
+  margin: 0 0 14px;
+  max-width: 62ch;
+}
+
+.si-cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px 24px;
+  margin-top: 10px;
+}
+
+.site-footer {
+  border-top: 1.5px solid var(--ink-deep);
+  padding: var(--space-4) var(--space-3) var(--space-5);
+  max-width: 880px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px 40px;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.site-footer p {
+  font-size: 15px;
+  line-height: 1.65;
+  color: var(--text-muted);
+  margin: 0;
+  max-width: 56ch;
+}
+
+.site-footer p:last-child {
+  color: var(--text);
+  max-width: 42ch;
+}
