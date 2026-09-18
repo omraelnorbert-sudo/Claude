@@ -25,8 +25,10 @@ export default async function NahualesPage() {
       </div>
       <h1>Die 20 Nahuales</h1>
       <p>
-        Jedes Nahual trägt eine eigene Energie, eigene Stärken und ein
-        eigenes Krafttier. Wähle ein Zeichen, um mehr zu erfahren.
+        Jeder Nahual trägt sein eigenes polares Energiefeld. Eingebettet
+        darin sind menschliche Erfahrungen und optimale
+        Entwicklungsmöglichkeiten für das Bewusstsein — quasi als Dateien
+        — in Qualität und in Feinabstimmung mit der Zahl.
       </p>
 
       <NahualesOverview items={items} />
