@@ -51,7 +51,6 @@ function parseBirthInput(value: string) {
 
 export default function CholqijHome({ overviewItems }: { overviewItems: NahualOverviewItem[] }) {
   const today = useMemo(() => nahualOfToday(), []);
-  const todayItem = ITEMS[today.index - 1];
 
   const [activeIndex, setActiveIndex] = useState(today.index - 1);
   const [birth, setBirth] = useState("");
@@ -282,14 +281,6 @@ export default function CholqijHome({ overviewItems }: { overviewItems: NahualOv
               Gib dein Geburtsdatum ein, um deinen Nahual zu berechnen.
             </p>
           )}
-
-          <div className="birth-preview-divider" />
-          <div className="birth-preview-today">
-            Heute läuft{" "}
-            <span style={{ color: "var(--accent)" }}>
-              {today.number} {todayItem.name}
-            </span>
-          </div>
         </div>
       </div>
 
