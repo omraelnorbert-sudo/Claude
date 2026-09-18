@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 const THEME_GROUPS = [
   {
     title: "Selbst & innerer Wandel",
-    themes: ["Selbstliebe"],
+    themes: ["Selbstliebe", "Lebenswege", "Respekt-Basis für Frieden"],
   },
   {
     title: "Partnerschaft & Sexualität",
@@ -27,6 +27,7 @@ const THEME_GROUPS = [
       "Neue Beziehungs- und Partnerformen",
       "Vorbereitung für Hochzeit",
       "Begleitung bei Scheidung",
+      "Tod und Übergang",
     ],
   },
   {
@@ -36,6 +37,8 @@ const THEME_GROUPS = [
       "Familienkonflikte",
       "Abgrenzung der Kinder und Jugendlichen",
       "Mobbing im Schulbereich",
+      "Gemeinschaft im Wandel",
+      "Schutzkraft für die Familie",
     ],
   },
   {
@@ -77,9 +80,9 @@ export default function BrueckenZurModernePage() {
         <strong>Nahuales</strong> gelöst werden können.
       </p>
       <p>
-        Hier einige zentrale Lebensthemen, mit denen ich{" "}
+        Hier einige zentrale Lebensthemen, mit denen du{" "}
         <strong>in Verbindung</strong> mit den <strong>Maya-Nahuales</strong>{" "}
-        meinen <strong>inneren Wandel</strong> angehen kann.
+        deinen <strong>inneren Wandel</strong> angehen kannst.
       </p>
 
       <div className="theme-groups">
