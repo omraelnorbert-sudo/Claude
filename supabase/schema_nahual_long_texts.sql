@@ -838,7 +838,7 @@ values (
     'Am Tag TZ’I erbitten wir die menschliche und göttliche Ordnung in der Gemeinschaft.',
     'Wir bitten um die aus dem Herzen erwachsende, innere mentale und emotionelle Harmonie, um eine auf die geistige Ordnung abgestimmte Lebensführung, um Weitblick und Transparenz. Wir bitten um das heilvolle Zusammenführen von unterschiedlich veranlagten Menschen, von betrieblichen Strukturen, von unterschiedlichen Aufgaben in Gemeinschaften, um ein harmonisches Zusammenleben der Familienmitglieder. Wir erbitten das Erkennen und Auflösen von erstarrten Strukturen, die uns auf dem Lebensweg aus alten Glaubensprogrammen und Verhaltensnormen behindern.',
     'Wir bitten um die Offenbarung der göttlichen Geheimnisse, die uns die größeren Zusammenhänge der aufeinander abgestimmten geistigen Hierarchien einsichtig machen. Wir erbitten den Schutz vor machthungrigen Vorgesetzten, Politikern, vor Ungerechtigkeit, Mobbing am Arbeitsplatz, vor Massenhysterie und Massenbeeinflussungen, vor negativen Einflüssen durch Schadensmagie.',
-    'Wir bitten in TZ‘I auch um den Schutz unseres Hauses und unserer Familie. Wir verbinden uns bei laufenden Gerichtsprozessen aus TZ’I mit den geistigen Schutzkräften, aus deren Weisheit eine zum Wohle fü alle Beteiligten sich ergebende Lösung gefunden werden möge.'
+    'Wir bitten in TZ‘I auch um den Schutz unseres Hauses und unserer Familie. Wir verbinden uns bei laufenden Gerichtsprozessen aus TZ’I mit den geistigen Schutzkräften, aus deren Weisheit eine zum Wohle für alle Beteiligten sich ergebende Lösung gefunden werden möge.'
   ],
   'rechte Gehirnhälfte, die Intuition, der Instinkt',
   'der Hund, Schutztiere'
@@ -851,4 +851,3 @@ on conflict (nahual_index, lang) do update set
   body_level = excluded.body_level,
   power_animal = excluded.power_animal,
   updated_at = now();
-r
