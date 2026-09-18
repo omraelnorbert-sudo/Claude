@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
+import Script from "next/script";
 import {
   NAHUALES,
   calculateNahual,
@@ -308,6 +309,28 @@ export default function CholqijHome({ overviewItems }: { overviewItems: NahualOv
           Geburtskonstellation berechnen
         </Link>
       </div>
+
+      <div style={{ textAlign: "center", marginTop: "var(--space-4)" }}>
+        <a
+          href="https://pazmundo-fundraising.payrexx.com/de/pay?cid=eae6f0e7&hide_description=1"
+          className="btn btn-payrexx-modal"
+        >
+          <span>Spende für die Mayaweisen</span>
+        </a>
+      </div>
+      <Script
+        src="https://cdnjs.cloudflare.com/ajax/libs/jquery/4.0.0/jquery.min.js"
+        strategy="afterInteractive"
+      />
+      <Script
+        src="https://media.payrexx.com/modal/v1/modal.min.js?v=2.0"
+        strategy="afterInteractive"
+        onLoad={() => {
+          (window as unknown as { jQuery?: (selector: string) => { payrexxModal: () => void } })
+            .jQuery?.(".btn-payrexx-modal")
+            .payrexxModal();
+        }}
+      />
 
       <div id="links" className="links-section">
         <div className="eyebrow" style={{ marginBottom: 20 }}>
