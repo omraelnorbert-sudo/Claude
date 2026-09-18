@@ -16,6 +16,7 @@ import NahualesOverview from "@/components/NahualesOverview";
 import type { NahualOverviewItem } from "@/lib/public-data";
 
 const RADIUS_PERCENT = 42.3;
+const TONE_RADIUS_PERCENT = 27;
 
 const YOUTUBE_CHANNEL = "https://www.youtube.com/@norbertmuiggmaya-pazmundo7830";
 const YOUTUBE_SERIES = `${YOUTUBE_CHANNEL}/search?query=${encodeURIComponent("Der Mayakalender im Zeitgeist")}`;
@@ -56,6 +57,11 @@ export default function CholqijHome({ overviewItems }: { overviewItems: NahualOv
   const [birth, setBirth] = useState("");
 
   const active = ITEMS[activeIndex];
+
+  // Beide Räder greifen ineinander: das gewählte Zeichen liegt delta Schritte
+  // hinter/vor heute, die Schwingungszahl wandert um denselben Betrag mit.
+  const delta = (activeIndex - (today.index - 1) + 20) % 20;
+  const activeTone = ((today.number - 1 + delta) % 13) + 1;
 
   const birthDate = parseBirthInput(birth);
   const birthResult = birthDate ? calculateNahual(birthDate.day, birthDate.month, birthDate.year) : null;
@@ -103,7 +109,9 @@ export default function CholqijHome({ overviewItems }: { overviewItems: NahualOv
       <div className="cholqij-grid">
         <div>
           <div className="cholqij-detail-index">Nahual {active.pad} / 20</div>
-          <div className="cholqij-detail-name">{active.name}</div>
+          <div className="cholqij-detail-name">
+            {activeTone} {active.name}
+          </div>
           <div className="cholqij-detail-kurz">{active.kurz}</div>
           <div className="cholqij-detail-rule" />
           <p className="cholqij-detail-summary">{active.summary}</p>
@@ -118,6 +126,23 @@ export default function CholqijHome({ overviewItems }: { overviewItems: NahualOv
         <div className="cholqij-wheel">
           <div className="cholqij-ring-outer" />
           <div className="cholqij-ring-inner" />
+          {Array.from({ length: 13 }, (_, k) => {
+            const toneAngle =
+              ((-90 + (((k - (activeTone - 1) + 13) % 13) * (360 / 13))) * Math.PI) / 180;
+            const isActiveTone = k + 1 === activeTone;
+            return (
+              <div
+                key={k}
+                className={`cholqij-tone-node${isActiveTone ? " is-active" : ""}`}
+                style={{
+                  left: `calc(50% + ${(Math.cos(toneAngle) * TONE_RADIUS_PERCENT).toFixed(2)}%)`,
+                  top: `calc(50% + ${(Math.sin(toneAngle) * TONE_RADIUS_PERCENT).toFixed(2)}%)`,
+                }}
+              >
+                {k + 1}
+              </div>
+            );
+          })}
           <div className="cholqij-hub" />
           <div className="cholqij-pointer" />
           {ITEMS.map((item, position) => {
@@ -203,13 +228,11 @@ export default function CholqijHome({ overviewItems }: { overviewItems: NahualOv
             Dein Geburtshoroskop
           </div>
           <h1 style={{ fontSize: "clamp(38px, 6.5vw, 64px)", letterSpacing: "-0.025em", marginBottom: 18 }}>
-            Welcher Nahual
-            <br />
-            trägt dich?
+            Dein Geburts-Nahual
           </h1>
           <p>
-            Dein Geburtsdatum verrät dein Nahual, deine Schwingungszahl und dein
-            Maya-Kreuz. Ein Datum genügt.
+            Dein Geburtstag bestimmt deinen Herznahual, deine Schwingungszahl
+            und dein Maya-Kreuz. Dein Geburtsdatum genügt.
           </p>
 
           <div className="birth-form">
@@ -256,7 +279,7 @@ export default function CholqijHome({ overviewItems }: { overviewItems: NahualOv
             </div>
           ) : (
             <p className="empty-state" style={{ margin: 0 }}>
-              Gib dein Geburtsdatum ein, um dein Nahual zu sehen.
+              Gib dein Geburtsdatum ein, um deinen Nahual zu berechnen.
             </p>
           )}
 

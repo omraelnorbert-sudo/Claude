@@ -998,6 +998,34 @@ button:hover,
   }
 }
 
+.cholqij-tone-node {
+  position: absolute;
+  width: 5.4%;
+  aspect-ratio: 1;
+  margin: -2.7% 0 0 -2.7%;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-serif);
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1;
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--text-muted);
+  transition: all 0.45s cubic-bezier(0.2, 0.8, 0.2, 1);
+  pointer-events: none;
+}
+
+.cholqij-tone-node.is-active {
+  font-size: 19px;
+  font-weight: 600;
+  background: var(--ink);
+  border: 1.5px solid var(--gold);
+  color: var(--paper);
+}
+
 .cholqij-hub {
   position: absolute;
   top: 50%;
