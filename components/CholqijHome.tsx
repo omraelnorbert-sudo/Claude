@@ -518,6 +518,32 @@ export default function CholqijHome({ overviewItems }: { overviewItems: NahualOv
                   Mustern arbeiten möchten oder einfach spüren: Da ist mehr – ich möchte meine
                   Seelenaufgaben erkennen, angehen und lösen.
                 </p>
+                <p>
+                  Unser Angebot richtet sich nicht an die breite Masse, sondern an Menschen,
+                  die diese Form der geistigen Entwicklung innerlich offen und wahrhaftig
+                  angehen möchten – auch wenn dabei Widerstände sichtbar werden. Du öffnest
+                  dich dabei als Mensch und zugleich als Seele-Geistwesen; genau hier beginnt
+                  das Mysterium zwischen dem Hier und dem Dort.
+                </p>
+              </div>
+
+              <div className="si-modal-section">
+                <h3>Bewusstwerdung und seelische Befreiung</h3>
+                <p>
+                  Das bewusste Hinabsteigen in die eigenen Schatten ist unerlässlich auf dem
+                  Weg zur Bewusstwerdung. Seelische Befreiung verlangt Mut, Ehrlichkeit und
+                  die Bereitschaft, dem eigenen Schatten zu begegnen – Verantwortung zu
+                  übernehmen für die eigenen Wunden und für die Wunden im Familien- und
+                  Ahnennetzwerk. Das braucht Stärke, Hingabe und Zeit.
+                </p>
+                <p>
+                  Es genügt nicht, nur spirituelle Praktiken auszuüben oder sich
+                  ausschließlich dem Licht zuzuwenden. Solange die innere Dunkelheit und die
+                  karmischen Belastungen ausgeklammert bleiben, verändert sich im äußeren
+                  Leben nur wenig. Erst wenn wir unsere karmischen Belastungen und ungelösten
+                  Konflikte annehmen und noch einmal durchleben, werden Freiheit, echte Liebe
+                  und Glück im Menschsein möglich.
+                </p>
               </div>
 
               <div className="si-modal-section">
