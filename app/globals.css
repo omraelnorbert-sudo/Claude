@@ -1599,6 +1599,96 @@ button:hover,
   margin-top: 10px;
 }
 
+.si-modal-section {
+  margin-bottom: var(--space-4);
+}
+
+.si-modal-section h3 {
+  font-family: var(--font-serif);
+  font-size: 22px;
+  color: var(--accent);
+  margin: 0 0 10px;
+}
+
+.si-modal-section p {
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--text);
+  margin: 0 0 12px;
+}
+
+.si-modal-list {
+  margin: 0;
+  padding-left: 22px;
+}
+
+.si-modal-list li {
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+
+.si-modal-steps {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: si-step;
+}
+
+.si-modal-steps li {
+  counter-increment: si-step;
+  margin-bottom: 16px;
+  padding-left: 34px;
+  position: relative;
+}
+
+.si-modal-steps li::before {
+  content: counter(si-step) ".";
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--gold);
+}
+
+.si-modal-steps strong {
+  display: block;
+  font-family: var(--font-serif);
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 4px;
+}
+
+.si-modal-steps p {
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--text);
+  margin: 0;
+}
+
+.si-modal-quote {
+  border-top: 1.5px solid var(--ink-deep);
+  padding-top: var(--space-3);
+  margin-top: var(--space-3);
+  font-family: var(--font-serif);
+  font-size: 20px;
+  font-style: italic;
+  line-height: 1.5;
+  color: var(--ink);
+}
+
+.si-modal-quote-author {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--label);
+  margin-top: 10px;
+}
+
 .site-footer {
   border-top: 1.5px solid var(--ink-deep);
   padding: var(--space-4) var(--space-3) var(--space-5);

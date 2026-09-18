@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import {
   NAHUALES,
@@ -54,6 +54,16 @@ export default function CholqijHome({ overviewItems }: { overviewItems: NahualOv
 
   const [activeIndex, setActiveIndex] = useState(today.index - 1);
   const [birth, setBirth] = useState("");
+  const [seelencoachingOpen, setSeelencoachingOpen] = useState(false);
+
+  useEffect(() => {
+    if (!seelencoachingOpen) return;
+    function onKeyDown(event: KeyboardEvent) {
+      if (event.key === "Escape") setSeelencoachingOpen(false);
+    }
+    document.addEventListener("keydown", onKeyDown);
+    return () => document.removeEventListener("keydown", onKeyDown);
+  }, [seelencoachingOpen]);
 
   const active = ITEMS[activeIndex];
 
@@ -350,16 +360,184 @@ export default function CholqijHome({ overviewItems }: { overviewItems: NahualOv
           <a href="mailto:kontakt@pazmundo.com?subject=Seelen-Coaching" className="btn">
             Anfrage senden →
           </a>
-          <a
-            href="https://www.pazmundo.com/omrael-norbert-muigg"
-            target="_blank"
-            rel="noopener noreferrer"
+          <button
+            type="button"
             className="underline-link"
+            style={{ background: "none", border: "none", padding: 0, cursor: "pointer" }}
+            onClick={() => setSeelencoachingOpen(true)}
           >
             Friedenswerk &amp; Seelencoaching →
-          </a>
+          </button>
         </div>
       </div>
+
+      {seelencoachingOpen && (
+        <div className="nahual-overlay-backdrop" onClick={() => setSeelencoachingOpen(false)}>
+          <div className="nahual-overlay-card" onClick={(event) => event.stopPropagation()}>
+            <div className="nahual-overlay-head">
+              <span>Seelencoaching · Seelenschau</span>
+              <button
+                type="button"
+                className="nahual-overlay-close"
+                onClick={() => setSeelencoachingOpen(false)}
+                aria-label="Schliessen"
+              >
+                Schliessen ✕
+              </button>
+            </div>
+
+            <div className="nahual-overlay-body">
+              <div className="eyebrow" style={{ marginBottom: 8 }}>
+                Paz Mundo Team · Omrael Norbert &amp; Laura Soraya
+              </div>
+              <h2
+                style={{
+                  fontSize: "clamp(26px, 4vw, 36px)",
+                  fontWeight: 600,
+                  lineHeight: 1.1,
+                  letterSpacing: "-0.02em",
+                  margin: "0 0 24px",
+                }}
+              >
+                Eine Reise in die Tiefe der Seele
+              </h2>
+
+              <div className="si-modal-section">
+                <h3>Was ist Seelen-Coaching?</h3>
+                <p>
+                  Seelen-Coaching ist ein tiefgründiges, spirituelles Wahrnehmungswerk, in dem
+                  deine Seele „spürbar und sichtbar“ gemacht wird – ihre Geschichte, ihre
+                  Themen, ihre Wunden und ihre Schönheit. Omrael Norbert, sein Team und
+                  Geistige Begleiter verbinden sich mit deinem Seelennetzwerk und dessen
+                  Störungen.
+                </p>
+                <p>
+                  Das Seelen-Coaching ist kein übliches Coaching-Gespräch. Es ist vielmehr ein
+                  heiliger Raum des medialen Schauens, Erkennens und Annehmens – für all das,
+                  was du bist, warst und mit Möglichkeiten, wohin deine weitere Lebensreise
+                  gehen könnte.
+                </p>
+              </div>
+
+              <div className="si-modal-section">
+                <h3>Was ist Seelenschau?</h3>
+                <p>
+                  Seelenschau ist ein ganzheitlicher Begleitungsprozess, der weit über
+                  klassisches Coaching hinausgeht. Er verbindet tiefe spirituelle Wahrnehmung
+                  mit einem liebevollen, klaren Blick auf die Lebensthemen, Muster und
+                  Blockaden, die dich in deiner Entfaltung hindern.
+                </p>
+                <p>
+                  In unserer Seelenschau Paz Mundo arbeiten wir auf mehreren Ebenen
+                  gleichzeitig: energetisch, therapeutisch, spirituell und praktisch. Deine
+                  Seele wird gesehen, gehört und in ihren Anlagen und Aufgaben begleitet. Dafür
+                  ist keine persönliche Begegnung notwendig.
+                </p>
+              </div>
+
+              <div className="si-modal-section">
+                <h3>Was umfasst die Seelenschau?</h3>
+                <ul className="si-modal-steps">
+                  <li>
+                    <strong>Seelenschau – Das Fundament</strong>
+                    <p>
+                      Eine umfassende Wahrnehmung deines Energiefeldes, deiner Seelenthemen,
+                      der karmischen Ahnenbelastungen und deiner abgetrennten Seelenanteile
+                      aus früheren Leben.
+                    </p>
+                  </li>
+                  <li>
+                    <strong>Workout – Der Praxisteil</strong>
+                    <p>
+                      Ein auf dich abgestimmtes Arbeitsprogramm aus Ritualen, Meditationen,
+                      Kerzenarbeit und Übungszyklen, das du eigenständig zu Hause durchführen
+                      kannst.
+                    </p>
+                  </li>
+                  <li>
+                    <strong>Begleitung – weitere Lebensthemen</strong>
+                    <p>
+                      Begleitung in deinem Erlösungsprozess über die Heilungs-Altäre Paz
+                      Mundo, mit Anpassungen und Erweiterungen des Workouts für weitere
+                      Lebensthemen.
+                    </p>
+                  </li>
+                </ul>
+              </div>
+
+              <div className="si-modal-section">
+                <h3>Themen im Seelencoaching</h3>
+                <ul className="si-modal-list">
+                  <li>Seelenauftrag und Lebensthemen erkennen</li>
+                  <li>Karmische Muster und Ahnenthemen auflösen</li>
+                  <li>Heilung von Wunden in Beziehung, Familie, Partnerschaft</li>
+                  <li>Stärkung von Selbstwert, innerer Mitte und Lebensfreude</li>
+                  <li>Verbindung mit dem Göttlich Weiblichen und Männlichen</li>
+                  <li>Energetische Reinigung und Schutz des Energiefeldes</li>
+                  <li>Arbeit mit geistigen Begleitern und Krafttieren</li>
+                  <li>Seelencoaching für Tiere und Tier-Mensch-Beziehungen</li>
+                </ul>
+              </div>
+
+              <div className="si-modal-section">
+                <h3>Ablauf eines Seelencoachings</h3>
+                <ul className="si-modal-steps">
+                  <li>
+                    <strong>Vorbereitung &amp; Heiliger Raum</strong>
+                    <p>
+                      Omrael Norbert öffnet den heiligen Raum, verbindet sich mit dem Paz
+                      Mundo Altar und seinem Team. Verbunden mit deinem Schreiben und einem
+                      aktuellen Bild von dir stimmen sich die Beteiligten auf deine Seele ein.
+                    </p>
+                  </li>
+                  <li>
+                    <strong>In die Tiefen Schauen</strong>
+                    <p>
+                      In gemeinsamer Abstimmung entfaltet sich die mediale Seelenschau durch
+                      das Paz-Mundo-Medium Laura Soraya, verbunden mit einer geistigen
+                      Präsenz. Omrael Norbert ergänzt diese Einsicht durch seine
+                      Wahrnehmungen, Bilder und Botschaften. Die Seelenschau bekommst du per
+                      Mail zugeschickt.
+                    </p>
+                  </li>
+                  <li>
+                    <strong>Zusammenfassung &amp; Weg</strong>
+                    <p>
+                      Du erhältst eine schriftliche Zusammenfassung der wesentlichen
+                      Einsichten und im Workout konkrete Empfehlungen für deinen weiteren Weg
+                      – Rituale, Meditationen, Gebete.
+                    </p>
+                  </li>
+                </ul>
+              </div>
+
+              <div className="si-modal-section">
+                <h3>Für wen ist das Seelen-Coaching?</h3>
+                <p>
+                  Das Seelen-Coaching eignet sich für Menschen, die an einem Wendepunkt
+                  stehen, sich nach tieferer Selbsterkenntnis sehnen, an wiederkehrenden
+                  Mustern arbeiten möchten oder einfach spüren: in mir ist mehr – ich möchte
+                  dies erkennen, angehen und lösen.
+                </p>
+              </div>
+
+              <div className="si-modal-quote">
+                „Deine Seele wartet darauf, endlich wahrgenommen und in ihren Aufgaben
+                erkannt zu werden.“
+                <div className="si-modal-quote-author">
+                  Omrael Norbert, Laura Soraya, Paz Mundo Team
+                </div>
+              </div>
+
+              <div className="si-cta-row" style={{ marginTop: "var(--space-4)" }}>
+                <a href="mailto:kontakt@pazmundo.com?subject=Seelen-Coaching" className="btn">
+                  Anfrage senden →
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 }
