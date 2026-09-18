@@ -305,7 +305,7 @@ export default function CholqijHome({ overviewItems }: { overviewItems: NahualOv
           </p>
         </div>
         <Link href="/horoskop" className="btn">
-          Geburtshoroskop erstellen
+          Geburtskonstellation berechnen
         </Link>
       </div>
 
