@@ -22,7 +22,26 @@ export default function SiteLayout({
             </div>
           </details>
 
-          <Link href="/paz-mundo">Paz Mundo</Link>
+          <details className="nav-dropdown">
+            <summary>Paz Mundo</summary>
+            <div className="nav-dropdown-panel">
+              <Link href="/paz-mundo">Übersicht</Link>
+              <a
+                href="https://irp.cdn-website.com/3f276016/files/uploaded/Seelencoaching_final.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Maya Seelen-Intelligenz SI
+              </a>
+              <a
+                href="https://irp.cdn-website.com/3f276016/files/uploaded/Seelencoaching_final.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Maya Seelencoaching
+              </a>
+            </div>
+          </details>
 
           <Link href="/horoskop" className="nav-cta">
             Geburtshoroskop
