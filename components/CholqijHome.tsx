@@ -23,7 +23,7 @@ const YOUTUBE_SERIES = `${YOUTUBE_CHANNEL}/search?query=${encodeURIComponent("De
 
 const LINK_CARDS = [
   { title: "Paz Mundo", href: "https://www.pazmundo.com", label: "www.pazmundo.com →" },
-  { title: "Norbert Muigg auf YouTube", href: YOUTUBE_SERIES, label: "Der Mayakalender im Zeitgeist →" },
+  { title: "Omrael Norbert Muigg auf YouTube", href: YOUTUBE_SERIES, label: "Der Mayakalender im Zeitgeist →" },
   { title: "Healing Resort", href: "https://healingresort.pazmundo.com/", label: "healingresort.pazmundo.com →" },
   { title: "Veranstaltungen", href: "https://www.pazmundo.com/veranstaltungen", label: "pazmundo.com/veranstaltungen →" },
 ];
@@ -108,7 +108,7 @@ export default function CholqijHome({ overviewItems }: { overviewItems: NahualOv
         Mayakalender anhören
       </a>
       <div className="listen-link-note">
-        „Der Mayakalender im Zeitgeist“ · Deutsche Fassung · YouTube-Kanal Norbert Muigg
+        „Der Mayakalender im Zeitgeist“ · Deutsche Fassung · YouTube-Kanal Omrael Norbert Muigg
       </div>
       <p style={{ maxWidth: "62ch" }}>
         13 Schwingungszahlen und 20 Nahuales laufen wie zwei Räder weiter und ergeben
@@ -338,7 +338,7 @@ export default function CholqijHome({ overviewItems }: { overviewItems: NahualOv
         >
           Reise in die Tiefe der Seele
         </h2>
-        <div className="si-subline">Paz Mundo · Omrael Norbert &amp; Team, Laura Soraya</div>
+        <div className="si-subline">Paz Mundo · Omrael Norbert Muigg &amp; Team, Laura Soraya</div>
 
         <p className="si-lead">
           Seelen-Coaching ist ein tiefgründiges, spirituelles Wahrnehmungswerk, in
@@ -351,7 +351,7 @@ export default function CholqijHome({ overviewItems }: { overviewItems: NahualOv
           warst, und mit Möglichkeiten, wohin deine weitere Lebensreise gehen sollte.
         </p>
         <p className="si-text">
-          Omrael Norbert und sein Team verbinden sich mit deinem energetischen Feld
+          Omrael Norbert Muigg und sein Team verbinden sich mit deinem energetischen Feld
           – durch dein Schreiben und ein aktuelles Foto. Du erhältst eine
           schriftliche Seelenschau mit Zusammenfassung und persönlichem Workout.
         </p>
@@ -375,7 +375,7 @@ export default function CholqijHome({ overviewItems }: { overviewItems: NahualOv
         <div className="nahual-overlay-backdrop" onClick={() => setSeelencoachingOpen(false)}>
           <div className="nahual-overlay-card" onClick={(event) => event.stopPropagation()}>
             <div className="nahual-overlay-head">
-              <span>Seelencoaching · Seelenschau</span>
+              <span>Paz Mundo Seelen-Coaching</span>
               <button
                 type="button"
                 className="nahual-overlay-close"
@@ -388,7 +388,7 @@ export default function CholqijHome({ overviewItems }: { overviewItems: NahualOv
 
             <div className="nahual-overlay-body">
               <div className="eyebrow" style={{ marginBottom: 8 }}>
-                Paz Mundo Team · Omrael Norbert &amp; Laura Soraya
+                Paz Mundo Team · Omrael Norbert Muigg &amp; Laura Soraya
               </div>
               <h2
                 style={{
@@ -407,105 +407,81 @@ export default function CholqijHome({ overviewItems }: { overviewItems: NahualOv
                 <p>
                   Seelen-Coaching ist ein tiefgründiges, spirituelles Wahrnehmungswerk, in dem
                   deine Seele „spürbar und sichtbar“ gemacht wird – ihre Geschichte, ihre
-                  Themen, ihre Wunden und ihre Schönheit. Omrael Norbert, sein Team und
-                  Geistige Begleiter verbinden sich mit deinem Seelennetzwerk und dessen
-                  Störungen.
+                  Themen, ihre Wunden und ihre Schönheit.
                 </p>
                 <p>
-                  Das Seelen-Coaching ist kein übliches Coaching-Gespräch. Es ist vielmehr ein
-                  heiliger Raum des medialen Schauens, Erkennens und Annehmens – für all das,
-                  was du bist, warst und mit Möglichkeiten, wohin deine weitere Lebensreise
-                  gehen könnte.
+                  Omrael Norbert Muigg und sein Team verbinden sich mit deinem energetischen
+                  Feld, durch dein Schreiben und ein aktuelles Foto von dir.
+                </p>
+                <p>
+                  Wir gestalten dein Seelen-Coaching in ausführlicher Art, mit ca. 10 Seiten,
+                  mit Zusammenfassung, Workout, Bildern, wenn nötig Gebeten und Meditationen –
+                  oder bezogen auf wenige, konkrete Lebensthemen.
+                </p>
+                <p>
+                  Dies geschieht in Verbindung mit „geistigen Seelenbegleitern“, dir vielleicht
+                  unbewussten geistigen Kräften. Diese bringen in einem umfassenden, medial aus
+                  unserem Team entstandenen Schreiben ans Licht, was verborgen darauf wartet,
+                  von dir erkannt und geheilt zu werden.
+                </p>
+                <p>
+                  Das Seelen-Coaching ist kein gewöhnliches Coaching-Gespräch. Es ist vielmehr
+                  ein heiliger Raum des medialen Schauens, Erkennens und Annehmens – für all
+                  das, was du bist, warst, und mit Möglichkeiten, wohin deine weitere
+                  Lebensreise gehen sollte.
+                </p>
+                <p>
+                  Die Form der Seelenheilung steht eng verbunden mit „alten“ Heilmethoden der
+                  Maya und ihrer Vorstellung, dass Verhaltensänderung und das Empfinden von
+                  Liebe, Respekt und Würde nur durch seelisch-karmische Befreiungsarbeit
+                  möglich wird.
                 </p>
               </div>
 
               <div className="si-modal-section">
-                <h3>Was ist Seelenschau?</h3>
-                <p>
-                  Seelenschau ist ein ganzheitlicher Begleitungsprozess, der weit über
-                  klassisches Coaching hinausgeht. Er verbindet tiefe spirituelle Wahrnehmung
-                  mit einem liebevollen, klaren Blick auf die Lebensthemen, Muster und
-                  Blockaden, die dich in deiner Entfaltung hindern.
-                </p>
-                <p>
-                  In unserer Seelenschau Paz Mundo arbeiten wir auf mehreren Ebenen
-                  gleichzeitig: energetisch, therapeutisch, spirituell und praktisch. Deine
-                  Seele wird gesehen, gehört und in ihren Anlagen und Aufgaben begleitet. Dafür
-                  ist keine persönliche Begegnung notwendig.
-                </p>
-              </div>
-
-              <div className="si-modal-section">
-                <h3>Was umfasst die Seelenschau?</h3>
-                <ul className="si-modal-steps">
-                  <li>
-                    <strong>Seelenschau – Das Fundament</strong>
-                    <p>
-                      Eine umfassende Wahrnehmung deines Energiefeldes, deiner Seelenthemen,
-                      der karmischen Ahnenbelastungen und deiner abgetrennten Seelenanteile
-                      aus früheren Leben.
-                    </p>
-                  </li>
-                  <li>
-                    <strong>Workout – Der Praxisteil</strong>
-                    <p>
-                      Ein auf dich abgestimmtes Arbeitsprogramm aus Ritualen, Meditationen,
-                      Kerzenarbeit und Übungszyklen, das du eigenständig zu Hause durchführen
-                      kannst.
-                    </p>
-                  </li>
-                  <li>
-                    <strong>Begleitung – weitere Lebensthemen</strong>
-                    <p>
-                      Begleitung in deinem Erlösungsprozess über die Heilungs-Altäre Paz
-                      Mundo, mit Anpassungen und Erweiterungen des Workouts für weitere
-                      Lebensthemen.
-                    </p>
-                  </li>
-                </ul>
-              </div>
-
-              <div className="si-modal-section">
-                <h3>Themen im Seelencoaching</h3>
+                <h3>Was wird sichtbar?</h3>
                 <ul className="si-modal-list">
-                  <li>Seelenauftrag und Lebensthemen erkennen</li>
-                  <li>Karmische Muster und Ahnenthemen auflösen</li>
-                  <li>Heilung von Wunden in Beziehung, Familie, Partnerschaft</li>
-                  <li>Stärkung von Selbstwert, innerer Mitte und Lebensfreude</li>
-                  <li>Verbindung mit dem Göttlich Weiblichen und Männlichen</li>
-                  <li>Energetische Reinigung und Schutz des Energiefeldes</li>
-                  <li>Arbeit mit geistigen Begleitern und Krafttieren</li>
-                  <li>Seelencoaching für Tiere und Tier-Mensch-Beziehungen</li>
+                  <li>Deine Seelenmuster und deine karmischen Themen</li>
+                  <li>Dein Seelenauftrag und deine tiefste Berufung</li>
+                  <li>
+                    Energetische Blockaden und karmische Bindungen, die dich zurückhalten
+                  </li>
+                  <li>Die geistigen Begleiter, die derzeit an deiner Seite wirken</li>
+                  <li>Zu erlösende Themen aus Ahnen- und Familienlinien</li>
+                  <li>Deine Ressourcen, Stärken und dein Seele-Geistwesen</li>
+                  <li>Handlungsempfehlungen – Workout für deinen weiteren Seelenweg</li>
                 </ul>
               </div>
 
               <div className="si-modal-section">
-                <h3>Ablauf eines Seelencoachings</h3>
+                <h3>Wie läuft ein Seelen-Coaching ab?</h3>
                 <ul className="si-modal-steps">
                   <li>
-                    <strong>Vorbereitung &amp; Heiliger Raum</strong>
+                    <strong>Vorbereitung &amp; heiliger Raum</strong>
                     <p>
-                      Omrael Norbert öffnet den heiligen Raum, verbindet sich mit dem Paz
-                      Mundo Altar und seinem Team. Verbunden mit deinem Schreiben und einem
-                      aktuellen Bild von dir stimmen sich die Beteiligten auf deine Seele ein.
+                      Omrael Norbert Muigg öffnet den heiligen Raum, verbindet sich mit dem Paz
+                      Mundo Altar und seinem Team, meist mit dem Medium Laura Soraya. Verbunden
+                      mit deinem Schreiben und einem aktuellen Bild von dir, stimmen wir uns
+                      auf deine Seele ein und lassen Kräfte über deine Seelenthemen und
+                      Aufgaben sprechen.
                     </p>
                   </li>
                   <li>
-                    <strong>In die Tiefen Schauen</strong>
+                    <strong>Das Schauen</strong>
                     <p>
-                      In gemeinsamer Abstimmung entfaltet sich die mediale Seelenschau durch
-                      das Paz-Mundo-Medium Laura Soraya, verbunden mit einer geistigen
-                      Präsenz. Omrael Norbert ergänzt diese Einsicht durch seine
-                      Wahrnehmungen, Bilder und Botschaften. Die Seelenschau bekommst du per
-                      Mail zugeschickt.
+                      In gemeinsamer Abstimmung mit Omrael Norbert Muigg entfaltet sich die
+                      mediale Seelenschau. Omrael Norbert Muigg ergänzt diese Einsicht durch
+                      seine Wahrnehmungen, Bilder und Botschaften. Die Seelenschau und das
+                      Workout bekommst du per Mail zugeschickt.
                     </p>
                   </li>
                   <li>
                     <strong>Zusammenfassung &amp; Weg</strong>
                     <p>
                       Du erhältst eine schriftliche Zusammenfassung der wesentlichen
-                      Einsichten und im Workout konkrete Empfehlungen für deinen weiteren Weg
-                      – Rituale, Meditationen, Gebete.
+                      Einsichten sowie konkrete Empfehlungen für deinen weiteren Weg – Rituale,
+                      Meditationen, Gebete mit deinem persönlichen Workout, bei dem deine
+                      zentralen Themen von dir mitbearbeitet und gelöst werden.
                     </p>
                   </li>
                 </ul>
@@ -516,17 +492,87 @@ export default function CholqijHome({ overviewItems }: { overviewItems: NahualOv
                 <p>
                   Das Seelen-Coaching eignet sich für Menschen, die an einem Wendepunkt
                   stehen, sich nach tieferer Selbsterkenntnis sehnen, an wiederkehrenden
-                  Mustern arbeiten möchten oder einfach spüren: in mir ist mehr – ich möchte
-                  dies erkennen, angehen und lösen.
+                  Mustern arbeiten möchten oder einfach spüren: Da ist mehr – ich möchte meine
+                  Seelenaufgaben erkennen, angehen und lösen.
                 </p>
               </div>
 
-              <div className="si-modal-quote">
-                „Deine Seele wartet darauf, endlich wahrgenommen und in ihren Aufgaben
-                erkannt zu werden.“
-                <div className="si-modal-quote-author">
-                  Omrael Norbert, Laura Soraya, Paz Mundo Team
+              <div className="si-modal-section">
+                <h3>Angebot &amp; Kontakt</h3>
+                <ul className="si-modal-list">
+                  <li>
+                    Seelen-Coaching beginnt mit deiner Anfrage, Themenbeschreibung und einem
+                    Bild von dir.
+                  </li>
+                  <li>
+                    Es wird mit deinem Seele-Geistwesen auf dem Paz Mundo Altar geistiger
+                    Kontakt zu dir und deinen Seelenbegleitern aufgebaut.
+                  </li>
+                  <li>
+                    Diese sprechen über deine Seelengeschichte, deine karmischen Themen und
+                    deine besonderen seelischen Aufgaben, Gaben und Möglichkeiten.
+                  </li>
+                  <li>
+                    Omrael Norbert Muigg verfasst eine schriftliche Zusammenfassung der
+                    Seelenschau und arbeitet in Workouts an Möglichkeiten, weiter an dir selbst
+                    zu arbeiten.
+                  </li>
+                </ul>
+              </div>
+
+              <div className="si-modal-section">
+                <h3>Dein Beitrag</h3>
+                <p>
+                  Dein finanzieller Ausgleich geht in das Friedensprojekt Paz Mundo Guatemala.
+                  Bitte vor Beginn des Seelen-Coachings überweisen.
+                </p>
+                <p>
+                  Sende deine Info per Mail mit kurzer Themenbeschreibung und aktuellem Foto
+                  an{" "}
+                  <a href="mailto:kontakt@pazmundo.com" className="underline-link">
+                    kontakt@pazmundo.com
+                  </a>
+                  .
+                </p>
+
+                <div className="si-modal-price-grid">
+                  <div className="si-modal-price-card">
+                    <div className="si-modal-price-title">Gesamt-Seelen-Coaching</div>
+                    <div className="si-modal-price-desc">
+                      Zusammenfassung, Materialliste, Gesamtworkout · ca. 13 Seiten
+                    </div>
+                    <div className="si-modal-price-amount">€ 490,–</div>
+                  </div>
+                  <div className="si-modal-price-card">
+                    <div className="si-modal-price-title">Seelen-Coaching mit Workout</div>
+                    <div className="si-modal-price-desc">
+                      Bezogen auf wenige, blockierende Lebensthemen · ca. 6 Seiten
+                    </div>
+                    <div className="si-modal-price-amount">€ 390,–</div>
+                  </div>
+                  <div className="si-modal-price-card">
+                    <div className="si-modal-price-title">Für Tiere</div>
+                    <div className="si-modal-price-desc">Seelen- und Wesenscoaching</div>
+                    <div className="si-modal-price-amount">€ 390,–</div>
+                  </div>
                 </div>
+
+                <p className="si-modal-note">
+                  Weitere Seelen-Coachings können angemeldet werden, wenn zu einem späteren
+                  Zeitpunkt zusätzliche Themen von dir bearbeitet werden möchten.
+                </p>
+
+                <div className="si-modal-bank">
+                  <div>
+                    <strong>Überweisung</strong> · Bitte mit dem Hinweis „Guatemala“
+                  </div>
+                  <div>Norbert Muigg</div>
+                  <div>IBAN: AT94 3633 9000 0005 8370 · Kennwort: Guatemala</div>
+                </div>
+              </div>
+
+              <div className="si-modal-quote">
+                In Liebe — Paz Mundo Team
               </div>
 
               <div className="si-cta-row" style={{ marginTop: "var(--space-4)" }}>

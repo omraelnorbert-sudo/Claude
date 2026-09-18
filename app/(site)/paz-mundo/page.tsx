@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { getPublicExternalLinks } from "@/lib/public-data";
 
 const description =
-  "Alle Angebote von Paz Mundo und Norbert Muigg an einem Ort: Maya-Seelencoaching, Veranstaltungen, Bücher, Podcasts und der Mayakalender.";
+  "Alle Angebote von Paz Mundo und Omrael Norbert Muigg an einem Ort: Maya-Seelencoaching, Veranstaltungen, Bücher, Podcasts und der Mayakalender.";
 
 export const metadata: Metadata = {
   title: "Paz Mundo",
@@ -20,7 +20,7 @@ export default async function PazMundoPage() {
         Weiterführend
       </div>
       <h1>Paz Mundo</h1>
-      <p>Alle Angebote von Paz Mundo und Norbert Muigg an einem Ort.</p>
+      <p>Alle Angebote von Paz Mundo und Omrael Norbert Muigg an einem Ort.</p>
 
       {links.length === 0 ? (
         <p className="empty-state">Bald findest du hier die Paz-Mundo-Links.</p>
