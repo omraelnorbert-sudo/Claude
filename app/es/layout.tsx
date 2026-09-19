@@ -35,11 +35,13 @@ export default function SiteLayoutEs({
           </Link>
 
           <Link href="/" className="lang-switch" title="Auf Deutsch">
-            DE
+            <span aria-hidden="true">🇦🇹</span> DE
           </Link>
-          <span className="lang-switch-current">ES</span>
+          <span className="lang-switch-current">
+            <span aria-hidden="true">🇬🇹</span> ES
+          </span>
           <Link href="/en" className="lang-switch" title="In English">
-            EN
+            <span aria-hidden="true">🇬🇧</span> EN
           </Link>
         </nav>
       </header>

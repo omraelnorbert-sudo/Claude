@@ -34,11 +34,14 @@ export default function SiteLayout({
             Geburtshoroskop
           </Link>
 
+          <span className="lang-switch-current">
+            <span aria-hidden="true">🇦🇹</span> DE
+          </span>
           <Link href="/es" className="lang-switch" title="En español">
-            ES
+            <span aria-hidden="true">🇬🇹</span> ES
           </Link>
           <Link href="/en" className="lang-switch" title="In English">
-            EN
+            <span aria-hidden="true">🇬🇧</span> EN
           </Link>
         </nav>
       </header>
