@@ -2,6 +2,7 @@ import { createClient, isSupabaseConfigured } from "@/lib/supabase/server";
 import { NAHUALES, glyphSrcForIndex, slugForIndex } from "@/lib/nahual";
 import { NAHUAL_DESCRIPTIONS } from "@/lib/nahual-descriptions";
 import { NAHUAL_DESCRIPTIONS_ES } from "@/lib/nahual-descriptions-es";
+import { NAHUAL_DESCRIPTIONS_EN } from "@/lib/nahual-descriptions-en";
 import type { Lang } from "@/lib/tzolkin";
 
 export type ExternalLinkCard = {
@@ -107,7 +108,8 @@ export type NahualOverviewItem = {
 /** Alle 20 Nahuales mit Kurztext + Langfassung, für Übersichtsraster (Startseite, /nahuales). */
 export async function getNahualOverviewItems(lang: Lang = "de"): Promise<NahualOverviewItem[]> {
   const longTexts = await getAllNahualLongTexts(lang);
-  const descriptions = lang === "es" ? NAHUAL_DESCRIPTIONS_ES : NAHUAL_DESCRIPTIONS;
+  const descriptions =
+    lang === "es" ? NAHUAL_DESCRIPTIONS_ES : lang === "en" ? NAHUAL_DESCRIPTIONS_EN : NAHUAL_DESCRIPTIONS;
 
   return NAHUALES.map((name, position) => {
     const index = position + 1;

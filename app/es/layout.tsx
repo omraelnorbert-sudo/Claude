@@ -34,9 +34,12 @@ export default function SiteLayoutEs({
             Horóscopo de nacimiento
           </Link>
 
-          <span className="lang-switch-current">ES</span>
           <Link href="/" className="lang-switch" title="Auf Deutsch">
             DE
+          </Link>
+          <span className="lang-switch-current">ES</span>
+          <Link href="/en" className="lang-switch" title="In English">
+            EN
           </Link>
         </nav>
       </header>

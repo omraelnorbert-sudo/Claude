@@ -37,6 +37,9 @@ export default function SiteLayout({
           <Link href="/es" className="lang-switch" title="En español">
             ES
           </Link>
+          <Link href="/en" className="lang-switch" title="In English">
+            EN
+          </Link>
         </nav>
       </header>
       <main className="site-main">{children}</main>
