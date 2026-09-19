@@ -8,7 +8,7 @@ export default function SiteLayoutEs({
 }) {
   return (
     <>
-      <header className="site-header">
+      <header className="site-header" lang="es">
         <strong>Cosmovision Maya</strong>
         <nav>
           <Link href="/es">Inicio</Link>
@@ -45,8 +45,8 @@ export default function SiteLayoutEs({
           </Link>
         </nav>
       </header>
-      <main className="site-main">{children}</main>
-      <footer className="site-footer">
+      <main className="site-main" lang="es">{children}</main>
+      <footer className="site-footer" lang="es">
         <p>
           La interpretación y la denominación pueden variar entre las tradiciones MAYA.
           Una lectura digital no sustituye la interpretación personal de un sabio del

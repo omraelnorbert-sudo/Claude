@@ -1,0 +1,6 @@
+User-Agent: *
+Allow: /
+Disallow: /admin
+Disallow: /login
+
+Sitemap: https://cosmovisionmaya.org/sitemap.xml

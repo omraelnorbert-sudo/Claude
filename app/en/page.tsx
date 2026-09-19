@@ -8,7 +8,7 @@ const description =
   "MAYA cosmovision: the 20 Nahuales, your MAYA horoscope and Paz Mundo's Soul Coaching.";
 
 export const metadata: Metadata = {
-  title: "Cosmovision Maya — Cosmovision, horoscope and the 20 Nahuales",
+  title: { absolute: "Cosmovision Maya — Cosmovision, horoscope and the 20 Nahuales" },
   description,
   alternates: { canonical: "/en" },
   openGraph: {

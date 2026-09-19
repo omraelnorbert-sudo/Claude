@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "test": "node --import ./tests/alias-loader.mjs --test tests/",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "sitemap": "node --import ./tests/alias-loader.mjs scripts/generate-sitemap.mjs"
   },
   "dependencies": {
     "@supabase/ssr": "^0.12.6",

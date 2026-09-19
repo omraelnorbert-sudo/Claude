@@ -8,7 +8,7 @@ const description =
   "Cosmovisión MAYA: los 20 Nahuales, tu horóscopo MAYA y el Coaching del Alma de Paz Mundo.";
 
 export const metadata: Metadata = {
-  title: "Cosmovision Maya — Cosmovisión, horóscopo y los 20 Nahuales",
+  title: { absolute: "Cosmovision Maya — Cosmovisión, horóscopo y los 20 Nahuales" },
   description,
   alternates: { canonical: "/es" },
   openGraph: {
