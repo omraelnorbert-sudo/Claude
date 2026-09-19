@@ -33,6 +33,10 @@ export default function SiteLayout({
           <Link href="/horoskop" className="nav-cta">
             Geburtshoroskop
           </Link>
+
+          <Link href="/es" className="lang-switch" title="En español">
+            ES
+          </Link>
         </nav>
       </header>
       <main className="site-main">{children}</main>

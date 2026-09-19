@@ -122,6 +122,32 @@ a:hover {
   color: var(--paper);
 }
 
+.site-header nav a.lang-switch {
+  margin-left: var(--space-2);
+  padding: 4px 8px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  color: var(--label);
+}
+
+.site-header nav a.lang-switch:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+.site-header nav span.lang-switch-current {
+  margin-left: var(--space-2);
+  padding: 4px 8px;
+  border: 1px solid var(--ink);
+  border-radius: var(--radius);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
 .nav-dropdown {
   position: relative;
   margin-left: var(--space-3);
