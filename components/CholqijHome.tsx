@@ -2,7 +2,6 @@
 
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
-import Script from "next/script";
 import {
   NAHUALES,
   calculateNahual,
@@ -56,15 +55,19 @@ export default function CholqijHome({ overviewItems }: { overviewItems: NahualOv
   const [activeIndex, setActiveIndex] = useState(today.index - 1);
   const [birth, setBirth] = useState("");
   const [seelencoachingOpen, setSeelencoachingOpen] = useState(false);
+  const [donateInfoOpen, setDonateInfoOpen] = useState(false);
 
   useEffect(() => {
-    if (!seelencoachingOpen) return;
+    if (!seelencoachingOpen && !donateInfoOpen) return;
     function onKeyDown(event: KeyboardEvent) {
-      if (event.key === "Escape") setSeelencoachingOpen(false);
+      if (event.key === "Escape") {
+        setSeelencoachingOpen(false);
+        setDonateInfoOpen(false);
+      }
     }
     document.addEventListener("keydown", onKeyDown);
     return () => document.removeEventListener("keydown", onKeyDown);
-  }, [seelencoachingOpen]);
+  }, [seelencoachingOpen, donateInfoOpen]);
 
   const active = ITEMS[activeIndex];
 
@@ -86,26 +89,45 @@ export default function CholqijHome({ overviewItems }: { overviewItems: NahualOv
   return (
     <>
       <div style={{ textAlign: "right", marginBottom: "var(--space-3)" }}>
-        <a
-          href="https://pazmundo-fundraising.payrexx.com/de/pay?cid=eae6f0e7&hide_description=1"
-          className="btn btn-payrexx-modal"
-        >
-          <span>Deine Spende für die Mayaweisen</span>
-        </a>
+        <button type="button" className="btn" onClick={() => setDonateInfoOpen(true)}>
+          Deine Spende für die Mayaweisen
+        </button>
       </div>
-      <Script
-        src="https://cdnjs.cloudflare.com/ajax/libs/jquery/4.0.0/jquery.min.js"
-        strategy="afterInteractive"
-      />
-      <Script
-        src="https://media.payrexx.com/modal/v1/modal.min.js?v=2.0"
-        strategy="afterInteractive"
-        onLoad={() => {
-          (window as unknown as { jQuery?: (selector: string) => { payrexxModal: () => void } })
-            .jQuery?.(".btn-payrexx-modal")
-            .payrexxModal();
-        }}
-      />
+
+      {donateInfoOpen && (
+        <div className="nahual-overlay-backdrop" onClick={() => setDonateInfoOpen(false)}>
+          <div
+            className="nahual-overlay-card"
+            style={{ maxWidth: 480 }}
+            onClick={(event) => event.stopPropagation()}
+          >
+            <div className="nahual-overlay-head">
+              <span>Spende für die Mayaweisen</span>
+              <button
+                type="button"
+                className="nahual-overlay-close"
+                onClick={() => setDonateInfoOpen(false)}
+                aria-label="Schliessen"
+              >
+                Schliessen ✕
+              </button>
+            </div>
+            <div className="nahual-overlay-body">
+              <p style={{ margin: "0 0 16px" }}>
+                Die Online-Spende ist gerade nicht verfügbar. Bitte spende einstweilen per
+                Überweisung:
+              </p>
+              <div className="si-modal-bank">
+                <div>
+                  <strong>Spendenüberweisung</strong> · Bitte mit dem Hinweis „MAYA Guatemala“
+                </div>
+                <div>Norbert Muigg</div>
+                <div>IBAN: AT94 3633 9000 0005 8370 · Kennwort: Stiftung Guatemala</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
       <div className="eyebrow" style={{ marginBottom: 8 }}>
         Paz Mundo · Der sakrale Mayakalender
