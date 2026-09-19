@@ -13,6 +13,27 @@ export default function SiteLayoutEs({
         <nav>
           <Link href="/es">Inicio</Link>
 
+          <details className="nav-dropdown">
+            <summary>Nahuales</summary>
+            <div className="nav-dropdown-panel">
+              <Link href="/es/nahuales">Vista general</Link>
+              <Link href="/es/nahuales/bruecken-zur-moderne">Puentes hacia la modernidad</Link>
+              <Link href="/es/nahuales/videos">Videos YouTube</Link>
+            </div>
+          </details>
+
+          <details className="nav-dropdown">
+            <summary>Paz Mundo</summary>
+            <div className="nav-dropdown-panel">
+              <Link href="/es/paz-mundo">Vista general</Link>
+              <Link href="/es#si">Coaching del Alma MAYA SI</Link>
+            </div>
+          </details>
+
+          <Link href="/es/horoskop" className="nav-cta">
+            Horóscopo de nacimiento
+          </Link>
+
           <span className="lang-switch-current">ES</span>
           <Link href="/" className="lang-switch" title="Auf Deutsch">
             DE
