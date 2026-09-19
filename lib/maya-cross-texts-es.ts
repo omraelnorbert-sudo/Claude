@@ -24,8 +24,8 @@ export const MAYA_CROSS_TEXTS_ES: {
     "tu cumpleaños — ocho y seis días antes, seis y ocho días después.",
 
   hint:
-    "La representación se lee como un espejo: a la izquierda la fuerza masculina, " +
-    "a la derecha la fuerza femenina. Ambas designaciones se refieren a una " +
+    "La representación se lee como un espejo: a la izquierda la fuerza femenina, " +
+    "a la derecha la fuerza masculina. Ambas designaciones se refieren a una " +
     "cualidad energética, no al sexo biológico.",
 
   disclaimer:

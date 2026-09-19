@@ -694,9 +694,9 @@ button:hover,
   .cross-grid {
     grid-template-columns: 1fr 1.2fr 1fr;
     grid-template-areas:
-      ".         conception ."
-      "masculine birth      feminine"
-      ".         maturity   .";
+      ".        conception ."
+      "feminine birth      masculine"
+      ".        maturity   .";
     gap: var(--space-3);
   }
 

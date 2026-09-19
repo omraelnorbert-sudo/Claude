@@ -39,8 +39,8 @@ export const MAYA_CROSS_TEXTS: {
     "acht und sechs Tage davor, sechs und acht Tage danach.",
 
   hint:
-    "Die Darstellung wird wie ein Spiegel gelesen: links die männliche, rechts die " +
-    "weibliche Kraft. Beide Bezeichnungen meinen eine energetische Qualität, nicht " +
+    "Die Darstellung wird wie ein Spiegel gelesen: links die weibliche, rechts die " +
+    "männliche Kraft. Beide Bezeichnungen meinen eine energetische Qualität, nicht " +
     "das biologische Geschlecht.",
 
   disclaimer:

@@ -22,7 +22,7 @@ import { NAHUAL_DESCRIPTIONS } from "@/lib/nahual-descriptions";
  * Rahmen um die Tageszeichen des 260-Tage-Zyklus. Die Balken-Punkt-Zahl steht
  * als Koeffizient direkt beim Zeichen.
  *
- * Desktop: echte Kreuzanordnung (Ursprung oben, männlich links, weiblich
+ * Desktop: echte Kreuzanordnung (Ursprung oben, weiblich links, männlich
  * rechts, Reife unten), das Zentrum als "Nabel" hervorgehoben. Mobil: dieselben
  * fünf Karten untereinander in der Reihenfolge Ursprung → männlich → Zentrum →
  * weiblich → Reife.
