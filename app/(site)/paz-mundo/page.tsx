@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { getPublicExternalLinks } from "@/lib/public-data";
 
 const description =
@@ -33,37 +34,51 @@ export default async function PazMundoPage() {
             marginTop: "var(--space-4)",
           }}
         >
-          {links.map((link) => (
-            <a
-              key={link.id}
-              href={link.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="card"
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                gap: 8,
-                textDecoration: "none",
-                color: "inherit",
-                marginBottom: 0,
-                padding: "var(--space-2) var(--space-3)",
-              }}
-            >
-              {link.image_url && (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img
-                  src={link.image_url}
-                  alt=""
-                  style={{ width: "100%", height: 90, objectFit: "cover" }}
-                />
-              )}
-              <h3 style={{ margin: 0, fontSize: 20 }}>{link.title}</h3>
-              {link.description && (
-                <p style={{ margin: 0, fontSize: 15 }}>{link.description}</p>
-              )}
-            </a>
-          ))}
+          {links.map((link) => {
+            const isInternal = link.url.startsWith("/");
+            const cardStyle = {
+              display: "flex" as const,
+              flexDirection: "column" as const,
+              gap: 8,
+              textDecoration: "none",
+              color: "inherit",
+              marginBottom: 0,
+              padding: "var(--space-2) var(--space-3)",
+            };
+            const cardContent = (
+              <>
+                {link.image_url && (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={link.image_url}
+                    alt=""
+                    style={{ width: "100%", height: 90, objectFit: "cover" }}
+                  />
+                )}
+                <h3 style={{ margin: 0, fontSize: 20 }}>{link.title}</h3>
+                {link.description && (
+                  <p style={{ margin: 0, fontSize: 15 }}>{link.description}</p>
+                )}
+              </>
+            );
+
+            return isInternal ? (
+              <Link key={link.id} href={link.url} className="card" style={cardStyle}>
+                {cardContent}
+              </Link>
+            ) : (
+              <a
+                key={link.id}
+                href={link.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="card"
+                style={cardStyle}
+              >
+                {cardContent}
+              </a>
+            );
+          })}
         </div>
       )}
     </>
