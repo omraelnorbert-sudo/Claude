@@ -34,7 +34,11 @@ const THEME_GROUPS: ThemeGroup[] = [
         href: "/downloads/selbstliebe-arbeitsprogramm.pdf",
         hint: "PDF zum Ausdrucken",
       },
-      { name: "Lebenswege" },
+      {
+        name: "Lebenswege",
+        href: "/downloads/lebenswege-arbeitsprogramm.pdf",
+        hint: "PDF zum Ausdrucken",
+      },
       { name: "Respekt-Basis für Frieden" },
     ],
   },
@@ -135,10 +139,10 @@ export default function BrueckenZurModernePage() {
       </div>
 
       <p style={{ marginTop: "var(--space-4)" }}>
-        Zum Thema <strong>Selbstliebe</strong> steht das erste Arbeitsprogramm
-        bereit: sechs Schritte mit den dazugehörigen Nahuales, als PDF zum
-        Herunterladen und Ausdrucken. Klicke dafür auf das Feld{" "}
-        <strong>Selbstliebe</strong>.
+        Zu den Themen <strong>Selbstliebe</strong> und{" "}
+        <strong>Lebenswege</strong> stehen die ersten Arbeitsprogramme bereit:
+        je sechs Schritte mit den dazugehörigen Nahuales, als PDF zum
+        Herunterladen und Ausdrucken. Klicke dafür auf das jeweilige Feld.
       </p>
 
       <p className="empty-state">
