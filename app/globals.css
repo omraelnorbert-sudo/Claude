@@ -1586,6 +1586,29 @@ button:hover,
   color: var(--ink);
 }
 
+.theme-card--file {
+  display: block;
+  text-decoration: none;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.theme-card--file:hover,
+.theme-card--file:focus-visible {
+  border-color: var(--gold);
+  background: var(--paper-warm);
+}
+
+.theme-card-hint {
+  display: block;
+  margin-top: 8px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: var(--track-eyebrow);
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
 .si-section {
   background: var(--paper-warm);
   border: 1.5px solid var(--ink-deep);

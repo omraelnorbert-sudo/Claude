@@ -14,47 +14,66 @@ export const metadata: Metadata = {
   },
 };
 
-const THEME_GROUPS = [
+type Theme = {
+  name: string;
+  href?: string;
+  hint?: string;
+};
+
+type ThemeGroup = {
+  title: string;
+  themes: Theme[];
+};
+
+const THEME_GROUPS: ThemeGroup[] = [
   {
     title: "Selbst & innerer Wandel",
-    themes: ["Selbstliebe", "Lebenswege", "Respekt-Basis für Frieden"],
+    themes: [
+      {
+        name: "Selbstliebe",
+        href: "/downloads/selbstliebe-arbeitsprogramm.pdf",
+        hint: "PDF zum Ausdrucken",
+      },
+      { name: "Lebenswege" },
+      { name: "Respekt-Basis für Frieden" },
+    ],
   },
   {
     title: "Partnerschaft & Sexualität",
     themes: [
-      "Partnerbeziehungen",
-      "Sexualität",
-      "Neue Beziehungs- und Partnerformen",
-      "Vorbereitung für Hochzeit",
-      "Begleitung bei Scheidung",
-      "Tod und Übergang",
+      { name: "Partnerbeziehungen" },
+      { name: "Sexualität" },
+      { name: "Neue Beziehungs- und Partnerformen" },
+      { name: "Vorbereitung für Hochzeit" },
+      { name: "Begleitung bei Scheidung" },
+      { name: "Tod und Übergang" },
     ],
   },
   {
     title: "Familie & Kinder",
     themes: [
-      "Schwangerschaft und Geburt",
-      "Familienkonflikte",
-      "Abgrenzung der Kinder und Jugendlichen",
-      "Mobbing im Schulbereich",
-      "Gemeinschaft im Wandel",
-      "Schutzkraft für die Familie",
+      { name: "Schwangerschaft und Geburt" },
+      { name: "Familienkonflikte" },
+      { name: "Abgrenzung der Kinder und Jugendlichen" },
+      { name: "Mobbing im Schulbereich" },
+      { name: "Gemeinschaft im Wandel" },
+      { name: "Schutzkraft für die Familie" },
     ],
   },
   {
     title: "Beruf & Existenz",
     themes: [
-      "Konflikte im Berufsalltag",
-      "Selbstständigkeit — Betriebsgründung",
-      "Geldfülle — Armutsbewusstsein",
+      { name: "Konflikte im Berufsalltag" },
+      { name: "Selbstständigkeit — Betriebsgründung" },
+      { name: "Geldfülle — Armutsbewusstsein" },
     ],
   },
   {
     title: "Geistige Welt & Ahnen",
     themes: [
-      "Arbeit mit Ahnen und Verstorbenen",
-      "Schwarze Magie",
-      "Kontakte zu geistigen Kräften",
+      { name: "Arbeit mit Ahnen und Verstorbenen" },
+      { name: "Schwarze Magie" },
+      { name: "Kontakte zu geistigen Kräften" },
     ],
   },
 ];
@@ -90,19 +109,41 @@ export default function BrueckenZurModernePage() {
           <div key={group.title} className="theme-group">
             <div className="theme-group-title">{group.title}</div>
             <div className="theme-card-grid">
-              {group.themes.map((theme) => (
-                <div key={theme} className="theme-card">
-                  {theme}
-                </div>
-              ))}
+              {group.themes.map((theme) =>
+                theme.href ? (
+                  <a
+                    key={theme.name}
+                    href={theme.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="theme-card theme-card--file"
+                  >
+                    {theme.name}
+                    {theme.hint ? (
+                      <span className="theme-card-hint">{theme.hint}</span>
+                    ) : null}
+                  </a>
+                ) : (
+                  <div key={theme.name} className="theme-card">
+                    {theme.name}
+                  </div>
+                ),
+              )}
             </div>
           </div>
         ))}
       </div>
 
-      <p className="empty-state" style={{ marginTop: "var(--space-4)" }}>
-        Demnächst bekommst du hier Texte und Videos. Mögen sie dir Hilfe für
-        deinen inneren Frieden geben.
+      <p style={{ marginTop: "var(--space-4)" }}>
+        Zum Thema <strong>Selbstliebe</strong> steht das erste Arbeitsprogramm
+        bereit: sechs Schritte mit den dazugehörigen Nahuales, als PDF zum
+        Herunterladen und Ausdrucken. Klicke dafür auf das Feld{" "}
+        <strong>Selbstliebe</strong>.
+      </p>
+
+      <p className="empty-state">
+        Zu den weiteren Themen bekommst du nach und nach Texte und Videos.
+        Mögen sie dir Hilfe für deinen inneren Frieden geben.
       </p>
 
       <div className="si-section" style={{ marginTop: "var(--space-6)" }}>
