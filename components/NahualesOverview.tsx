@@ -98,7 +98,7 @@ export default function NahualesOverview({ items }: { items: NahualOverviewItem[
                     <strong>Krafttier:</strong> {open.krafttier}
                   </p>
                   <Link href={`/nahuales/${open.slug}`} className="underline-link">
-                    Zum vollständigen Nahual-Profil →
+                    Kurztext, Beschreibung und Videos →
                   </Link>
                 </div>
               </div>

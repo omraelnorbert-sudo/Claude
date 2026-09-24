@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { FahneOesterreich, FahneGuatemala, FahneGrossbritannien } from "@/components/Fahne";
 
 /** Hülle der öffentlichen Website: Kopfzeile mit Navigation, zentrierter Inhalt. */
 export default function SiteLayout({
@@ -35,13 +36,13 @@ export default function SiteLayout({
           </Link>
 
           <span className="lang-switch-current">
-            <span aria-hidden="true">🇦🇹</span> DE
+            <FahneOesterreich /> DE
           </span>
           <Link href="/es" className="lang-switch" title="En español">
-            <span aria-hidden="true">🇬🇹</span> ES
+            <FahneGuatemala /> ES
           </Link>
           <Link href="/en" className="lang-switch" title="In English">
-            <span aria-hidden="true">🇬🇧</span> EN
+            <FahneGrossbritannien /> EN
           </Link>
         </nav>
       </header>

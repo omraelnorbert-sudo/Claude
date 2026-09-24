@@ -11,7 +11,7 @@
   --ink-deep: #211b12;
   --text: #4a4437;
   --text-muted: #6b6455;
-  --label: #8a8168;
+  --label: #6f6752;
 
   /* Akzente & Linien */
   --gold: #c9963a;
@@ -171,6 +171,23 @@ a:hover {
 
 .nav-dropdown summary::-webkit-details-marker {
   display: none;
+}
+
+/* Ohne Pfeil sieht niemand, dass hier Unterseiten hängen. */
+.nav-dropdown summary::after {
+  content: "";
+  display: inline-block;
+  width: 0;
+  height: 0;
+  margin-left: 6px;
+  border-left: 3.5px solid transparent;
+  border-right: 3.5px solid transparent;
+  border-top: 4px solid currentColor;
+  transition: transform 0.15s ease;
+}
+
+.nav-dropdown[open] summary::after {
+  transform: rotate(180deg);
 }
 
 .nav-dropdown summary:hover {
@@ -1820,4 +1837,48 @@ button:hover,
 .site-footer p:last-child {
   color: var(--text);
   max-width: 42ch;
+}
+
+
+/* Der Weg zum Kurztext und zu den Videos — bisher ein unterstrichener Link
+   in Fließtextgröße, dabei ist es die wichtigste Bewegung auf dieser Seite. */
+.cholqij-detail-cta {
+  display: inline-block;
+  margin-top: var(--space-2);
+  padding: 13px 24px;
+  min-height: 44px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--ink);
+  background: var(--gold);
+  border: 1.5px solid var(--gold);
+}
+
+.cholqij-detail-cta:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--paper);
+}
+
+/* Was die Ringe bedeuten — die Zahlen im Rad erklären sich sonst nicht. */
+.cholqij-wheel-legende {
+  margin-top: var(--space-2);
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  line-height: 1.6;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+/* Fahne und Kürzel stehen jetzt nebeneinander statt aneinandergeklebt. */
+.site-header nav a.lang-switch,
+.site-header nav .lang-switch-current {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
 }

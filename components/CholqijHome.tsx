@@ -130,7 +130,11 @@ export default function CholqijHome({ overviewItems }: { overviewItems: NahualOv
       )}
 
       <div className="eyebrow" style={{ marginBottom: 8 }}>
-        Paz Mundo · Der sakrale Mayakalender
+        Paz Mundo · Der{" "}
+        {/* Das interessanteste Wort stand in der leisesten Zeile. Statt die
+            Zeile zu vergrößern — sie sieht auf allen vier Seiten gleich aus —
+            bekommt es den dunklen Tintenton. */}
+        <span style={{ color: "var(--ink)" }}>sakrale</span> Mayakalender
       </div>
       <h2
         style={{
@@ -156,8 +160,8 @@ export default function CholqijHome({ overviewItems }: { overviewItems: NahualOv
         „Der Mayakalender im Zeitgeist“ · Deutsche Fassung · YouTube-Kanal Omrael Norbert Muigg
       </div>
       <p style={{ maxWidth: "62ch" }}>
-        13 Schwingungszahlen und 20 Nahuales laufen wie zwei Räder weiter und ergeben
-        zusammen 260 Tage. Wähle ein Zeichen — das Rad dreht es nach oben.
+        13 Schwingungszahlen und 20 Nahuales laufen wie zwei Räder ineinander weiter
+        und ergeben zusammen 260 Tage. Wähle ein Zeichen — das Rad dreht es nach oben.
       </p>
 
       <div className="cholqij-grid">
@@ -172,8 +176,8 @@ export default function CholqijHome({ overviewItems }: { overviewItems: NahualOv
           <p className="cholqij-detail-krafttier">
             <strong>Krafttier:</strong> {active.krafttier}
           </p>
-          <Link href={`/nahuales/${active.slug}`} className="underline-link">
-            Zeichen ansehen
+          <Link href={`/nahuales/${active.slug}`} className="cholqij-detail-cta">
+            Zeichen ansehen · Kurztext und Videos
           </Link>
         </div>
 
@@ -232,6 +236,7 @@ export default function CholqijHome({ overviewItems }: { overviewItems: NahualOv
             );
           })}
         </div>
+        <div className="cholqij-wheel-legende">Außen die 20 Nahuales, innen die 13 Schwingungszahlen. Oben steht das gewählte Zeichen.</div>
       </div>
 
       <div className="cholqij-chips">

@@ -25,8 +25,9 @@ export const MAYA_CROSS_TEXTS_EN: {
 
   hint:
     "The layout is read like a mirror: the feminine force on the left, the " +
-    "masculine force on the right. Both terms refer to an energetic quality, " +
-    "not biological sex.",
+    "masculine force on the right. Both terms refer to an energetic quality, not " +
+    "biological sex: masculine means the outward, expressive side, feminine the " +
+    "inward, integrative, mystical one.",
 
   disclaimer:
     "The Maya Cross is based on the 260-day Cholq'ij calendar. The positions " +

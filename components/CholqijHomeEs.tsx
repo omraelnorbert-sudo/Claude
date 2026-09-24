@@ -156,7 +156,7 @@ export default function CholqijHomeEs({ overviewItems }: { overviewItems: Nahual
         «El calendario MAYA en el espíritu de nuestro tiempo» · Versión en alemán · Canal de YouTube de Omrael Norbert Muigg
       </div>
       <p style={{ maxWidth: "62ch" }}>
-        13 números vibracionales y 20 Nahuales avanzan como dos ruedas y forman juntos
+        13 números vibracionales y 20 Nahuales engranan como dos ruedas y forman juntos
         260 días. Elige un signo — la rueda lo gira hacia arriba.
       </p>
 
@@ -172,8 +172,8 @@ export default function CholqijHomeEs({ overviewItems }: { overviewItems: Nahual
           <p className="cholqij-detail-krafttier">
             <strong>Animal de poder:</strong> {active.krafttier}
           </p>
-          <Link href={`/es/nahuales/${active.slug}`} className="underline-link">
-            Ver el signo
+          <Link href={`/es/nahuales/${active.slug}`} className="cholqij-detail-cta">
+            Ver el signo · texto breve y videos
           </Link>
         </div>
 
@@ -228,6 +228,7 @@ export default function CholqijHomeEs({ overviewItems }: { overviewItems: Nahual
             );
           })}
         </div>
+        <div className="cholqij-wheel-legende">Afuera los 20 Nahuales, adentro los 13 números vibracionales. El signo elegido queda arriba.</div>
       </div>
 
       <div className="cholqij-chips">

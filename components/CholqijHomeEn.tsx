@@ -156,7 +156,7 @@ export default function CholqijHomeEn({ overviewItems }: { overviewItems: Nahual
         "The MAYA calendar in the spirit of our time" · German version · Omrael Norbert Muigg's YouTube channel
       </div>
       <p style={{ maxWidth: "62ch" }}>
-        13 vibrational numbers and 20 Nahuales advance like two wheels and together
+        13 vibrational numbers and 20 Nahuales mesh like two wheels and together
         form 260 days. Choose a sign — the wheel turns it up to the top.
       </p>
 
@@ -172,8 +172,8 @@ export default function CholqijHomeEn({ overviewItems }: { overviewItems: Nahual
           <p className="cholqij-detail-krafttier">
             <strong>Power animal:</strong> {active.krafttier}
           </p>
-          <Link href={`/en/nahuales/${active.slug}`} className="underline-link">
-            View this sign
+          <Link href={`/en/nahuales/${active.slug}`} className="cholqij-detail-cta">
+            View this sign · short text and videos
           </Link>
         </div>
 
@@ -228,6 +228,7 @@ export default function CholqijHomeEn({ overviewItems }: { overviewItems: Nahual
             );
           })}
         </div>
+        <div className="cholqij-wheel-legende">Outer ring: the 20 Nahuales. Inner ring: the 13 vibrational numbers. The chosen sign sits at the top.</div>
       </div>
 
       <div className="cholqij-chips">

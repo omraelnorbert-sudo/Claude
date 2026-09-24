@@ -40,8 +40,9 @@ export const MAYA_CROSS_TEXTS: {
 
   hint:
     "Die Darstellung wird wie ein Spiegel gelesen: links die weibliche, rechts die " +
-    "männliche Kraft. Beide Bezeichnungen meinen eine energetische Qualität, nicht " +
-    "das biologische Geschlecht.",
+    "männliche Kraft. Beide Bezeichnungen beziehen sich auf eine energetische " +
+    "Qualität, nicht auf das biologische Geschlecht: männlich meint die nach außen " +
+    "gerichtete, expressive Seite, weiblich die innere, integrative, mystische.",
 
   disclaimer:
     "Das Maya-Kreuz basiert auf dem 260-tägigen Cholq'ij-Kalender. Die dargestellten " +

@@ -24,9 +24,10 @@ export const MAYA_CROSS_TEXTS_ES: {
     "tu cumpleaños — ocho y seis días antes, seis y ocho días después.",
 
   hint:
-    "La representación se lee como un espejo: a la izquierda la fuerza femenina, " +
-    "a la derecha la fuerza masculina. Ambas designaciones se refieren a una " +
-    "cualidad energética, no al sexo biológico.",
+    "La disposición se lee como un espejo: la fuerza femenina a la izquierda, la " +
+    "masculina a la derecha. Ambos términos se refieren a una cualidad energética, " +
+    "no al sexo biológico: lo masculino es el lado expresivo, dirigido hacia " +
+    "afuera; lo femenino, el lado interior, integrador y místico.",
 
   disclaimer:
     "La Cruz MAYA se basa en el calendario Cholq'ij de 260 días. Las posiciones " +
