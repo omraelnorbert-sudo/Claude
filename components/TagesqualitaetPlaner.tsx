@@ -20,7 +20,7 @@ const NAHUAL_BASE = { de: "/nahuales", en: "/en/nahuales", es: "/es/nahuales" };
 const TEXTS = {
   de: {
     eyebrow: "Tagesqualität planen",
-    title: "Welcher Nahual trägt deinen Tag?",
+    title: "Welcher Nahual wirkt an welchem Tag?",
     intro:
       "Jeder Tag steht unter einem Nahual und einer Schwingungszahl. Wähle ein beliebiges Datum — etwa für ein Gespräch, eine Reise oder eine Zeremonie — und sieh die Tagesqualität dieses Tages und der folgenden sechs Tage.",
     label: "Datum",
@@ -31,7 +31,7 @@ const TEXTS = {
   },
   en: {
     eyebrow: "Plan with the day energy",
-    title: "Which Nahual carries your day?",
+    title: "Which Nahual is at work on which day?",
     intro:
       "Every day stands under a Nahual and a vibration number. Choose any date — for a conversation, a journey or a ceremony — and see the quality of that day and the six days that follow.",
     label: "Date",
@@ -42,7 +42,7 @@ const TEXTS = {
   },
   es: {
     eyebrow: "Planificar con la energía del día",
-    title: "¿Qué Nahual acompaña tu día?",
+    title: "¿Qué Nahual actúa en qué día?",
     intro:
       "Cada día está bajo un Nahual y un número de vibración. Elige cualquier fecha — para una conversación, un viaje o una ceremonia — y descubre la energía de ese día y de los seis días siguientes.",
     label: "Fecha",
