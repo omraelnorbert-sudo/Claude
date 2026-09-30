@@ -1418,6 +1418,15 @@ button:hover,
   justify-content: space-between;
 }
 
+/* Hinweis auf den Tagesplaner direkt unter dem Rad — bewusst auffälliger
+   als die Schluss-Box, damit man ihn nicht übersieht. */
+.planer-cta {
+  margin-top: var(--space-5);
+  margin-bottom: 0;
+  background: var(--paper-warm);
+  border: 2px solid var(--gold);
+}
+
 .closing-cta h3 {
   font-size: clamp(28px, 4.5vw, 38px);
   letter-spacing: -0.02em;

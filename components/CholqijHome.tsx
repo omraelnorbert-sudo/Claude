@@ -277,6 +277,19 @@ export default function CholqijHome({ overviewItems }: { overviewItems: NahualOv
         ))}
       </div>
 
+      <div className="closing-cta planer-cta">
+        <div>
+          <div className="eyebrow" style={{ marginBottom: 8 }}>
+            Neu
+          </div>
+          <h3>Tagesqualität für jedes Datum planen</h3>
+          <p>Welcher Nahual wirkt an deinem nächsten wichtigen Tag? Wähle ein Datum und sieh die Tagesqualität dieses Tages und der folgenden sechs Tage.</p>
+        </div>
+        <Link href="/horoskop#tagesqualitaet" className="btn">
+          Tag planen →
+        </Link>
+      </div>
+
       <div className="dot-rule" role="presentation" />
 
       <div id="nahuales-uebersicht">

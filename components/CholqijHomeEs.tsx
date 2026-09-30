@@ -268,6 +268,19 @@ export default function CholqijHomeEs({ overviewItems }: { overviewItems: Nahual
         ))}
       </div>
 
+      <div className="closing-cta planer-cta">
+        <div>
+          <div className="eyebrow" style={{ marginBottom: 8 }}>
+            Nuevo
+          </div>
+          <h3>Planifica la energía del día para cualquier fecha</h3>
+          <p>¿Qué Nahual actúa en tu próximo día importante? Elige una fecha y descubre la energía de ese día y de los seis días siguientes.</p>
+        </div>
+        <Link href="/es/horoskop#tagesqualitaet" className="btn">
+          Planificar un día →
+        </Link>
+      </div>
+
       <div className="dot-rule" role="presentation" />
 
       <div id="nahuales-uebersicht">

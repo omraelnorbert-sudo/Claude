@@ -268,6 +268,19 @@ export default function CholqijHomeEn({ overviewItems }: { overviewItems: Nahual
         ))}
       </div>
 
+      <div className="closing-cta planer-cta">
+        <div>
+          <div className="eyebrow" style={{ marginBottom: 8 }}>
+            New
+          </div>
+          <h3>Plan the day energy for any date</h3>
+          <p>Which Nahual is at work on your next important day? Choose a date and see the quality of that day and the six days that follow.</p>
+        </div>
+        <Link href="/en/horoskop#tagesqualitaet" className="btn">
+          Plan a day →
+        </Link>
+      </div>
+
       <div className="dot-rule" role="presentation" />
 
       <div id="nahuales-uebersicht">
