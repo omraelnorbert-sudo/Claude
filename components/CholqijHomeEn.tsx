@@ -10,7 +10,8 @@ import {
   slugForIndex,
 } from "@/lib/nahual";
 import { NAHUAL_DESCRIPTIONS_EN } from "@/lib/nahual-descriptions-en";
-import { nahualOfToday } from "@/lib/tzolkin";
+import { formatDate, nahualOfToday } from "@/lib/tzolkin";
+import { MAYAKALENDER_2027_URL } from "@/components/TagesqualitaetPlaner";
 import MayaNumber from "@/components/MayaNumber";
 import NahualesOverviewEn from "@/components/NahualesOverviewEn";
 import type { NahualOverviewItem } from "@/lib/public-data";
@@ -22,6 +23,7 @@ const YOUTUBE_CHANNEL = "https://www.youtube.com/@norbertmuiggmaya-pazmundo7830"
 const YOUTUBE_SERIES = `${YOUTUBE_CHANNEL}/search?query=${encodeURIComponent("Der Mayakalender im Zeitgeist")}`;
 
 const LINK_CARDS = [
+  { title: "MAYA calendar 2027", href: MAYAKALENDER_2027_URL, label: "Order now · pazmundo.com (German) →" },
   { title: "Paz Mundo", href: "https://www.pazmundo.com", label: "www.pazmundo.com →" },
   { title: "Omrael Norbert Muigg on YouTube", href: YOUTUBE_SERIES, label: "The MAYA calendar in the spirit of our time →" },
   { title: "MAYA Healing Resort", href: "https://healingresort.pazmundo.com/", label: "healingresort.pazmundo.com →" },
@@ -75,6 +77,11 @@ export default function CholqijHomeEn({ overviewItems }: { overviewItems: Nahual
   // before/after today, the vibrational number advances by the same amount.
   const delta = (activeIndex - (today.index - 1) + 20) % 20;
   const activeTone = ((today.number - 1 + delta) % 13) + 1;
+  const activeDate = new Date(today.date.year, today.date.month - 1, today.date.day + delta, 12);
+  const activeDateLabel = formatDate(
+    { day: activeDate.getDate(), month: activeDate.getMonth() + 1, year: activeDate.getFullYear() },
+    "en",
+  );
 
   const birthDate = parseBirthInput(birth);
   const birthResult = birthDate ? calculateNahual(birthDate.day, birthDate.month, birthDate.year) : null;
@@ -157,11 +164,28 @@ export default function CholqijHomeEn({ overviewItems }: { overviewItems: Nahual
       </div>
       <p style={{ maxWidth: "62ch" }}>
         13 vibrational numbers and 20 Nahuales mesh like two wheels and together
-        form 260 days. Choose a sign — the wheel turns it up to the top.
+        form 260 days. When you open the page, the wheel always shows <strong>today&apos;s day Nahual</strong> —
+        the quality of today. Choose another sign to see on which of the coming days it returns.
       </p>
 
       <div className="cholqij-grid">
         <div>
+          <div className="cholqij-today">
+            <span className="cholqij-today-badge">
+              {delta === 0 ? "Today’s day Nahual" : delta === 1 ? "Tomorrow" : `In ${delta} days`}
+            </span>
+            <span className="cholqij-today-date">{activeDateLabel}</span>
+            {delta !== 0 && (
+              <button
+                type="button"
+                className="underline-link"
+                style={{ background: "none", border: "none", padding: 0, cursor: "pointer" }}
+                onClick={() => setActiveIndex(today.index - 1)}
+              >
+                Back to today
+              </button>
+            )}
+          </div>
           <div className="cholqij-detail-index">Nahual {active.pad} / 20</div>
           <div className="cholqij-detail-name">
             {activeTone} {active.name}
@@ -301,6 +325,9 @@ export default function CholqijHomeEn({ overviewItems }: { overviewItems: Nahual
             </Link>
           </div>
           <div className="birth-note">Free · no registration</div>
+          <Link href="/en/horoskop#tagesqualitaet" className="underline-link" style={{ display: "inline-block", marginTop: 12 }}>
+            Plan the day energy for any date →
+          </Link>
         </div>
 
         <div className="birth-preview">

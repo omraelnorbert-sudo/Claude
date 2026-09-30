@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import MayaCrossEn from "@/components/MayaCrossEn";
 import MayaNumber from "@/components/MayaNumber";
 import NahualGlyph from "@/components/NahualGlyph";
+import TagesqualitaetPlaner from "@/components/TagesqualitaetPlaner";
 import { calculateNahual, isValidBirthDate, type NahualResult } from "@/lib/nahual";
 import { NAHUAL_DESCRIPTIONS_EN } from "@/lib/nahual-descriptions-en";
 import {
@@ -213,6 +214,8 @@ export default function HoroskopPageEn() {
           {computed.crossError}
         </p>
       )}
+
+      <TagesqualitaetPlaner lang="en" />
     </>
   );
 }
