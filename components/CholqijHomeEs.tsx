@@ -24,10 +24,11 @@ const YOUTUBE_SERIES = `${YOUTUBE_CHANNEL}/search?query=${encodeURIComponent("De
 
 const LINK_CARDS = [
   { title: "Calendario maya 2027", href: MAYAKALENDER_2027_URL, label: "Pedir ahora · pazmundo.com (en alemán) →" },
-  { title: "Paz Mundo", href: "https://www.pazmundo.com", label: "www.pazmundo.com →" },
+  { title: "Omrael Norbert Muigg", href: "https://omraelnorbert.org", label: "omraelnorbert.org (en alemán) →" },
   { title: "Omrael Norbert Muigg en YouTube", href: YOUTUBE_SERIES, label: "El calendario MAYA en el espíritu de nuestro tiempo →" },
   { title: "MAYA Healing Resort", href: "https://healingresort.pazmundo.org/", label: "healingresort.pazmundo.org →" },
-  { title: "Eventos", href: "https://www.pazmundo.com/veranstaltungen", label: "pazmundo.com/veranstaltungen →" },
+  { title: "Eventos", href: "https://omraelnorbert.org/#termine", label: "omraelnorbert.org · eventos (en alemán) →" },
+  { title: "Fundación Paz Mundo", href: "https://stiftung.pazmundo.org/es", label: "stiftung.pazmundo.org/es →" },
 ];
 
 const ITEMS = NAHUALES.map((name, position) => {
