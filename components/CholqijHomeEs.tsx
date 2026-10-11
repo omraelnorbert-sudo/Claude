@@ -26,7 +26,7 @@ const LINK_CARDS = [
   { title: "Calendario maya 2027", href: MAYAKALENDER_2027_URL, label: "Pedir ahora · pazmundo.com (en alemán) →" },
   { title: "Paz Mundo", href: "https://www.pazmundo.com", label: "www.pazmundo.com →" },
   { title: "Omrael Norbert Muigg en YouTube", href: YOUTUBE_SERIES, label: "El calendario MAYA en el espíritu de nuestro tiempo →" },
-  { title: "MAYA Healing Resort", href: "https://healingresort.pazmundo.com/", label: "healingresort.pazmundo.com →" },
+  { title: "MAYA Healing Resort", href: "https://healingresort.pazmundo.org/", label: "healingresort.pazmundo.org →" },
   { title: "Eventos", href: "https://www.pazmundo.com/veranstaltungen", label: "pazmundo.com/veranstaltungen →" },
 ];
 
