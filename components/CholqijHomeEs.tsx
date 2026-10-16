@@ -23,7 +23,7 @@ const YOUTUBE_CHANNEL = "https://www.youtube.com/@norbertmuiggmaya-pazmundo7830"
 const YOUTUBE_SERIES = `${YOUTUBE_CHANNEL}/search?query=${encodeURIComponent("Der Mayakalender im Zeitgeist")}`;
 
 const LINK_CARDS = [
-  { title: "Calendario maya 2027", href: MAYAKALENDER_2027_URL, label: "Pedir ahora · pazmundo.com (en alemán) →" },
+  { title: "Calendario maya 2027", href: MAYAKALENDER_2027_URL, label: "Pedir ahora (en alemán) →" },
   { title: "Omrael Norbert Muigg", href: "https://omraelnorbert.org", label: "omraelnorbert.org (en alemán) →" },
   { title: "Omrael Norbert Muigg en YouTube", href: YOUTUBE_SERIES, label: "El calendario MAYA en el espíritu de nuestro tiempo →" },
   { title: "MAYA Healing Resort", href: "https://healingresort.pazmundo.org/es", label: "healingresort.pazmundo.org/es →" },
