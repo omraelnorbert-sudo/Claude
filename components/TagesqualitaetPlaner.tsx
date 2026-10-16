@@ -9,9 +9,9 @@ import { NAHUAL_DESCRIPTIONS_ES } from "@/lib/nahual-descriptions-es";
 import { dateInTimeZone, formatDate, type Lang } from "@/lib/tzolkin";
 import MayaNumber from "@/components/MayaNumber";
 
-// Eigener Payrexx-Link für die Kalenderbestellung (16.10.2026). Ersetzt die
+// Payrexx-Formular „MAYAKALENDER 2027“ (16.10.2026). Ersetzt die
 // Bestellseite auf der alten www.pazmundo.com, die mit Pagestreet wegfällt.
-export const MAYAKALENDER_2027_URL = "https://pazmundoshop.payrexx.com/pay?tid=cf7940db";
+export const MAYAKALENDER_2027_URL = "https://pazmundoshop.payrexx.com/de/pay?cid=c73c039d&hide_description=1";
 
 // Wie viele Tage ab dem gewählten Datum gezeigt werden — eine Woche zum Planen.
 const DAYS = 7;
