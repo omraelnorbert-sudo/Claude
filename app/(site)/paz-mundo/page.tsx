@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import SpendenBlock from "@/components/SpendenBlock";
 import { getPublicExternalLinks } from "@/lib/public-data";
 
 const description =
@@ -81,6 +82,8 @@ export default async function PazMundoPage() {
           })}
         </div>
       )}
+
+      <SpendenBlock sprache="de" />
     </>
   );
 }
