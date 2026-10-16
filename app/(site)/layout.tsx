@@ -57,6 +57,9 @@ export default function SiteLayout({
           <strong>Paz Mundo</strong> hat seit 30 Jahren die Aufgabe, Tradition Maya
           und Moderne miteinander im Zeitenwandel zu vernetzen.
         </p>
+        <p>
+          <Link href="/impressum">Impressum und Datenschutz</Link>
+        </p>
       </footer>
     </>
   );

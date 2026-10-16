@@ -57,6 +57,9 @@ export default function SiteLayoutEn({
           <strong>Paz Mundo</strong> has, for 30 years, taken on the task of
           connecting MAYA tradition and modern life in this change of era.
         </p>
+        <p>
+          <Link href="/en/impressum">Legal notice and privacy</Link>
+        </p>
       </footer>
     </>
   );

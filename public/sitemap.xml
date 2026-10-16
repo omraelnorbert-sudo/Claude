@@ -31,6 +31,11 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://cosmovisionmaya.org/impressum</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  <url>
     <loc>https://cosmovisionmaya.org/nahuales/baatz</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -161,6 +166,11 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://cosmovisionmaya.org/es/impressum</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  <url>
     <loc>https://cosmovisionmaya.org/es/nahuales/baatz</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -289,6 +299,11 @@
     <loc>https://cosmovisionmaya.org/en/paz-mundo</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://cosmovisionmaya.org/en/impressum</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.2</priority>
   </url>
   <url>
     <loc>https://cosmovisionmaya.org/en/nahuales/baatz</loc>

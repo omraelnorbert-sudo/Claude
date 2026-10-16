@@ -21,7 +21,9 @@ describe("public/sitemap.xml", () => {
 
   test("enthält alle drei Sprachfassungen vollständig", () => {
     const pfade = sitemapEntries().map((e) => e.loc.replace(SITE_URL, ""));
-    const proSprache = 6 + NAHUALES.length;
+    // 7 feste Seiten (Start, Horoskop, Nahuales, Videos, Brücken, Paz Mundo,
+    // Impressum) plus eine je Nahual.
+    const proSprache = 7 + NAHUALES.length;
 
     for (const [sprache, praefix] of [
       ["Deutsch", ""],

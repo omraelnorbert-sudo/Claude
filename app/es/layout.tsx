@@ -57,6 +57,9 @@ export default function SiteLayoutEs({
           <strong>Paz Mundo</strong> tiene, desde hace 30 años, la tarea de conectar la
           tradición MAYA y la modernidad en el cambio de era.
         </p>
+        <p>
+          <Link href="/es/impressum">Aviso legal y privacidad</Link>
+        </p>
       </footer>
     </>
   );

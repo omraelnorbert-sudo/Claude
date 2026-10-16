@@ -49,7 +49,7 @@ export default async function NahualVideosPage() {
                   }}
                 >
                   <iframe
-                    src={`https://www.youtube.com/embed/${video.videoId}`}
+                    src={`https://www.youtube-nocookie.com/embed/${video.videoId}`}
                     title={video.title || name}
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen

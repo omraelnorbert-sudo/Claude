@@ -19,6 +19,7 @@ const PAGES = [
   { path: "/nahuales/videos", changefreq: "monthly", priority: "0.6" },
   { path: "/nahuales/bruecken-zur-moderne", changefreq: "monthly", priority: "0.5" },
   { path: "/paz-mundo", changefreq: "monthly", priority: "0.6" },
+  { path: "/impressum", changefreq: "yearly", priority: "0.2" },
 ] as const;
 
 /** Sprachpräfixe. Deutsch liegt ohne Präfix an der Wurzel. */
