@@ -54,7 +54,7 @@ export default function SiteLayoutEs({
           horóscopo.
         </p>
         <p>
-          <strong>Paz Mundo</strong> tiene, desde hace 30 años, la tarea de conectar la
+          <a href="https://www.pazmundo.org/es"><strong>Paz Mundo</strong></a> tiene, desde hace 30 años, la tarea de conectar la
           tradición MAYA y la modernidad en el cambio de era.
         </p>
         <p>

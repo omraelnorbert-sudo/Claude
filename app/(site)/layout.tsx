@@ -54,7 +54,7 @@ export default function SiteLayout({
           Horoskopweisen.
         </p>
         <p>
-          <strong>Paz Mundo</strong> hat seit 30 Jahren die Aufgabe, Tradition Maya
+          <a href="https://www.pazmundo.org"><strong>Paz Mundo</strong></a> hat seit 30 Jahren die Aufgabe, Tradition Maya
           und Moderne miteinander im Zeitenwandel zu vernetzen.
         </p>
         <p>

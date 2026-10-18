@@ -54,7 +54,7 @@ export default function SiteLayoutEn({
           horoscope reader.
         </p>
         <p>
-          <strong>Paz Mundo</strong> has, for 30 years, taken on the task of
+          <a href="https://www.pazmundo.org/en"><strong>Paz Mundo</strong></a> has, for 30 years, taken on the task of
           connecting MAYA tradition and modern life in this change of era.
         </p>
         <p>
