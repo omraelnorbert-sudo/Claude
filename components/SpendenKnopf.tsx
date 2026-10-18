@@ -58,6 +58,8 @@ export default function SpendenKnopf({
 
   async function klick(e: React.MouseEvent<HTMLAnchorElement>) {
     if (bereit.current) return; // Payrexx hat den Klick übernommen
+    // Kein Payrexx-Ziel (z. B. vorübergehend die Bankverbindungen): normaler Link.
+    if (!href.includes("payrexx.com")) return;
     e.preventDefault();
     try {
       laden ??= skriptLaden(JQUERY.src, JQUERY.integrity).then(() => skriptLaden(PAYREXX));
