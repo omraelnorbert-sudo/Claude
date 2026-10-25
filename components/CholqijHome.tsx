@@ -36,9 +36,9 @@ const LINK_CARDS = [
 const NEUJAHR_27 = {
   pdf: "https://omraelnorbert.org/dokumente/mondsee-neujahr-2027.pdf",
   tage: [
-    { tag: "Freitag, 8. Jänner", nahual: "13 BATZ", slug: "baatz", bild: "/images/neujahr-27/13-batz.jpg", thema: "Der Faden der Zeit – Vollenden und Loslassen" },
+    { tag: "Freitag, 8. Jänner", nahual: "13 B'AATZ", slug: "baatz", bild: "/images/neujahr-27/13-batz.jpg", thema: "Der Faden der Zeit – Vollenden und Loslassen" },
     { tag: "Samstag, 9. Jänner", nahual: "1 EE", slug: "ee", bild: "/images/neujahr-27/1-ee.jpg", thema: "Der Weg – Neubeginn und Ausrichtung" },
-    { tag: "Sonntag, 10. Jänner", nahual: "2 AAJ", slug: "aaj", bild: "/images/neujahr-27/2-aaj.jpg", thema: "Das Haus – Familie, Ahnen und Segen" },
+    { tag: "Sonntag, 10. Jänner", nahual: "2 AAJ", slug: "aaj", bild: "/images/neujahr-27/2-aaj.jpg", thema: "Familie, Ahnen, Schutz und Segen" },
   ],
 };
 
