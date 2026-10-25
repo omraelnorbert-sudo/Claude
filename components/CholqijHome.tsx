@@ -31,6 +31,17 @@ const LINK_CARDS = [
   { title: "Stiftung Paz Mundo", href: "https://stiftung.pazmundo.org/", label: "stiftung.pazmundo.org →" },
 ];
 
+// Seminar-Special Neujahr 27 (Omrael, 25.10.2026). Nach dem 10. Jänner 2027
+// entfernen; die Bilder liegen unter public/images/neujahr-27.
+const NEUJAHR_27 = {
+  pdf: "https://omraelnorbert.org/dokumente/mondsee-neujahr-2027.pdf",
+  tage: [
+    { tag: "Freitag, 8. Jänner", nahual: "13 BATZ", slug: "baatz", bild: "/images/neujahr-27/13-batz.jpg", thema: "Der Faden der Zeit – Vollenden und Loslassen" },
+    { tag: "Samstag, 9. Jänner", nahual: "1 EE", slug: "ee", bild: "/images/neujahr-27/1-ee.jpg", thema: "Der Weg – Neubeginn und Ausrichtung" },
+    { tag: "Sonntag, 10. Jänner", nahual: "2 AAJ", slug: "aaj", bild: "/images/neujahr-27/2-aaj.jpg", thema: "Das Haus – Familie, Ahnen und Segen" },
+  ],
+};
+
 const ITEMS = NAHUALES.map((name, position) => {
   const index = position + 1;
   const description = NAHUAL_DESCRIPTIONS[name];
@@ -399,6 +410,34 @@ export default function CholqijHome({ overviewItems }: { overviewItems: NahualOv
         <Link href="/horoskop" className="btn">
           Geburtskonstellation berechnen
         </Link>
+      </div>
+
+      <div id="neujahr-27" style={{ margin: "56px 0" }}>
+        <div className="eyebrow" style={{ marginBottom: 8 }}>
+          Seminar-Special · 8. – 10. Jänner 2027 · Mondsee
+        </div>
+        <h2 style={{ fontSize: "clamp(28px, 4.5vw, 42px)", fontWeight: 600, lineHeight: 1.08, letterSpacing: "-0.02em", margin: "0 0 10px" }}>
+          Neujahr 27 – Den Lebensfaden neu weben
+        </h2>
+        <p style={{ maxWidth: 680, margin: "0 0 24px" }}>
+          Mit der Seele ins Jahr 2027: Drei Seminartage, jeder im Kraftfeld seines Nahuals. Mit Omrael Norbert Muigg,
+          Denise Rauber und dem PAZ MUNDO Team im Landhotel Prielbauer am Mondsee.
+        </p>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 18 }}>
+          {NEUJAHR_27.tage.map((t) => (
+            <Link key={t.slug} href={`/nahuales/${t.slug}`} style={{ textDecoration: "none", color: "inherit", display: "flex", flexDirection: "column", gap: 8 }}>
+              <img src={t.bild} alt={`${t.tag}: ${t.nahual}`} width={560} height={680} loading="lazy" style={{ width: "100%", height: "auto", aspectRatio: "828 / 1005", objectFit: "cover", borderRadius: 10, display: "block" }} />
+              <span style={{ fontWeight: 600 }}>{t.nahual} · {t.thema}</span>
+              <span style={{ fontSize: 14, opacity: 0.75 }}>Mehr über das Nahual {t.nahual.split(" ")[1]} →</span>
+            </Link>
+          ))}
+        </div>
+        <p style={{ margin: "22px 0 0", display: "flex", flexWrap: "wrap", gap: 12, alignItems: "center" }}>
+          <a href={NEUJAHR_27.pdf} className="btn" target="_blank" rel="noopener noreferrer">
+            Ausschreibung lesen (PDF)
+          </a>
+          <span style={{ fontSize: 15 }}>Anmeldung: kontakt@pazmundo.com · +43 660 1977752</span>
+        </p>
       </div>
 
       <div id="links" className="links-section">
