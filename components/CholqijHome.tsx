@@ -28,6 +28,7 @@ const LINK_CARDS = [
   { title: "Omrael Norbert Muigg auf YouTube", href: YOUTUBE_SERIES, label: "Der Mayakalender im Zeitgeist →" },
   { title: "MAYA Healing Resort", href: "https://healingresort.pazmundo.org/", label: "healingresort.pazmundo.org →" },
   { title: "Veranstaltungen", href: "https://omraelnorbert.org/#termine", label: "omraelnorbert.org · Termine →" },
+  { title: "Aktueller Newsletter", href: "https://mailchi.mp/pazmundo.com/betreff-neue-paz-mundo-websites-vier-paz-mundo-termine-bis-mrz-und-unser-super-projekt-vereine-2027", label: "Herbst 2026 lesen →" },
   { title: "Stiftung Paz Mundo", href: "https://stiftung.pazmundo.org/", label: "stiftung.pazmundo.org →" },
 ];
 
@@ -437,6 +438,9 @@ export default function CholqijHome({ overviewItems }: { overviewItems: NahualOv
             Ausschreibung lesen (PDF)
           </a>
           <span style={{ fontSize: 15 }}>Anmeldung: kontakt@pazmundo.com · +43 660 1977752</span>
+          <a href="https://mailchi.mp/pazmundo.com/betreff-neue-paz-mundo-websites-vier-paz-mundo-termine-bis-mrz-und-unser-super-projekt-vereine-2027" target="_blank" rel="noopener noreferrer" style={{ fontSize: 15 }}>
+            Alle Termine im aktuellen Newsletter ↗
+          </a>
         </p>
       </div>
 
