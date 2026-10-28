@@ -32,6 +32,14 @@ const LINK_CARDS = [
   { title: "Stiftung Paz Mundo", href: "https://stiftung.pazmundo.org/", label: "stiftung.pazmundo.org →" },
 ];
 
+// Gruppenreise Guatemala und Mexiko (Omrael, 28.10.2026). Die Ausschreibung
+// liegt auf omraelnorbert.org; nach dem 4. März 2027 entfernen.
+const MEXIKO_27 = {
+  pdf: "https://omraelnorbert.org/dokumente/guatemala-mexiko-februar-2027.pdf",
+  keme: "keme",
+  bilder: { teotihuacan: "/images/mexiko-27/teotihuacan.jpg", keme: "/images/mexiko-27/keme-steinscheibe.jpg" },
+};
+
 // Seminar-Special Neujahr 27 (Omrael, 25.10.2026). Nach dem 10. Jänner 2027
 // entfernen; die Bilder liegen unter public/images/neujahr-27.
 const NEUJAHR_27 = {
@@ -441,6 +449,36 @@ export default function CholqijHome({ overviewItems }: { overviewItems: NahualOv
           <a href="https://mailchi.mp/pazmundo.com/betreff-neue-paz-mundo-websites-vier-paz-mundo-termine-bis-mrz-und-unser-super-projekt-vereine-2027" target="_blank" rel="noopener noreferrer" style={{ fontSize: 15 }}>
             Alle Termine im aktuellen Newsletter ↗
           </a>
+        </p>
+      </div>
+
+      <div id="mexiko-27" style={{ margin: "56px 0" }}>
+        <div className="eyebrow" style={{ marginBottom: 8 }}>
+          Gruppenreise · 14. Februar – 4. März 2027 · Guatemala und Mexiko
+        </div>
+        <h2 style={{ fontSize: "clamp(28px, 4.5vw, 42px)", fontWeight: 600, lineHeight: 1.08, letterSpacing: "-0.02em", margin: "0 0 10px" }}>
+          MAYAPYRAMIDEN – Kraftorte und Heilkräfte im WANDEL
+        </h2>
+        <p style={{ maxWidth: 680, margin: "0 0 24px" }}>
+          Zwei Wochen im Zentrum PAZ MUNDO am Atitlánsee, danach die MAYA-Reise nach Mexiko: das Museo Nacional de
+          Antropología und zwei Tage in Teotihuacán, an den Pyramiden von Sonne und Mond und am Tempel des Quetzalcóatl.
+          Mit Omrael Norbert Muigg, Carmen Vicente Cortéz und dem PAZ MUNDO Team.
+        </p>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 18 }}>
+          <figure style={{ margin: 0, display: "flex", flexDirection: "column", gap: 8 }}>
+            <img src={MEXIKO_27.bilder.teotihuacan} alt="Die Pyramidenanlage von Teotihuacán im Abendlicht, im Hintergrund eine große Pyramide vor den Bergen" width={750} height={450} loading="lazy" style={{ width: "100%", height: "auto", aspectRatio: "4 / 3", objectFit: "cover", borderRadius: 10, display: "block" }} />
+            <figcaption style={{ fontSize: 14, opacity: 0.75 }}>Teotihuacán, die Stadt der Pyramiden</figcaption>
+          </figure>
+          <Link href={`/nahuales/${MEXIKO_27.keme}`} style={{ textDecoration: "none", color: "inherit", display: "flex", flexDirection: "column", gap: 8 }}>
+            <img src={MEXIKO_27.bilder.keme} alt="Steinscheibe mit einem Schädel in der Mitte und einem Strahlenkranz, vor dunkelroter Museumswand" width={415} height={490} loading="lazy" style={{ width: "100%", height: "auto", aspectRatio: "4 / 3", objectFit: "cover", borderRadius: 10, display: "block" }} />
+            <span style={{ fontSize: 14, opacity: 0.75 }}>KEME als Steinscheibe aus Teotihuacán · Mehr über das Nahual KEME →</span>
+          </Link>
+        </div>
+        <p style={{ margin: "22px 0 0", display: "flex", flexWrap: "wrap", gap: 12, alignItems: "center" }}>
+          <a href={MEXIKO_27.pdf} className="btn" target="_blank" rel="noopener noreferrer">
+            Ausschreibung lesen (PDF)
+          </a>
+          <span style={{ fontSize: 15 }}>Anmeldung: kontakt@pazmundo.com · +43 660 1977752</span>
         </p>
       </div>
 
