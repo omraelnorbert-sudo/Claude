@@ -29,6 +29,7 @@ const LINK_CARDS = [
   { title: "MAYA Healing Resort", href: "https://healingresort.pazmundo.org/en", label: "healingresort.pazmundo.org/en →" },
   { title: "Events", href: "https://omraelnorbert.org/#termine", label: "omraelnorbert.org · events (German) →" },
   { title: "Paz Mundo Foundation", href: "https://stiftung.pazmundo.org/es", label: "stiftung.pazmundo.org (Spanish) →" },
+  { title: "Tierseele in Heilung · Laura Soraya", href: "https://laurasoraya.com", label: "laurasoraya.com →" },
 ];
 
 const ITEMS = NAHUALES.map((name, position) => {
@@ -419,7 +420,7 @@ export default function CholqijHomeEn({ overviewItems }: { overviewItems: Nahual
         >
           A journey into the depths of the soul
         </h2>
-        <div className="si-subline">Paz Mundo · Omrael Norbert Muigg &amp; team, Laura Soraya</div>
+        <div className="si-subline">Paz Mundo · Omrael Norbert Muigg &amp; team, <a href="https://laurasoraya.com" target="_blank" rel="noopener noreferrer">Laura Soraya</a></div>
 
         <p className="si-lead">
           Soul Coaching is a profound work of spiritual perception, in which your soul

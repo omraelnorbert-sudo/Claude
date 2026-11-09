@@ -30,6 +30,7 @@ const LINK_CARDS = [
   { title: "Veranstaltungen", href: "https://omraelnorbert.org/#termine", label: "omraelnorbert.org · Termine →" },
   { title: "Aktueller Newsletter", href: "https://mailchi.mp/pazmundo.com/betreff-neue-paz-mundo-websites-vier-paz-mundo-termine-bis-mrz-und-unser-super-projekt-vereine-2027", label: "Herbst 2026 lesen →" },
   { title: "Stiftung Paz Mundo", href: "https://stiftung.pazmundo.org/", label: "stiftung.pazmundo.org →" },
+  { title: "Tierseele in Heilung · Laura Soraya", href: "https://laurasoraya.com", label: "laurasoraya.com →" },
 ];
 
 // Gruppenreise Guatemala und Mexiko (Omrael, 28.10.2026). Die Ausschreibung
@@ -511,7 +512,7 @@ export default function CholqijHome({ overviewItems }: { overviewItems: NahualOv
         >
           Reise in die Tiefe der Seele
         </h2>
-        <div className="si-subline">Paz Mundo · Omrael Norbert Muigg &amp; Team, Laura Soraya</div>
+        <div className="si-subline">Paz Mundo · Omrael Norbert Muigg &amp; Team, <a href="https://laurasoraya.com" target="_blank" rel="noopener noreferrer">Laura Soraya</a></div>
 
         <p className="si-lead">
           Seelen-Coaching ist ein tiefgründiges, spirituelles Wahrnehmungswerk, in

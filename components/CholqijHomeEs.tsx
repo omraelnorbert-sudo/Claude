@@ -29,6 +29,7 @@ const LINK_CARDS = [
   { title: "MAYA Healing Resort", href: "https://healingresort.pazmundo.org/es", label: "healingresort.pazmundo.org/es →" },
   { title: "Eventos", href: "https://omraelnorbert.org/#termine", label: "omraelnorbert.org · eventos (en alemán) →" },
   { title: "Fundación Paz Mundo", href: "https://stiftung.pazmundo.org/es", label: "stiftung.pazmundo.org/es →" },
+  { title: "Tierseele in Heilung · Laura Soraya", href: "https://laurasoraya.com", label: "laurasoraya.com →" },
 ];
 
 const ITEMS = NAHUALES.map((name, position) => {
@@ -419,7 +420,7 @@ export default function CholqijHomeEs({ overviewItems }: { overviewItems: Nahual
         >
           Un viaje a las profundidades del alma
         </h2>
-        <div className="si-subline">Paz Mundo · Omrael Norbert Muigg &amp; equipo, Laura Soraya</div>
+        <div className="si-subline">Paz Mundo · Omrael Norbert Muigg &amp; equipo, <a href="https://laurasoraya.com" target="_blank" rel="noopener noreferrer">Laura Soraya</a></div>
 
         <p className="si-lead">
           El Coaching del Alma es una profunda obra de percepción espiritual, en la
